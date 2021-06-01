@@ -171,6 +171,7 @@ Route::middleware('auth')->group(function ()
         DB::Table('categories')->where('id',$id)->delete();
         return redirect()->back()->with('success','Successfully Deleted');
     });
+    Route::post('/view-quality', '\App\Http\Controllers\HomeController@postQuality');
 
     Route::get('/view-videos', '\App\Http\Controllers\HomeController@getViewVideos')->name('view-videos');
     Route::post('/view_videos','\App\Http\Controllers\HomeController@postVideos');

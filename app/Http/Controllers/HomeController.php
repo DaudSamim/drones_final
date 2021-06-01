@@ -126,6 +126,23 @@ class HomeController extends Controller
              return redirect()->back()->with('success','Successfully Added');
     }
 
+    public function postQuality(Request $request)
+    {
+       
+        $validate= $request->validate([
+            'title' => 'required',
+            'price' => 'required',
+            
+            ]);
+            
+        DB::table('qualities')->insert([
+            'title'=> $request->title,
+            'price'=> $request->price,
+            ]);
+            return redirect()->back()->with('success','Successfully Added');
+
+    }
+
 
     
 
@@ -328,8 +345,6 @@ class HomeController extends Controller
             return redirect('view-vendors');
        
     }
-
-
     public function getLogout()
     {
         Auth::guard('web')->logout();
