@@ -107,7 +107,7 @@ Route::get('about_us',function(){
 Route::get('customer',function(){
     return view('customer_dashboard');
 });
-Route::get('vendor',function(){
+Route::get('contributor',function(){
     return view('vendor_dashboard');
 });
 
