@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
+use ProtoneMedia\LaravelFFMpeg;
+use ProtoneMedia\LaravelFFMpeg\Filters\WatermarkFactory;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use FFMpeg\Filters\Video\VideoFilters;
+use ProtoneMedia\LaravelFFMpeg\FFMpeg\CopyFormat;
+
 
 class HomeController extends Controller
 {
@@ -247,10 +253,21 @@ class HomeController extends Controller
         if($request->file('video')){
             $file = $request->file('video');
             $filename = $file->getClientOriginalName();
-            $path = public_path().'/videos/';
+            $path = storage_path().'/app/';
             $file->move($path, $filename);
 
+            \FFMpeg::open($filename)
+            ->addWatermark(function(WatermarkFactory $watermark) {
+                $watermark->open('input.jpg')
+                    ->left(25)
+                    ->bottom(25) 
+                    ->width(300)
+                    ->height(300);
+            })->export()->inFormat(new \FFMpeg\Format\Video\X264)
+             ->save('123.mp4');
 
+                $filename = '123.mp4';
+                
                 DB::Table('videos')->insert([
                 'user_id' => auth()->user()->id,
                 'title' => $request->title,
@@ -269,14 +286,23 @@ class HomeController extends Controller
 
              };
 
-             
-
-             
-        
-       
         return redirect()->back()->with('error','Something Wrong');
-        
     }
+
+    public function watermark($video, $image){
+      \FFMpeg::open('input.mp4')
+        ->addWatermark(function(WatermarkFactory $watermark) {
+            $watermark->open('input.jpg')
+                ->left(25)
+                ->bottom(25) 
+                ->width(300)
+                ->height(300);
+        })->export()
+              ->inFormat(new \FFMpeg\Format\Video\X264)
+            ->save('water2.mkv');
+
+       return true;     
+     }
 
 
     public function posteditVideos(Request $request){

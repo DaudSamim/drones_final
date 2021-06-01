@@ -203,7 +203,7 @@
                             <div class="embed-responsive embed-responsive-16by9">
                                 <video width="270px" height="480px" autoplay="autoplay" loop="loop" muted="muted"
                                     controls="controls" class="embed-responsive-item"
-                                    src="{{'/videos/'.$main_video->file}}"></video>
+                                    src="{{storage_path().'/app/'.$main_video->file}}"></video>
                             </div>
                         </div>
 

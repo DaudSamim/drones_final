@@ -90,7 +90,7 @@
 
                                  <li class="menu-item">
 
-                                    <a href="/view-stats" class=""><i class="zil zi-user"></i> Profile</a>
+                                    <a href="/view-stats" class=""><i class="zil zi-user"></i> Dashboard</a>
                                 </li>
 
                                 <li class="menu-item">
@@ -117,7 +117,7 @@
 
                                           <li class="menu-item">
                                                         <a href="/view-stats"><i class="zil zi-user"></i>
-                                                            Profile</a>
+                                                            Dashboard</a>
                                                     </li>
 
                                            <li class="menu-item">
