@@ -42,6 +42,11 @@ class HomeController extends Controller
     }
 
     public function rejectVideo(Request $request){
+
+        if($request->extra_message != null && $request->extra_message != ''){
+          $request->message = $request->extra_message;
+        }
+
         DB::Table('videos')->where('id',$request->id)->update([
             'status' => 2,
             'rejection_message' => $request->message,
@@ -253,12 +258,12 @@ class HomeController extends Controller
         if($request->file('video')){
             $file = $request->file('video');
             $filename = $file->getClientOriginalName();
-            $path = storage_path().'/app/';
+            $path = storage_path().'/app/public/';
             $file->move($path, $filename);
 
-            \FFMpeg::open($filename)
+            \FFMpeg::fromDisk('public')->open($filename)
             ->addWatermark(function(WatermarkFactory $watermark) {
-                $watermark->open('input.jpg')
+                $watermark->open('watermark.png')
                     ->left(25)
                     ->bottom(25) 
                     ->width(300)
@@ -267,7 +272,7 @@ class HomeController extends Controller
              ->save('123.mp4');
 
                 $filename = '123.mp4';
-                
+
                 DB::Table('videos')->insert([
                 'user_id' => auth()->user()->id,
                 'title' => $request->title,

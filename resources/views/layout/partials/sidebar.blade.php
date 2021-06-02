@@ -89,7 +89,7 @@
                     
                         <li class="nav-item">
                             <a href="{{ url('view-vendors') }}"
-                               class="nav-link ">Vendors </a>
+                               class="nav-link ">Contributors </a>
                         </li>
                     
                     
