@@ -225,7 +225,7 @@
                      <div class="col-lg-4" style="max-height: 300px !important">
                         <a href="{{'/product_'.$video->id}}">
                            <video class="zxc"  poster="{{'/images/'.$video->poster}}" style="width: 100%; height: 80%; object-fit: fill" preload="none">
-                              <source src="{{'videos/'.$video->file}}">
+                              <source src="{{'storage/'.$video->file}}">
                               Your browser does not support this file
                            </video>
                             <div class="product-meta">
@@ -405,7 +405,7 @@
                  <div class="col-lg-4" style="max-height: 300px !important">
                     <a href="{{'/product_'.$video->id}}">
                        <video class="zxc"  poster="{{'/images/'.$video->poster}}" style="width: 100%; height: 80%; object-fit: fill" preload="none">
-                          <source src="{{'videos/'.$video->file}}">
+                          <source src="{{'storage/'.$video->file}}">
                           Your browser does not support this file
                        </video>
                        <div class="product-meta">

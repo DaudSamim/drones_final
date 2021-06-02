@@ -258,9 +258,11 @@ class HomeController extends Controller
         if($request->file('video')){
             $file = $request->file('video');
             $filename = $file->getClientOriginalName();
+            $filena = pathinfo($filename, PATHINFO_FILENAME);
             $path = storage_path().'/app/public/';
             $file->move($path, $filename);
 
+            // dd($filename);
             \FFMpeg::fromDisk('public')->open($filename)
             ->addWatermark(function(WatermarkFactory $watermark) {
                 $watermark->open('watermark.png')
@@ -269,9 +271,9 @@ class HomeController extends Controller
                     ->width(300)
                     ->height(300);
             })->export()->inFormat(new \FFMpeg\Format\Video\X264)
-             ->save('123.mp4');
+             ->save("output{$filena}.mp4");
 
-                $filename = '123.mp4';
+                $filename = 'output'.$filena.'.mp4';
 
                 DB::Table('videos')->insert([
                 'user_id' => auth()->user()->id,

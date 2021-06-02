@@ -270,7 +270,7 @@
                  <div class="col-lg-4" style="max-height: 300px !important">
                     <a href="{{'/product_'.$video->id}}">
                        <video poster="{{'/images/'.$video->poster}}" width="100%" style="height: 80%; object-fit: fill" class="videos" preload="none">
-                          <source src="{{'videos/'.$video->file}}">
+                          <source src="{{'storage/'.$video->file}}">
                           Your browser does not support this file
                        </video>
                         <div class="product-meta">

@@ -10,7 +10,13 @@
     integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
+<style>
+    @media (min-width: 1200px){
+.container {
+    width: 1337px!important;
+}
+}
+</style>
 </head>
 
 <!-- Begin Main Layout -->
@@ -180,9 +186,8 @@
                     margin-bottom: -2rem;
                 }
             </style>
-
-            <div class="container">
-                <div class="row">
+            <div class="container-fluid">
+                 <div class="">
                     <div class="col-sm-12 product-title-cntr">
                         <ul class="breadcrumb">
                             <nav id="breadcrumbs" class="">
@@ -203,7 +208,7 @@
                             <div class="embed-responsive embed-responsive-16by9">
                                 <video width="270px" height="480px" autoplay="autoplay" loop="loop" muted="muted"
                                     controls="controls" class="embed-responsive-item"
-                                    src="{{'/videos/'.$main_video->file}}"></video>
+                                    src="{{'/storage/'.$main_video->file}}"></video>
                             </div>
                         </div>
 
@@ -355,6 +360,10 @@
                         </form>
                     </div>
                 </div>
+
+            </div>
+            <div class="container-fluid">
+               
                 <div class="row">
                     <div class="col-md-12" data-cy="video_description">
                         <h2 class="product-description"><span class="bold_header">Description:</span>{{$main_video->description}}
