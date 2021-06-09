@@ -17,6 +17,7 @@
 }
 }
 </style>
+<script src="js/jquery-3.3.1.min.js"></script>
 </head>
 
 <!-- Begin Main Layout -->
@@ -136,46 +137,16 @@
         <section>
             <div class="container search_bar">
                 <div class="col-sm-12 inner-search">
-                    <form id="main_search_form" class="d-flex" action="/search" accept-charset="UTF-8" method="get">
-                        <input name="utf8" type="hidden" value="✓">
-                        <input type="hidden" name="original_keywords" id="original_keywords">
-                        <input type="text" name="keywords" id="keywords"
+                    <form id="main_search_form" class="d-flex" action="/search" method="post">
+                        @csrf
+                                              <input type="text" name="keyword" id="keywords"
                             placeholder="Search for low-cost, high quality video footages" data-cy="search_bar"
                             data-autocomplete="/videos/autocomplete" class="ui-autocomplete-input" autocomplete="off">
 
-                       
-
-                        <input type="submit" name="commit" value="" id="products_search_form" data-cy="search_submit"
+                        <input type="submit" value="" id="products_search_form" data-cy="search_submit"
                             data-disable-with="">
                     </form>
-                    <script>
-                        //focus the search baox asap
-                        document.getElementById("keywords").focus();
-
-                        $("#products_search_form").on("click", function (e) {
-                            e.preventDefault();
-                            if ($("#product_type").val() == 'image') {
-                                $('#main_search_form').attr('action', "/images").submit();
-                            } else {
-                                $('#main_search_form').attr('action', "/videos").submit();
-                            }
-                        });
-
-                        $("#main_search_form").submit(function (e) {
-                            var search_input = $("#keywords").val();
-                            if (search_input) {
-                                $("#keywords").val(search_input.removeStopWords());
-                            }
-                            $("#original_keywords").val(search_input);
-                        });
-
-                        // change recent products links based on selection
-                        $('#product_type').on('change', function () {
-                            var pluralize_product_type = $(this).val() + 's';
-                            var link = pluralize_product_type + '/recent'
-                            $("#most_recent_products_link").attr('href', link);
-                        });
-                    </script>
+                 
 
                 </div>
             </div>
@@ -203,18 +174,37 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
+
+                    @php
+                        if($quality == $main_video->resolution){
+                            $source = 'storage/'.$main_video->file;
+                            $href = $main_video->file;
+                        }elseif($quality == 'HD'){
+                            $source = 'storage/720'.$main_video->file;
+                            $href = '720'.$main_video->file;
+                        }elseif($quality == 'FHD'){
+                            $source = 'storage/1080'.$main_video->file;
+                            $href = '1080'.$main_video->file;
+                        }elseif($quality == '4k'){
+                            $source = 'storage/4k'.$main_video->file;
+                            $href = '4k'.$main_video->file;
+                        }else{
+                            $source = 'storage/'.$main_video->file;
+                            $href = $main_video->file;
+                        }
+                    @endphp
                     <div class="col-sm-7">
                         <div class="video-left-cntr">
                             <div class="embed-responsive embed-responsive-16by9">
                                 <video width="270px" height="480px" autoplay="autoplay" loop="loop" muted="muted"
                                     controls="controls" class="embed-responsive-item"
-                                    src="{{'/storage/'.$main_video->file}}"></video>
+                                    src="{{$source}}"></video>
                             </div>
                         </div>
 
                         <div class="product-show-utility">
-                            <a class="btn btn-default btn-sm pull-right"
-                                href="https://knot9prod.s3.ap-south-1.amazonaws.com/indian_stockfootage/production/preview/021162057_display.mov?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAJCTRUCF26UW6QYRA%2F20210517%2Fap-south-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20210517T192600Z&amp;X-Amz-Expires=900&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=23a6ed14f5096e128b5558ad5178418c9c857d7795124dd8efd3b929c4d18918">
+                           <a class="btn btn-default btn-sm pull-right"
+                                href="{{'/download_client_product/'.$href}}">
                                 <i class="fas fa-download"></i> Download
                             </a>
                             <!-- ShareThis BEGIN -->
@@ -250,7 +240,7 @@
                             <!-- ShareThis END -->
                         </div>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-5" style="padding-top: 2%">
                         <div class="main-video-title">
                             <div id="main-title">
                                 <h1 class="bold_header title-heading" id="main-title-text" aria-expanded="false"
@@ -262,15 +252,14 @@
 
                         <div class="video-detail-sec1">
                             <ul>
-                                <li data-cy="video_aspect_ratio"><strong>Aspect Ratio: </strong>16:9</li>
-                                <li data-cy="video_clip_id"><strong>Clip ID: </strong>021162057</li>
-                                <li data-cy="video_clip_length"><strong>Clip Length: </strong>00:12</li>
-                                <li data-cy="video_uses_type"><strong>Type: </strong>Commercial</li>
-                                <li data-cy="video_format"><strong>Format: </strong>MOV</li>
-                                <li data-cy="video_copyright"><strong>Copyright: </strong>Knot9</li>
-                                <li data-cy="video_fps"><strong>FPS: </strong>25.0</li>
-                                <li data-cy="video_model_release"><strong>Model Released: Yes</strong></li>
-                                <li data-cy="video_property_release"><strong>Property Released: Yes</strong></li>
+                                <li data-cy="video_aspect_ratio"><strong>FPS: </strong>{{$main_video->fps}}</li>
+                                <li data-cy="video_clip_id"><strong>Clip ID: </strong>{{$main_video->id}}</li>
+                                <li data-cy="video_clip_length"><strong>Clip Length: </strong>{{$main_video->length}}</li>
+                                <li data-cy="video_uses_type"><strong>Type: </strong>Commercial License</li>
+                                <li data-cy="video_format"><strong>Bitrate: </strong>{{$main_video->bitrate}}</li>
+                                <li data-cy="video_copyright"><strong>Copyright: </strong><span style="font-size: 14px">DRONE STOCK CLIPS</span></li>
+                                <li data-cy="video_model_release"><strong>Model Released: {{$main_video->model_released}}</strong></li>
+                                <li data-cy="video_property_release"><strong>Property Released: {{$main_video->property_released}}</strong></li>
                                 <li></li>
                             </ul>
                         </div>
@@ -285,54 +274,78 @@
                             <div class="video-detail-sec2 video-detail-cntr">
                                 <div id="product-variants">
                                     <ul>
-                                        <!-- this needs refactoring -->
-                                        <!-- only show specific image variants for sell -->
-                                        <!--  -->
-                                        @if(isset($main_video->fourk_price))
+                                        
+                                        @if($main_video->resolution == '8k')
                                         <li data-cy="variant_detail">
-                                            <input type="radio" name="quality" id="quality" value="4K"
+                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=8k'}}';" type="radio" name="quality" id="quality" value="4K"
                                                 data-price="₹5,000.00" data-in-stock="true" data-cy="select_variant"
-                                                checked="checked">
+                                                @if($quality == '8K') checked @endif>
                                             <label data-cy="variant_name" for="variant_id_37656">
-                                                4K
+                                                8K UHD
                                             </label>
-                                            ${{$main_video->fourk_price}}
-                                            <p data-cy="variant_resolution">4096 X 2160 @ mpeg4</p>
-                                            <b data-cy="variant_size">384.12 MB</b>
+                                            ${{$main_video->eightK}}
+                                            <p data-cy="variant_resolution">7680 x 4320 @ MP4</p>
+                                            <b data-cy="variant_size">{{$main_video->size_eightK}} MB</b>
                                         </li>
                                         @endif
-                                        <!-- this needs refactoring -->
-                                        <!-- only show specific image variants for sell -->
-                                        <!--  -->
 
-                                        @if(isset($main_video->fhd_price))
+                                        @if($main_video->resolution == '8k' || $main_video->resolution == '6k')
                                         <li data-cy="variant_detail">
-                                            <input type="radio" name="quality" id="variant_id_37657" value="FHD"
-                                                data-price="₹3,750.00" data-in-stock="true" data-cy="select_variant">
-                                            <label data-cy="variant_name" for="variant_id_37657">
-                                                FHD
+                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=6k'}}';" type="radio" name="quality" id="quality" value="4K"
+                                                data-price="₹5,000.00" data-in-stock="true" data-cy="select_variant"
+                                                 @if($quality == '6K') checked @endif>
+                                            <label data-cy="variant_name" for="variant_id_37656">
+                                                6K UHD
                                             </label>
-                                            ${{$main_video->fhd_price}}
-                                            <p data-cy="variant_resolution">1920 X 1080 @ mpeg4</p>
-                                            <b data-cy="variant_size">29.03 MB</b>
+                                            ${{$main_video->sixK}}
+                                            <p data-cy="variant_resolution">6144 x 3160 @ MP4</p>
+                                            <b data-cy="variant_size">{{$main_video->size_sixK}} MB</b>
                                         </li>
                                         @endif
-                                        <!-- this needs refactoring -->
-                                        <!-- only show specific image variants for sell -->
-                                        <!--  -->
-                                        @if(isset($main_video->hd_price))
+
+                                        @if($main_video->resolution == '8k' || $main_video->resolution == '6k' || $main_video->resolution == '4k')
                                         <li data-cy="variant_detail">
-                                            <input type="radio" name="quality" id="quality" value="HD"
-                                                data-price="₹2,500.00" data-in-stock="true" data-cy="select_variant">
-                                            <label data-cy="variant_name" for="variant_id_37658">
-                                                HD
+                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=4k'}}';" type="radio" name="quality" id="quality" value="4K"
+                                                data-price="₹5,000.00" data-in-stock="true" data-cy="select_variant"
+                                                 @if($quality == '4K') checked @endif>
+                                            <label data-cy="variant_name" for="variant_id_37656">
+                                                4K UHD
                                             </label>
-                                           ${{$main_video->hd_price}}
-                                            <p data-cy="variant_resolution">1280 X 720 @ mpeg4</p>
-                                            <b data-cy="variant_size">21.64 MB</b>
+                                            ${{$main_video->fourK}}
+                                            <p data-cy="variant_resolution">3840 x 2160 @ MP4</p>
+                                            <b data-cy="variant_size">{{$main_video->size_fourK}} MB</b>
                                         </li>
                                         @endif
-                                     
+
+                                        @if($main_video->resolution == '8k' || $main_video->resolution == '6k' || $main_video->resolution == '4k' || $main_video->resolution == 'FHD')
+                                        <li data-cy="variant_detail">
+                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=FHD'}}';" type="radio" name="quality" id="quality" value="4K"
+                                                data-price="₹5,000.00" data-in-stock="true" data-cy="select_variant"
+                                                @if($quality == 'FHD') checked @endif>
+                                            <label data-cy="variant_name" for="variant_id_37656">
+                                                FULL HD
+                                            </label>
+                                            ${{$main_video->fhd}}
+                                            <p data-cy="variant_resolution">1920 x 1080 @ MP4</p>
+                                            <b data-cy="variant_size">{{$main_video->size_fhd}} MB</b>
+                                        </li>
+                                        @endif
+
+                                        
+                                        @if($main_video->resolution == '8k' || $main_video->resolution == '6k' || $main_video->resolution == '4k' || $main_video->resolution == 'FHD' || $main_video->resolution == 'HD')
+                                        <li data-cy="variant_detail" >
+                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=HD'}}';" type="radio" name="quality" id="quality" value="4K"
+                                                data-price="₹5,000.00" data-in-stock="true" data-cy="select_variant"
+                                                @if($quality == 'HD') checked @endif>
+                                            <label data-cy="variant_name" for="variant_id_37656">
+                                                HD WEB
+                                            </label>
+                                            ${{$main_video->hd}}
+                                            <p data-cy="variant_resolution">1280 x 720 @ MP4</p>
+                                            <b data-cy="variant_size">{{$main_video->size_hd}} MB</b>
+                                        </li>
+                                        @endif
+
                                     </ul>
                                 </div>
                             </div>
@@ -370,21 +383,23 @@
                         </h2>
                     </div>
                 </div>
+
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="">
                             <div class="related_products" id="related_products_listing">
                                 <div class="products_list_index">
                                     <div class="row">
-                                        <div class="row main-cat-cntrs">
-                                            <h2 class="bold_header">Related video clips</h2>
+                                        <div class="row main-cat-cntrs ">
+                                            <h2 class="bold_header text-center" style="font-weight: 900">Related Video Clips</h2>
 
-                                             @if(isset($videos))
-                                                @foreach($videos as $video)
+                                             @if(count($related_videos) > 0)
+                                                @foreach($related_videos as $video)
                                             <div class="col-lg-3" style="max-height: 300px !important">
                       <a href="{{'/product_'.$video->id}}">
-                         <video class="videos" poster="{{'/images/'.$video->poster}}" style="width: 100%; height: 80%; object-fit: fill" preload="none">
-                            <source src="{{'videos/'.$video->file}}">
+                         <video class="zxc" poster="{{'/storage/'.$video->poster}}" style="width: 100%; height: 80%; object-fit: fill" preload="none" muted>
+                            <source src="{{'storage/'.$video->file}}">
                             Your browser does not support this file
                          </video>
                          <div style="padding: 1%">
@@ -394,6 +409,8 @@
                    </div>
 
                                             @endforeach
+                                             @else
+                                                <h5 class="text-center">No Videos Available</h5>
                                             @endif
                                            
                                         </div>
@@ -401,666 +418,78 @@
                                 </div>
                             </div>
                         </div>
-
-                        <script type="text/javascript">
-                            Thumbnail.toggleHover($('.product_thumbnail'));
-                        </script>
-
-                        <style type="text/css">
-                            .header img {
-                                float: left;
-                            }
-
-                            .header h1 {
-                                position: relative;
-                            }
-
-                            .products_list_index {
-                                padding: 30px;
-                            }
-                        </style>
-
-
-                        <script>
-                            // send add to cart event to google ecommerce
-                            $(".ajax-add-to-cart").click(function (event) {
-
-                                var order_variants = "";
-                                var send_to_google = !order_variants.split(", ").includes(this.dataset.variantId);
-
-                                if (send_to_google) {
-                                    dataLayer.push({
-                                        'event': 'addToCart',
-                                        'ecommerce': {
-                                            'currencyCode': 'INR',
-                                            'add': {
-                                                'products': [{
-                                                    'name': this.dataset.name,
-                                                    'id': this.dataset.productId,
-                                                    'price': this.dataset.price,
-                                                    'variant': this.dataset.variantId,
-                                                    'quantity': 1
-                                                }]
-                                            }
-                                        }
-                                    });
-                                }
-                            });
-                        </script>
                     </div>
                 </div>
 
-               <!--  <div class="row">
+
+                <div class="row">
                     <div class="col-md-12">
-                        <div>
-                            <div class="entire_shoot" id="entire_shoot_listing">
+                        <div class="">
+                            <div class="related_products" id="related_products_listing">
                                 <div class="products_list_index">
                                     <div class="row">
-                                        <div class="row main-cat-cntrs">
-                                            <h2>
-                                                <span class="bold_header">View Entire Shoot</span>
-                                                <a class="btn btn-link" data-cy="video_entire_shoot"
-                                                    href="/videos/021162057/view-entire-shoot">View All</a>
-                                            </h2>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6664" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6664" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/attractive-young-indian-lady-smiling-while-sitting-in-her-home-during-the-festive-time">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6664"
-                                                            alt="Attractive young Indian lady smiling while sitting in her home during the festive time"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162001.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6664" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/attractive-young-indian-lady-smiling-while-sitting-in-her-home-during-the-festive-time">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:08</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6664"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/attractive-young-indian-lady-smiling-while-sitting-in-her-home-during-the-festive-time">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6664"
-                                                                data-name="Attractive young Indian lady smiling while sitting in her home during the festive time"
-                                                                data-variant-id="33123" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=attractive-young-indian-lady-smiling-while-sitting-in-her-home-during-the-festive-time"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">Attractive young Indian
-                                                            lady smiling while sitting in her home during the festive
-                                                            time</div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6664"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6665" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6665" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/side-view-of-an-indian-woman-sadly-gazing-upwards-during-the-festive-season">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6665"
-                                                            alt="Side view of an Indian woman sadly gazing upwards during the festive season"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162002.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6665" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/side-view-of-an-indian-woman-sadly-gazing-upwards-during-the-festive-season">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:08</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6665"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/side-view-of-an-indian-woman-sadly-gazing-upwards-during-the-festive-season">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6665"
-                                                                data-name="Side view of an Indian woman sadly gazing upwards during the festive season"
-                                                                data-variant-id="33128" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=side-view-of-an-indian-woman-sadly-gazing-upwards-during-the-festive-season"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">Side view of an Indian
-                                                            woman sadly gazing upwards during the festive season</div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6665"
-                                                        style="top: 0px; left: 290px; display: none; opacity: 1;">
-                                                        <div class=" embed-responsive-16by9">
-                                                            <video width="270px" height="480px" autoplay="autoplay"
-                                                                loop="loop" muted="muted" controls="controls"
-                                                                class="embed-responsive-item"
-                                                                src="https://knot9prod.s3.ap-south-1.amazonaws.com/indian_stockfootage/production/preview/021162002_hover.mov?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAJCTRUCF26UW6QYRA%2F20210517%2Fap-south-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20210517T204109Z&amp;X-Amz-Expires=900&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=a71e33e0ad0a404c0210969c29b53801104538ee40cc0988631a3232118e2f98"></video>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6666" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6666" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/young-modern-indian-female-in-winter-dress-cheerfully-talking-on-the-phone-happy-moments">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6666"
-                                                            alt="Young modern Indian female in winter dress cheerfully talking on the phone - happy moments"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162003.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6666" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/young-modern-indian-female-in-winter-dress-cheerfully-talking-on-the-phone-happy-moments">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:12</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6666"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/young-modern-indian-female-in-winter-dress-cheerfully-talking-on-the-phone-happy-moments">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6666"
-                                                                data-name="Young modern Indian female in winter dress cheerfully talking on the phone - happy moments"
-                                                                data-variant-id="33133" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=young-modern-indian-female-in-winter-dress-cheerfully-talking-on-the-phone-happy-moments"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">Young modern Indian
-                                                            female in winter dress cheerfully talking on the phone -
-                                                            happy moments</div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6666"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6667" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6667" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/a-teenager-happily-waving-hand-and-talking-on-webcam-while-making-a-video-call">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6667"
-                                                            alt="A teenager happily waving hand and talking on webcam while making a video call"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162004.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6667" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/a-teenager-happily-waving-hand-and-talking-on-webcam-while-making-a-video-call">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:12</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6667"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/a-teenager-happily-waving-hand-and-talking-on-webcam-while-making-a-video-call">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6667"
-                                                                data-name="A teenager happily waving hand and talking on webcam while making a video call"
-                                                                data-variant-id="33138" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=a-teenager-happily-waving-hand-and-talking-on-webcam-while-making-a-video-call"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">A teenager happily waving
-                                                            hand and talking on webcam while making a video call</div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6667"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6668" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6668" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/smiling-woman-browsing-mobile-while-sitting-in-a-beautifully-decorated-room">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6668"
-                                                            alt="Smiling woman browsing mobile while sitting in a beautifully decorated room"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162005.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6668" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/smiling-woman-browsing-mobile-while-sitting-in-a-beautifully-decorated-room">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:10</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6668"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/smiling-woman-browsing-mobile-while-sitting-in-a-beautifully-decorated-room">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6668"
-                                                                data-name="Smiling woman browsing mobile while sitting in a beautifully decorated room"
-                                                                data-variant-id="33143" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=smiling-woman-browsing-mobile-while-sitting-in-a-beautifully-decorated-room"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">Smiling woman browsing
-                                                            mobile while sitting in a beautifully decorated room</div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6668"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6669" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6669" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/portrait-of-a-cheerful-indian-girl-browsing-her-smartphone-while-drinking-tea-coffee">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6669"
-                                                            alt="Portrait of a cheerful Indian girl browsing her smartphone while drinking tea / coffee"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162006.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6669" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/portrait-of-a-cheerful-indian-girl-browsing-her-smartphone-while-drinking-tea-coffee">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:12</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6669"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/portrait-of-a-cheerful-indian-girl-browsing-her-smartphone-while-drinking-tea-coffee">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6669"
-                                                                data-name="Portrait of a cheerful Indian girl browsing her smartphone while drinking tea / coffee"
-                                                                data-variant-id="33148" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=portrait-of-a-cheerful-indian-girl-browsing-her-smartphone-while-drinking-tea-coffee"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">Portrait of a cheerful
-                                                            Indian girl browsing her smartphone while drinking tea /
-                                                            coffee</div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6669"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6670" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6670" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/portrait-of-young-indian-girl-reading-a-book-while-sitting-in-a-decorated-room">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6670"
-                                                            alt="Portrait of young Indian girl reading a book while sitting in a decorated room"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162007.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6670" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/portrait-of-young-indian-girl-reading-a-book-while-sitting-in-a-decorated-room">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:12</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6670"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/portrait-of-young-indian-girl-reading-a-book-while-sitting-in-a-decorated-room">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6670"
-                                                                data-name="Portrait of young Indian girl reading a book while sitting in a decorated room"
-                                                                data-variant-id="33153" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=portrait-of-young-indian-girl-reading-a-book-while-sitting-in-a-decorated-room"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">Portrait of young Indian
-                                                            girl reading a book while sitting in a decorated room</div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6670"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6671" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6671" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/portrait-of-a-young-woman-reading-a-book-while-drinking-tea-coffee-in-the-morning">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6671"
-                                                            alt="Portrait of a young woman reading a book while drinking tea / coffee in the morning"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162008.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6671" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/portrait-of-a-young-woman-reading-a-book-while-drinking-tea-coffee-in-the-morning">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:14</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6671"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/portrait-of-a-young-woman-reading-a-book-while-drinking-tea-coffee-in-the-morning">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6671"
-                                                                data-name="Portrait of a young woman reading a book while drinking tea / coffee in the morning"
-                                                                data-variant-id="33158" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=portrait-of-a-young-woman-reading-a-book-while-drinking-tea-coffee-in-the-morning"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">Portrait of a young woman
-                                                            reading a book while drinking tea / coffee in the morning
-                                                        </div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6671"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6672" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6672" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/a-young-beautiful-girl-putting-on-a-medical-mask-coronavirus-protection">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6672"
-                                                            alt="A young beautiful girl putting on a medical mask - Coronavirus protection"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162009.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6672" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/a-young-beautiful-girl-putting-on-a-medical-mask-coronavirus-protection">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:10</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6672"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/a-young-beautiful-girl-putting-on-a-medical-mask-coronavirus-protection">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6672"
-                                                                data-name="A young beautiful girl putting on a medical mask - Coronavirus protection"
-                                                                data-variant-id="33163" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=a-young-beautiful-girl-putting-on-a-medical-mask-coronavirus-protection"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">A young beautiful girl
-                                                            putting on a medical mask - Coronavirus protection</div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6672"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6673" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6673" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/young-girl-enjoys-eating-noodles-from-a-bowl-while-working-on-her-laptop">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6673"
-                                                            alt="Young girl enjoys eating noodles from a bowl while working on her laptop"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162010.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6673" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/young-girl-enjoys-eating-noodles-from-a-bowl-while-working-on-her-laptop">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:12</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6673"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/young-girl-enjoys-eating-noodles-from-a-bowl-while-working-on-her-laptop">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6673"
-                                                                data-name="Young girl enjoys eating noodles from a bowl while working on her laptop"
-                                                                data-variant-id="33168" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=young-girl-enjoys-eating-noodles-from-a-bowl-while-working-on-her-laptop"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">Young girl enjoys eating
-                                                            noodles from a bowl while working on her laptop</div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6673"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6674" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6674" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/smiling-woman-in-her-early-twenties-eating-a-bowl-of-freshly-made-hot-noodles">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6674"
-                                                            alt="Smiling woman in her early twenties eating a bowl of freshly made hot noodles"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162011.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6674" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/smiling-woman-in-her-early-twenties-eating-a-bowl-of-freshly-made-hot-noodles">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:15</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6674"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/smiling-woman-in-her-early-twenties-eating-a-bowl-of-freshly-made-hot-noodles">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6674"
-                                                                data-name="Smiling woman in her early twenties eating a bowl of freshly made hot noodles"
-                                                                data-variant-id="33173" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=smiling-woman-in-her-early-twenties-eating-a-bowl-of-freshly-made-hot-noodles"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">Smiling woman in her
-                                                            early twenties eating a bowl of freshly made hot noodles
-                                                        </div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6674"
-                                                        style="top: 0px; left: 291px; display: none; opacity: 1;">
-                                                        <div class=" embed-responsive-16by9">
-                                                            <video width="270px" height="480px" autoplay="autoplay"
-                                                                loop="loop" muted="muted" controls="controls"
-                                                                class="embed-responsive-item"
-                                                                src="https://knot9prod.s3.ap-south-1.amazonaws.com/indian_stockfootage/production/preview/021162011_hover.mov?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAJCTRUCF26UW6QYRA%2F20210517%2Fap-south-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20210517T201422Z&amp;X-Amz-Expires=900&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=bee7b2af34d6c7f7d5b08aada64257785f85449b4a40eb0678e256c7c84bbee6"></video>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 wow fadeIn animated"
-                                                id="thumbnail_6675" style="visibility: visible;">
-                                                <div class="imagebox">
-                                                    <a id="6675" itemprop="url" class="product_thumbnail" rel="popover"
-                                                        href="/videos/young-indian-office-employee-working-on-the-laptop-work-from-home-concept">
-                                                        <img id="hoverMe"
-                                                            class="video_thumbnail category-banner img-responsive"
-                                                            product_id="6675"
-                                                            alt="Young Indian office employee working on the laptop - work from home concept"
-                                                            loading="lazy"
-                                                            src="https://knot9prod.s3.amazonaws.com/thumbnails/021162/hover_021162012.jpg">
-                                                    </a>
-                                                    <div class="resolution-time-info"><a id="6675" itemprop="url"
-                                                            class="product_thumbnail" rel="popover"
-                                                            href="/videos/young-indian-office-employee-working-on-the-laptop-work-from-home-concept">
-                                                            <span class="video-variant-info">4K</span>
-                                                            <span class="video-length-info">00:10</span>
-                                                        </a>
-                                                        <div class="add-to-cart-ajax pull-right"><a id="6675"
-                                                                itemprop="url" class="product_thumbnail" rel="popover"
-                                                                href="/videos/young-indian-office-employee-working-on-the-laptop-work-from-home-concept">
-                                                            </a><a class="ajax-add-to-cart" title="Add to cart"
-                                                                data-product-id="6675"
-                                                                data-name="Young Indian office employee working on the laptop - work from home concept"
-                                                                data-variant-id="33178" data-price="5000.0"
-                                                                data-remote="true" rel="nofollow" data-method="post"
-                                                                href="/orders/populate?product_id=young-indian-office-employee-working-on-the-laptop-work-from-home-concept"><i
-                                                                    class="glyphicon glyphicon-shopping-cart thumb-add-to-cart"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-3 imagebox-desc">
-                                                        <div class="pull-left video-name-info">Young Indian office
-                                                            employee working on the laptop - work from home concept
-                                                        </div>
-                                                    </div>
-                                                    <div class="videohover-window" id="tooltip_6675"></div>
-                                                </div>
-                                            </div>
+                                        <div class="row main-cat-cntrs ">
+                                            <h2 class="bold_header text-center" style="font-weight: 900">Entire Videos</h2>
+
+                                             @if(count($entire_videos) > 0)
+                                                @foreach($entire_videos as $video)
+                                            <div class="col-lg-3" style="max-height: 300px !important">
+                      <a href="{{'/product_'.$video->id}}">
+                         <video class="zxc" poster="{{'/storage/'.$video->poster}}" style="width: 100%; height: 80%; object-fit: fill" preload="none" muted>
+                            <source src="{{'storage/'.$video->file}}">
+                            Your browser does not support this file
+                         </video>
+                         <div style="padding: 1%">
+                         <p>{{$video->title}}<span style="float:right;">${{$video->price}}</span></p>
+                         </div>
+                      </a>
+                   </div>
+
+                                            @endforeach
+                                            @else
+                                                <h5 class="text-center">No Videos Available</h5>
+                                            @endif
+                                           
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <script type="text/javascript">
-                            Thumbnail.toggleHover($('.product_thumbnail'));
-                        </script>
-
-                        <style type="text/css">
-                            .header img {
-                                float: left;
-                            }
-
-                            .header h1 {
-                                position: relative;
-                            }
-
-                            .products_list_index {
-                                padding: 30px;
-                            }
-                        </style>
-
                     </div>
-                </div> -->
+                </div>
+
+  
 
                 <div class="row">
                     <div class="tagcloud col-md-12">
-                        <h2>
-                            <span class="bold_header">Video keywords</span>
-                            <button type="button" class="btn btn-link keywords-cloud-toggler" data-toggle="collapse"
-                                data-target="#keywords-cloud" data-open-text="Open">Hide All</button>
+                        <h2 class="text-center">
+                            <span class="bold_header" style="font-weight: 900">Video keywords</span>
+                            
                         </h2>
                         <div id="keywords-cloud" class="collapse show in">
-                            <a href="/videos/search/india"><span class="btn btn-default tag-link-button">India
+
+                            @php
+                                if($main_video->keywords != null){
+                                    $keywords = json_decode($main_video->keywords);
+                                    $keywords = explode(',',$keywords);
+                                }
+                            @endphp
+
+
+
+                            @if(isset($keywords))    
+                           
+                            @foreach($keywords as $word)    
+                            <a href="#"><span class="btn btn-default tag-link-button">{{$word}}
                                 </span></a>
-                            <a href="/videos/search/indian"><span class="btn btn-default tag-link-button">Indian
-                                </span></a>
-                            <a href="/videos/search/lady"><span class="btn btn-default tag-link-button">lady </span></a>
-                            <a href="/videos/search/young"><span class="btn btn-default tag-link-button">young
-                                </span></a>
-                            <a href="/videos/search/pretty"><span class="btn btn-default tag-link-button">pretty
-                                </span></a>
-                            <a href="/videos/search/attractive"><span class="btn btn-default tag-link-button">attractive
-                                </span></a>
-                            <a href="/videos/search/home"><span class="btn btn-default tag-link-button">home </span></a>
-                            <a href="/videos/search/kitchen"><span class="btn btn-default tag-link-button">kitchen
-                                </span></a>
-                            <a href="/videos/search/modern"><span class="btn btn-default tag-link-button">modern
-                                </span></a>
-                            <a href="/videos/search/sweater"><span class="btn btn-default tag-link-button">sweater
-                                </span></a>
-                            <a href="/videos/search/sitting"><span class="btn btn-default tag-link-button">sitting
-                                </span></a>
-                            <a href="/videos/search/cold"><span class="btn btn-default tag-link-button">cold </span></a>
-                            <a href="/videos/search/winter"><span class="btn btn-default tag-link-button">winter
-                                </span></a>
-                            <a href="/videos/search/season"><span class="btn btn-default tag-link-button">season
-                                </span></a>
-                            <a href="/videos/search/warm"><span class="btn btn-default tag-link-button">warm </span></a>
-                            <a href="/videos/search/warmth"><span class="btn btn-default tag-link-button">warmth
-                                </span></a>
-                            <a href="/videos/search/holding"><span class="btn btn-default tag-link-button">holding
-                                </span></a>
-                            <a href="/videos/search/woolen"><span class="btn btn-default tag-link-button">woolen
-                                </span></a>
-                            <a href="/videos/search/cap"><span class="btn btn-default tag-link-button">cap </span></a>
-                            <a href="/videos/search/cushions"><span class="btn btn-default tag-link-button">cushions
-                                </span></a>
-                            <a href="/videos/search/alone"><span class="btn btn-default tag-link-button">alone
-                                </span></a>
-                            <a href="/videos/search/cheerful"><span class="btn btn-default tag-link-button">cheerful
-                                </span></a>
-                            <a href="/videos/search/work"><span class="btn btn-default tag-link-button">work </span></a>
-                            <a href="/videos/search/knit"><span class="btn btn-default tag-link-button">knit </span></a>
-                            <a href="/videos/search/knitting"><span class="btn btn-default tag-link-button">knitting
-                                </span></a>
-                            <a href="/videos/search/tools"><span class="btn btn-default tag-link-button">tools
-                                </span></a>
-                            <a href="/videos/search/craft"><span class="btn btn-default tag-link-button">craft
-                                </span></a>
-                            <a href="/videos/search/needle"><span class="btn btn-default tag-link-button">needle
-                                </span></a>
-                            <a href="/videos/search/hand"><span class="btn btn-default tag-link-button">hand </span></a>
-                            <a href="/videos/search/relaxing"><span class="btn btn-default tag-link-button">relaxing
-                                </span></a>
-                            <a href="/videos/search/leisure"><span class="btn btn-default tag-link-button">leisure
-                                </span></a>
-                            <a href="/videos/search/resting"><span class="btn btn-default tag-link-button">resting
-                                </span></a>
-                            <a href="/videos/search/blanket"><span class="btn btn-default tag-link-button">blanket
-                                </span></a>
-                            <a href="/videos/search/shawl"><span class="btn btn-default tag-link-button">shawl
-                                </span></a>
-                            <a href="/videos/search/skills"><span class="btn btn-default tag-link-button">skills
-                                </span></a>
-                            <a href="/videos/search/yarn"><span class="btn btn-default tag-link-button">yarn </span></a>
-                            <a href="/videos/search/1-person"><span class="btn btn-default tag-link-button">1 person
-                                </span></a>
-                            <a href="/videos/search/young-adult-20s"><span class="btn btn-default tag-link-button">young
-                                    adult (20s) </span></a>
-                            <a href="/videos/search/female"><span class="btn btn-default tag-link-button">female
-                                </span></a>
-                            <a href="/videos/search/adult-30s-40s"><span class="btn btn-default tag-link-button">adult
-                                    (30s-40s) </span></a>
-                            <a href="/videos/search/woman"><span class="btn btn-default tag-link-button">woman
-                                </span></a>
-                            <a href="/videos/search/girl"><span class="btn btn-default tag-link-button">girl </span></a>
-                            <a href="/videos/search/medium-shot"><span class="btn btn-default tag-link-button">medium
-                                    shot </span></a>
-                            <a href="/videos/search/professional-lighting"><span
-                                    class="btn btn-default tag-link-button">professional lighting </span></a>
-                            <a href="/videos/search/color"><span class="btn btn-default tag-link-button">color
-                                </span></a>
-                            <a href="/videos/search/happy"><span class="btn btn-default tag-link-button">happy
-                                </span></a>
-                            <a href="/videos/search/smiling"><span class="btn btn-default tag-link-button">smiling
-                                </span></a>
-                            <a href="/videos/search/joy"><span class="btn btn-default tag-link-button">joy </span></a>
-                            <a href="/videos/search/love"><span class="btn btn-default tag-link-button">love </span></a>
-                            <a href="/videos/search/excited"><span class="btn btn-default tag-link-button">excited
-                                </span></a>
-                            <a href="/videos/search/studio"><span class="btn btn-default tag-link-button">studio
-                                </span></a>
-                            <a href="/videos/search/casual-cloth"><span class="btn btn-default tag-link-button">casual
-                                    cloth </span></a>
-                            <a href="/videos/search/20-25-year"><span class="btn btn-default tag-link-button">20 -25
-                                    year </span></a>
-                            <a href="/videos/search/25-30-year"><span class="btn btn-default tag-link-button">25-30 year
-                                </span></a>
-                            <a href="/videos/search/30-years"><span class="btn btn-default tag-link-button">30 years
-                                </span></a>
+                            @endforeach
+                            @else
+                           
+                                 <h5 class="text-center">No Keywords Available</h5>
+                            @endif
+                          
+
+                           
                         </div>
                     </div>
                 </div>
@@ -1078,6 +507,18 @@
     </div>
 
    @include('footer')
+
+     <script>
+            $(".zxc").on("mouseover", function(event) {
+                this.play();
+
+
+              }).on('mouseout', function(event) {
+                    this.pause();
+                    this.currentTime = 0;
+
+                  });
+        </script>
 
 
 <!-- Mirrored from africandronestock.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 16 May 2021 18:12:28 GMT -->

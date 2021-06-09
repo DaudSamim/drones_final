@@ -26,11 +26,22 @@ class HomeController extends Controller
 {
     public function getStats()
 
-    {
-            
-            return view('home.view-stats');
-  
-     
+    {      
+      return view('home.view-stats');
+    }
+
+    public function search(Request $request){
+       $keyword = $request->keyword;
+       $videos = DB::Table('videos')->where('title', 'like', '%' . $keyword . '%')->orWhere('keywords', 'like', '%' . $keyword . '%')->get();
+      
+      foreach ($videos as $key => $value) {
+          if($value->status != 1){
+            unset($videos[$key]);
+          }
+      }
+
+       return view('search_results',compact('videos','keyword'));
+
     }
 
     public function approveVideo($id){
@@ -85,7 +96,11 @@ class HomeController extends Controller
 
     public function downloadProduct($id){
         $link = DB::table('videos')->where('id',$id)->pluck('file')->first();
-        return response()->download(public_path('videos/'.$link));
+        return response()->download(public_path('storage/'.$link));
+    }
+
+    public function downloadClientProduct($link){
+        return response()->download(public_path('storage/'.$link));
     }
 
     public function getQualities(){
@@ -225,44 +240,47 @@ class HomeController extends Controller
     }
     public function postVideos(Request $request){
         
-         
-       if($request->fourk_price < 1 || $request->fhd_price < 1  || $request->hd_price < 1) {
-            return redirect()->back()->with('alert','Price not Valid, Must be greater than 1');
-       }
-
        $validated = $request->validate([
             'title' => 'required',
-            'video' => 'required|mimes:mp4,ogx,oga,ogv,ogg,webm',
+            'video' => 'required',
             'description' => 'required',
-            'category_id' => 'required',
+            'category_id' => 'required|integer',
+             'model_released' => 'required',
+            'property_released' =>'required',
         ]);
 
-      if(!$request->fourk == 'on'){
-            $fourk = null;
-      }else{
-            $fourk = $request->fourk_price;
-      }
 
-      if(!$request->fhd == 'on'){
-            $fhd = null;
-      }else{
-            $fhd = $request->fhd_price;
-      }
-
-      if(!$request->hd == 'on'){
-            $hd = null;
-      }else{
-            $hd = $request->hd_price;
-      }
+       $size_eightK = null;
+       $size_sixK = null;
+       $size_fourK = null;
+       $size_fhd = null;
+       $size_hd = null;
 
         if($request->file('video')){
             $file = $request->file('video');
             $filename = $file->getClientOriginalName();
             $filena = pathinfo($filename, PATHINFO_FILENAME);
             $path = storage_path().'/app/public/';
+            $size = $file->getSize();
+            $size = number_format($size / 1048576, 2);
             $file->move($path, $filename);
 
-            // dd($filename);
+            // Resolutions
+            $processOutput = \FFMpeg::fromDisk('public')->open($filename)
+                ->export()
+                ->addFilter(['-filter:a', 'volumedetect', '-f', 'null'])
+                ->getProcessOutput();
+
+
+            foreach ($processOutput->all() as $key => $value){ 
+                      if(str_contains($value, 'Stream')){
+                         $processOutput = explode(',',$processOutput->all()[$key]); 
+                         break;
+                      }
+              }
+
+
+            // For watermark
             \FFMpeg::fromDisk('public')->open($filename)
             ->addWatermark(function(WatermarkFactory $watermark) {
                 $watermark->open('watermark.png')
@@ -271,21 +289,123 @@ class HomeController extends Controller
                     ->width(300)
                     ->height(300);
             })->export()->inFormat(new \FFMpeg\Format\Video\X264)
-             ->save("output{$filena}.mp4");
+             ->save("drone{$filena}.mp4");  
 
-                $filename = 'output'.$filena.'.mp4';
 
+
+            // Video resolution
+            $video_resolution = explode(' ',$processOutput[3]);
+            $video_resolution =  explode('x',$video_resolution[1]);
+            $video_resolution = $video_resolution[1];
+
+
+
+            if($video_resolution >=  '4320'){
+                $video_resolution = '8k';
+            }elseif ($video_resolution >= '3160') {
+               $video_resolution = '6k';
+            }elseif ($video_resolution >= '2160') {
+                 
+
+                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+                  ->export()
+                  ->resize(1920, 1080)
+                  ->inFormat(new \FFMpeg\Format\Video\X264)
+                  ->save("1080drone{$filena}.mp4");
+
+
+
+                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+                  ->export()
+                  ->resize(1280, 720)
+                  ->inFormat(new \FFMpeg\Format\Video\X264)
+                  ->save("720drone{$filena}.mp4");
+
+                  $size_fourK = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
+                  $size_fourK = number_format($size_fourK / 1048576, 2);
+                  $size_fhd = \File::size(public_path('/storage/1080drone'.$filena.'.mp4'));
+                  $size_fhd = number_format($size_fhd / 1048576, 2);
+                  $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
+                  $size_hd = number_format($size_hd / 1048576, 2);
+
+               $video_resolution = '4k';
+            }elseif ($video_resolution >= '1080') {
+
+                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+                  ->export()
+                  ->resize(1280, 720)
+                  ->inFormat(new \FFMpeg\Format\Video\X264)
+                  ->save("720drone{$filena}.mp4");
+
+                  $size_fhd = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
+                  $size_fhd = number_format($size_fhd / 1048576, 2);
+                  $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
+                  $size_hd = number_format($size_hd / 1048576, 2);
+
+                  $video_resolution = 'FHD';
+            }else{
+                return redirect()->back()->with('alert','Uploading failed. Video Resolutions accepted: 4k, 6k or 8K');
+            }    
+
+            // Frame per second
+            $fps = $processOutput[5];
+
+            // Bitrate
+            $bitrate = $processOutput[4];
+
+
+             // For thumbnail
+             \FFMpeg::fromDisk('public')
+                ->open("drone{$filena}.mp4")
+                ->getFrameFromSeconds(1)
+                ->export()
+                ->toDisk('public')
+                ->save("drone{$filena}.png");
+
+            // For length 
+            $media = \FFMpeg::fromDisk('public')->open("drone{$filena}.mp4");
+            $durationInSeconds = $media->getDurationInSeconds(); // returns an int
+            $length = gmdate("i:s", $durationInSeconds); 
+
+            $eightK = DB::table('qualities')->where('title','8K')->pluck('price')->first();
+            $sixtK = DB::table('qualities')->where('title','6K')->pluck('price')->first();
+            $fourK = DB::table('qualities')->where('title','4K')->pluck('price')->first();
+            $fhd = DB::table('qualities')->where('title','FHD')->pluck('price')->first();
+            $hd = DB::table('qualities')->where('title','HD')->pluck('price')->first();
+
+
+
+            $filename = 'drone'.$filena.'.mp4';
+
+
+              
                 DB::Table('videos')->insert([
                 'user_id' => auth()->user()->id,
                 'title' => $request->title,
                 'file' => $filename,
                 'category_id' => $request->category_id,
-                'poster' => 'poster.png',
-                'price' => $fourk?$fourk:$fhd,
+                'poster' => 'drone'.$filena.'.png',
+                'price' => 1,
                 'description' => $request->description,
-                'fourk_price' => $fourk,
-                'fhd_price' => $fhd,
-                'hd_price' => $hd,
+                'length' => $length,
+                'size' => $size,
+                'model_released' => $request->model_released,
+                'property_released' => $request->property_released,
+                'fps' => $fps??null,
+                'bitrate' => $bitrate??null,
+                'resolution' => $video_resolution,
+                'eightK' => $eightK,
+                'sixK' =>  $sixtK,
+                'fourK' => $fourK,
+                'fhd' =>  $fhd,
+                'hd' => $hd,
+                'keywords' => $request->keywords?json_encode($request->keywords):null,
+                'size_eightK' => $size_eightK,
+                'size_sixK' => $size_sixK,
+                'size_fourK' => $size_fourK,
+                'size_fhd' => $size_fhd,
+                'size_hd' => $size_hd,
+
 
                 ]);
 
@@ -296,63 +416,42 @@ class HomeController extends Controller
         return redirect()->back()->with('error','Something Wrong');
     }
 
-    public function watermark($video, $image){
-      \FFMpeg::open('input.mp4')
-        ->addWatermark(function(WatermarkFactory $watermark) {
-            $watermark->open('input.jpg')
-                ->left(25)
-                ->bottom(25) 
-                ->width(300)
-                ->height(300);
-        })->export()
-              ->inFormat(new \FFMpeg\Format\Video\X264)
-            ->save('water2.mkv');
+    public function update_video_price(Request $request){
 
-       return true;     
-     }
+        DB::table('videos')->where('id',$request->id)->update([
+            'eightK' => $request->eightK,
+            'sixK' => $request->sixK,
+            'fourK' => $request->fourK,
+            'fhd' => $request->fhd,
+            'hd' => $request->hd,
+        ]);
+
+        return redirect()->back()->with('success','Successfully Updated');
+    }
 
 
     public function posteditVideos(Request $request){
-
-        
-         
-        
  
         $validated = $request->validate([
              'title' => 'required', 
          ]);
- 
-       if(!$request->fourk == 'on'){
-             $fourk = null;
-       }else{
-             $fourk = $request->fourk_price;
-       }
- 
-       if(!$request->fhd == 'on'){
-             $fhd = null;
-       }else{
-             $fhd = $request->fhd_price;
-       }
- 
-       if(!$request->hd == 'on'){
-             $hd = null;
-       }else{
-             $hd = $request->hd_price;
-       }
+          
+          $status = 0;
+          if(auth()->user()->role == 1){
+            $status = DB::table('videos')->where('id',$request->id)->pluck('status')->first();
+          }
 
- 
- 
                  DB::Table('videos')->where('id',$request->id)->update([
                  
-                 'title' => $request->title,
-                
-                 'category_id' => $request->category_id,
-                 'price' => $fourk?$fourk:$fhd,
-                 
-                 'fourk_price' => $fourk,
-                 'fhd_price' => $fhd,
-                 'hd_price' => $hd,
-                 'status' => 0,
+                     'title' => $request->title,
+                     'category_id' => $request->category_id,
+                     'price' => 1,
+                     'status' => $status,
+                     'description' => $request->description, 
+                     'model_released' => $request->model_released,
+                     'property_released' => $request->property_released,
+                     'keywords' => $request->keywords?json_encode($request->keywords):null,
+
  
                  ]);
  

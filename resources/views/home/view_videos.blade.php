@@ -14,13 +14,13 @@
     margin-left: 2%;
 }
 </style>
-@if(Session::has('success'))
-    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
-@endif  
+  @if(Session::has('success'))
+      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
+  @endif  
 
-@if(Session::has('alert'))
-    <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('alert') }}</p>
-@endif  
+  @if(Session::has('alert'))
+      <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('alert') }}</p>
+  @endif  
     <div class="row justify-content-center">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
@@ -36,14 +36,15 @@
                             <tr>
 
                                 <th>Title</th>
-                                <th>Poster</th>
-                                <th>File</th>
+                                <th>Thumbnail</th>
+                                <!-- <th>File</th> -->
                                 <th>Price</th>
                                 <th>Category</th>
                                 <th>Status</th>
                                 @if(auth()->user()->role == 1)<th>Update</th> @endif
-                                <th>Created At</th>
                                 <th>Actions</th>
+                                <th>Created At</th>
+                                
 
                             </tr>
                             </thead>
@@ -53,12 +54,13 @@
 
                                     @php
                                         $category = DB::Table('categories')->where('id',$row->category_id)->first();
+
                                     @endphp
-                                    
+                                        
                                         <tr>
                                             <td>{{$row->title}}</td>
-                                            <td><img src="{{'/images/'.$row->poster}}"></td>
-                                            <td>{{$row->file}}</td>
+                                            <td><img src="{{'/storage/'.$row->poster}}"></td>
+                                            <!-- <td>{{$row->file}}</td> -->
                                             <td>${{$row->price}}</td>
                                             <td>@if(isset($category)){{$category->title}}@endif</td>
                                             <td>@if($row->status == 0) Pending @elseif($row->status == 1) Active @else  <button class="btn btn-danger" data-toggle="modal" data-target="{{'#reject_message'.$row->id}}">Reject Message</button> @endif</td>
@@ -71,11 +73,17 @@
                                                 @endif 
                                             </td>
                                             @endif
-                                            <td>{{$row->created_at}}</td>
                                             <td>
+                                              @if(auth()->user()->role == 1)
+                                               <a href="{{'/product_'.$row->id}}"><button class="btn btn-success">View</button></a>
+                                               @endif
+                                                <button class="btn btn-warning" data-toggle="modal" data-target="{{'#price'.$row->id}}">Prices</button> 
+                                                <a href="{{'/download_product_'.$row->id}}"><button class="btn btn-primary">Download</button></a>
                                                 <a href="{{'/view_videos/'.$row->id}}"><button class="btn btn-warning">Edit</button></a>
                                                 <a href="{{'/delete_video/'.$row->id}}"><button class="btn btn-danger">Delete</button></a>
                                             </td>
+                                            <td>{{$row->created_at}}</td>
+
                                         </tr>
 
 
@@ -142,6 +150,53 @@
           </div>
         </div>
 
+        <div class="modal fade" id="{{'price'.$row->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{$row->title}}</h5>
+               
+              </div>
+              <div class="modal-body">
+                    
+                    <form action="update_video_price" method="post">
+                      @csrf
+                      <input type="hidden" name="id" value="{{$row->id}}">
+                    @if($row->resolution == '8k')
+                      <p>8K UHD Resolution Price</p>
+                      <input class="form-control" type="number" name="eightK" value="{{$row->eightK}}">
+                    @endif
+                    @if($row->resolution == '8k' || $row->resolution == '6k')
+                      <p>6K UHD Resolution Price</p>
+                      <input class="form-control" type="number" name="sixK" value="{{$row->sixK}}">
+
+                    @endif
+                    @if($row->resolution == '8k' || $row->resolution == '6k' || $row->resolution == '4k')
+                        <p>4K UHD Resolution Price</p>
+                      <input class="form-control" type="number" name="fourK" value="{{$row->fourK}}">
+                    @endif
+                    @if($row->resolution == '8k' || $row->resolution == '6k' || $row->resolution == '4k' || $row->resolution == 'FHD')
+                        <p>FULL HD Resolution Price</p>
+                      <input class="form-control" type="number" name="fhd" value="{{$row->fhd}}">
+                    @endif
+                    @if($row->resolution == '8k' || $row->resolution == '6k' || $row->resolution == '4k' || $row->resolution == 'FHD' || $row->resolution == 'HD')
+                        <p>HD WEB Resolution Price</p>
+                      <input class="form-control" type="number" name="hd" value="{{$row->hd}}">
+                    @endif 
+                      <br>
+                      <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                
+              </div>
+              <div class="modal-footer">
+                
+               
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
                                     @endforeach
                                 @endif
 
@@ -166,9 +221,22 @@
                                 <div class="modal-body" id="m-body">
                                     <span id="form_result"></span>
                                     <form id="btn-submit" method="post" action="/view_videos" enctype='multipart/form-data'>
+
+                                       <div class="form-group">
+                                            <label for="exampleInputEmail1">Video File</label>
+                                            <input class="form-control" accept="video/*" type="file" name="video" onchange="getFileData(this);">
+
+                                            @if ($errors->has('video'))
+                                                <span class="text-danger">
+                                            <small class="font-weight-bold">{{ $errors->first('video') }}</small>
+                                        </span>
+                                            @endif
+                                        </div>
+
+
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Title</label>
-                                            <input style="width: 100% !important;;" type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" id="name" name="title"  aria-describedby="emailHelp" placeholder="Video Title">
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('title') ? 'is-invalid' : '' }}" id="name" name="title"  aria-describedby="emailHelp" placeholder="Video Title">
 
                                             @if ($errors->has('title'))
                                                 <span class="text-danger">
@@ -178,45 +246,26 @@
                                         </div>
 
 
+                                       
+
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Video File</label>
-                                            <input class="form-control" accept="video/*" type="file" name="video">
-
-                                            @if ($errors->has('video'))
-                                                <span class="text-danger">
-                                            <small class="font-weight-bold">{{ $errors->first('video') }}</small>
-                                        </span>
-                                            @endif
+                                            <label for="exampleInputEmail1">Model Released</label>
+                                            
+                                            <select class="form-select" aria-label="Default select example" name="model_released">
+                                              <option selected>No</option>
+                                              <option> Yes </option>      
+                                            </select>
                                         </div>
 
-                                        @php
-                                            $qualities = DB::table('qualities')->get();
-                                        @endphp
-
-                                        <div class="form-group mb-4">
-                                            <label for="exampleInputEmail1">Video Quality</label>
-                                            <div class="form-check 4k check_class" >
-                                              <input class="form-check-input" type="checkbox" name="fourk" id="flexCheckDefault" checked>
-                                              <label class="form-check-label" for="flexCheckDefault">
-                                                4K
-                                              </label>
-                                              <input type="text" class="input_class form-control" name="fourk_price" value="{{$qualities[0]->price}}">
-                                            </div>
-                                            <div class="form-check fhd check_class">
-                                              <input class="form-check-input" type="checkbox" name="fhd" id="flexCheckChecked" >
-                                              <label class="form-check-label" for="flexCheckChecked">
-                                                FHD
-                                              </label>
-                                               <input type="text" class="input_class form-control" name="fhd_price" value="{{$qualities[1]->price}}">
-                                            </div>
-                                            <div class="form-check hd check_class">
-                                              <input class="form-check-input" type="checkbox" name="hd" id="flexCheckChecked" >
-                                              <label class="form-check-label" for="flexCheckChecked">
-                                                HD
-                                              </label>
-                                               <input type="text" class="input_class form-control" name="hd_price" value="{{$qualities[2]->price}}">
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Property Released</label>
+                                            
+                                            <select class="form-select" aria-label="Default select example" name="property_released">
+                                              <option selected>No</option>
+                                              <option> Yes </option>      
+                                            </select>
                                         </div>
+
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Description</label>
@@ -241,11 +290,18 @@
                                               
                                             </select>
 
-                                            @if ($errors->has('video'))
+                                            @if ($errors->has('category_id'))
                                                 <span class="text-danger">
-                                            <small class="font-weight-bold">{{ $errors->first('video') }}</small>
+                                            <small class="font-weight-bold">{{ $errors->first('category_id') }}</small>
                                         </span>
                                             @endif
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Video Keywords </label><br>
+                                            <small  style="color: red">Enter comma (,) seperated words. Max 30 words</small>
+                                            <textarea name="keywords" class="form-control" placeholder="Enter comma seperated keywords" rows="4"></textarea>
                                         </div>
 
 
@@ -276,6 +332,13 @@
     $('.extra').click(function() {
       $('.extra_box').toggle("slide");
     });
+
+    function getFileData(myFile){
+       var file = myFile.files[0];  
+       var filename = file.name;
+       filename = filename.replace(/\.[^/.]+$/, "");
+       $(".addName").val(filename);
+    }
 </script>
 @endsection
 

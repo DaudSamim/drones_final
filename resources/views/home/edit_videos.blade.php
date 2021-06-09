@@ -36,69 +36,24 @@
                                         </div>
 
 
-                                       
-
-                                        @php
-                                            $qualities = DB::table('qualities')->get();
-                                        @endphp
-
-                                        <div class="form-group mb-4">
-                                            <label for="exampleInputEmail1">Video Quality</label>
-                                            @if(isset($video->fourk_price))
-                                            <div class="form-check 4k check_class" >
-                                              <input class="form-check-input" type="checkbox" name="fourk" id="flexCheckDefault" checked>
-                                              <label class="form-check-label" for="flexCheckDefault">
-                                                4K
-                                              </label>
-                                              <input type="text" class="input_class form-control" name="fourk_price" value="{{$video->fourk_price}}">
-                                            </div>
-                                            @else
-                                            <div class="form-check 4k check_class" >
-                                              <input class="form-check-input" type="checkbox" name="fourk" id="flexCheckDefault" >
-                                              <label class="form-check-label" for="flexCheckDefault">
-                                                4K
-                                              </label>
-                                              <input type="text" class="input_class form-control" name="fourk_price" value="">
-                                            </div>
-                                            @endif
-                                            @if(isset($video->fhd_price))
-                                            <div class="form-check fhd check_class">
-                                              <input class="form-check-input" type="checkbox" name="fhd" id="flexCheckChecked" checked>
-                                              <label class="form-check-label" for="flexCheckChecked">
-                                                FHD
-                                              </label>
-                                               <input type="text" class="input_class form-control" name="fhd_price" value="{{$video->fhd_price}}">
-                                            </div>
-                                            @else
+                                         <div class="form-group">
+                                            <label for="exampleInputEmail1">Model Released</label>
                                             
-
-                                            <div class="form-check fhd check_class">
-                                              <input class="form-check-input" type="checkbox" name="fhd" id="flexCheckChecked" >
-                                              <label class="form-check-label" for="flexCheckChecked">
-                                                FHD
-                                              </label>
-                                               <input type="text" class="input_class form-control" name="fhd_price" value="">
-                                            </div>
-                                             @endif
-                                             @if(isset($video->hd_price))
-
-                                            <div class="form-check hd check_class">
-                                              <input class="form-check-input" type="checkbox" name="hd" id="flexCheckChecked" checked>
-                                              <label class="form-check-label" for="flexCheckChecked">
-                                                HD
-                                              </label>
-                                               <input type="text" class="input_class form-control" name="hd_price" value="{{$video->hd_price}}">
-                                            </div>
-                                            @else
-                                            <div class="form-check hd check_class">
-                                              <input class="form-check-input" type="checkbox" name="hd" id="flexCheckChecked" >
-                                              <label class="form-check-label" for="flexCheckChecked">
-                                                HD
-                                              </label>
-                                               <input type="text" class="input_class form-control" name="hd_price" value="">
-                                            </div>
-                                            @endif
+                                            <select class="form-select"  aria-label="Default select example" name="model_released">
+                                              <option @if($video->model_released == 'No') selected @endif>No</option>
+                                              <option @if($video->model_released == 'Yes') selected @endif > Yes </option>      
+                                            </select>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Property Released</label>
+                                            
+                                            <select class="form-select" aria-label="Default select example" name="property_released">
+                                              <option @if($video->property_released == 'No') selected @endif>No</option>
+                                              <option @if($video->property_released == 'Yes') selected @endif> Yes </option>      
+                                            </select>
+                                        </div>
+
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Description</label>
@@ -109,6 +64,8 @@
                                         </span>
                                             @endif
                                         </div>
+
+
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Category</label>
@@ -126,6 +83,13 @@
                                               
                                             </select>
 
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Video Keywords</label><br>
+                                             <small  style="color: red">Enter comma (,) seperated words. Max 30 words</small>
+                                            <textarea name="keywords" class="form-control" rows="3" required>{{json_decode($video->keywords)}}</textarea>
+                                            
                                         </div>
 
 

@@ -60,13 +60,12 @@
 
                                                         <!-- Element Code start -->
                                                         <div class="product-search-form style1">
-                                                            <form method="GET" action="https://africandronestock.com/">
-
+                                                            <form method="post" action="/search">
+                                                                @csrf
                                                                 <div class="search-fields">
-                                                                    <input name="s" value="" type="text"
+                                                                    <input name="keyword" value="" type="text"
                                                                         placeholder="Search Now">
-                                                                    <input type="hidden" name="post_type"
-                                                                        value="download">
+                                        
                                                                     <span class="search-btn"><input value=""
                                                                             type="button"></span>
                                                                 </div>
@@ -224,7 +223,7 @@
                     @foreach($videos as $video)
                      <div class="col-lg-4" style="max-height: 300px !important">
                         <a href="{{'/product_'.$video->id}}">
-                           <video class="zxc"  poster="{{'/images/'.$video->poster}}" style="width: 100%; height: 80%; object-fit: fill" preload="none">
+                           <video class="zxc"  poster="{{'/storage/'.$video->poster}}" style="width: 100%; height: 80%; object-fit: fill" preload="none">
                               <source src="{{'storage/'.$video->file}}">
                               Your browser does not support this file
                            </video>
@@ -404,7 +403,7 @@
                 @foreach($videos as $video)
                  <div class="col-lg-4" style="max-height: 300px !important">
                     <a href="{{'/product_'.$video->id}}">
-                       <video class="zxc"  poster="{{'/images/'.$video->poster}}" style="width: 100%; height: 80%; object-fit: fill" preload="none">
+                       <video class="zxc"  poster="{{'/storage/'.$video->poster}}" style="width: 100%; height: 80%; object-fit: fill" preload="none">
                           <source src="{{'storage/'.$video->file}}">
                           Your browser does not support this file
                        </video>

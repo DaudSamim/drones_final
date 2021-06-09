@@ -27,16 +27,23 @@ Route::get('/',function(){
     return view('home',compact('categories','categories_search','videos'));
 });
 
-Route::get('product_{id}',function($id){
+Route::get('product_{id}',function(Request $request,$id){
+
+    $quality = $request->input('quality')??null;
+    // dd($quality);
+
     $main_video = DB::table('videos')->where('id',$id)->first();
     if(!isset($main_video)){
-        return redirect()->back();
+        return redirect('/');
     }
     $categories = DB::table('categories')->limit(6)->get();
     $categories_search = DB::table('categories')->get();
-    $videos = DB::table('videos')->orderBy('id','desc')->limit(6)->get();
-        return view('product',compact('categories','categories_search','videos','main_video'));
-    });
+
+    $related_videos = DB::table('videos')->where('id','!=',$id)->where('status',1)->orderBy('id','desc')->limit(8)->get();
+    $entire_videos = DB::table('videos')->where('id','!=',$id)->where('status',1)->orderBy('id','desc')->skip(8)->take(12)->get();
+
+    return view('product',compact('categories','categories_search','entire_videos','related_videos','main_video','quality'));
+});
 
 
 Route::get('/category_{name}',function($name){
@@ -142,6 +149,10 @@ Route::get('/previous_category_{id}',function($id){
 
 Route::get('approve_video/{id}','\App\Http\Controllers\HomeController@approveVideo');
 Route::post('reject_video','\App\Http\Controllers\HomeController@rejectVideo');
+Route::get('search',function(){
+    return redirect('/');
+});
+Route::post('/search','\App\Http\Controllers\HomeController@search');
 
 
 
@@ -175,6 +186,7 @@ Route::middleware('auth')->group(function ()
     Route::get('/view-videos', '\App\Http\Controllers\HomeController@getViewVideos')->name('view-videos');
     Route::post('/view_videos','\App\Http\Controllers\HomeController@postVideos');
     Route::post('/edit_video','\App\Http\Controllers\HomeController@posteditVideos');
+    Route::post('update_video_price','\App\Http\Controllers\HomeController@update_video_price');
 
     Route::get('/show_orders','\App\Http\Controllers\HomeController@getorders');
 
@@ -218,5 +230,8 @@ Route::middleware('auth')->group(function ()
 
     // Filters
     Route::get('watermark','\App\Http\Controllers\FiltersController@watermark');
+
+    // Client Download Product
+    Route::get('download_client_product/{link}','\App\Http\Controllers\HomeController@downloadClientProduct');
 
 });
