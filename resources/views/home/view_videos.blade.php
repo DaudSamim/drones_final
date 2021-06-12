@@ -233,7 +233,6 @@
                                             @endif
                                         </div>
 
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Title</label>
                                             <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('title') ? 'is-invalid' : '' }}" id="name" name="title"  aria-describedby="emailHelp" placeholder="Video Title">
@@ -244,9 +243,6 @@
                                         </span>
                                             @endif
                                         </div>
-
-
-                                       
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Model Released</label>
@@ -260,12 +256,26 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Property Released</label>
                                             
-                                            <select class="form-select" aria-label="Default select example" name="property_released">
-                                              <option selected>No</option>
-                                              <option> Yes </option>      
+                                            <select class="form-select" aria-label="Default select example"id="pro" onchange ="property('pro');" name="property_released">
+                                              <option selected  value="No">No</option>
+                                              <option value ="Yes"> Yes </option>      
                                             </select>
                                         </div>
 
+                                        <div class="form-group d-lg-none" id="mydiv" >
+                                          <label for="exampleInputEmail1">Property released file</label>
+                                          <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('pdf_file') ? 'is-invalid' : '' }}"  name="pdf_file"  aria-describedby="emailHelp" placeholder="pdf">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Location</label>
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('location') ? 'is-invalid' : '' }}"  name="location"  aria-describedby="emailHelp" placeholder="Location">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Device Model</label>
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('device_model') ? 'is-invalid' : '' }}"  name="device_model"  aria-describedby="emailHelp" placeholder="Device Model">
+                                        </div>
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Description</label>
@@ -278,16 +288,14 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Video Category</label>
-                                            
+                                            <label for="exampleInputEmail1">Video Category</label>                                  
                                             <select class="form-select" aria-label="Default select example" name="category_id">
                                               <option selected>Categories</option>
                                                 @if(isset($categories))
                                                 @foreach($categories as $row)
                                               <option value="{{$row->id}}">{{$row->title}}</option>
                                               @endforeach
-                                              @endif
-                                              
+                                              @endif                                          
                                             </select>
 
                                             @if ($errors->has('category_id'))
@@ -297,32 +305,24 @@
                                             @endif
                                         </div>
 
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Keywords </label><br>
                                             <small  style="color: red">Enter comma (,) seperated words. Max 30 words</small>
                                             <textarea name="keywords" class="form-control" placeholder="Enter comma seperated keywords" rows="4"></textarea>
                                         </div>
 
-
                                         <div class="modal-footer">
-                                            <input type="submit" name="action_button"  class="btn btn-primary btn-block" value="Add" />
-                                            
+                                            <input type="submit" name="action_button"  class="btn btn-primary btn-block" value="Add" />                                            
                                             <span
                                                 className="close cursor-pointer"
                                                 data-dismiss="modal"
                                                 aria-label="Close"
                                                 id="myModalClose">
                                             </span>
-                                        
                                             <input type="hidden" name="_token" value={{csrf_token()}}>
-
                                         </div>
-
-
                                     </form>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -340,5 +340,21 @@
        $(".addName").val(filename);
     }
 </script>
+<script>
+function property(str) {
+  var element = document.getElementById("mydiv");
+  var choice =document.getElementById(str).value;
+  
+  if(choice == 'Yes'){
+  element.classList.remove("d-lg-none");
+}
+if(choice == 'No'){
+  element.classList.add("d-lg-none");
+}
+}
+  
+
+</script>
+
 @endsection
 

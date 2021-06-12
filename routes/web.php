@@ -24,7 +24,10 @@ Route::get('/',function(){
     $categories = DB::table('categories')->limit(6)->get();
     $categories_search = DB::table('categories')->get();
     $videos = DB::table('videos')->where('status',1)->orderBy('id','desc')->limit(6)->get();
-    return view('home',compact('categories','categories_search','videos'));
+    $plans = DB::table('plans')->orderby('id','desc')->limit(3)->get();
+
+
+    return view('home',compact('categories','categories_search','videos','plans'));
 });
 
 Route::get('product_{id}',function(Request $request,$id){
@@ -41,9 +44,20 @@ Route::get('product_{id}',function(Request $request,$id){
 
     $related_videos = DB::table('videos')->where('id','!=',$id)->where('status',1)->orderBy('id','desc')->limit(8)->get();
     $entire_videos = DB::table('videos')->where('id','!=',$id)->where('status',1)->orderBy('id','desc')->skip(8)->take(12)->get();
-
-    return view('product',compact('categories','categories_search','entire_videos','related_videos','main_video','quality'));
+    
+    $user = $main_video->user_id;
+    $vendor = DB::table('vendors')->where('user_id', $user)->first();
+    return view('product',compact('categories','categories_search','entire_videos','related_videos','main_video','quality', 'user', 'vendor', 'main_video'));
 });
+Route::get('/all_videos_{id}', function($id){
+
+    $vendor = DB::table('vendors')->where('user_id', $id)->first();
+    $videos = DB::table('videos')->where('user_id',$id)->get();
+   
+    return view('all_vendor_videos',compact('videos','vendor'));
+
+});
+
 
 
 Route::get('/category_{name}',function($name){
@@ -233,5 +247,8 @@ Route::middleware('auth')->group(function ()
 
     // Client Download Product
     Route::get('download_client_product/{link}','\App\Http\Controllers\HomeController@downloadClientProduct');
+    Route::get('/view-plans', '\App\Http\Controllers\HomeController@view_plans');
+    Route::post('/add_plan', '\App\Http\Controllers\HomeController@postAddPlan')->name('/add_plan');
 
+ 
 });

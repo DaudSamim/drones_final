@@ -48,7 +48,7 @@
                         </li>
 
                          <li class="nav-item">
-                            <a href="#"
+                            <a href="/view-plans"
                                class="nav-link  ">Plans </a>
                         </li>
                     @endif
@@ -76,7 +76,7 @@
                     
                     
                         <li class="nav-item">
-                            <a href="#"
+                            <a href="/view-plans"
                                class="nav-link  ">Plans </a>
                         </li>
                     

@@ -249,6 +249,7 @@
                                 </h1>
                             </div>
                         </div>
+                     
 
                         <div class="video-detail-sec1">
                             <ul>
@@ -260,10 +261,14 @@
                                 <li data-cy="video_copyright"><strong>Copyright: </strong><span style="font-size: 14px">DRONE STOCK CLIPS</span></li>
                                 <li data-cy="video_model_release"><strong>Model Released: {{$main_video->model_released}}</strong></li>
                                 <li data-cy="video_property_release"><strong>Property Released: {{$main_video->property_released}}</strong></li>
+                                <li data-cy="location"><strong>Location: </strong> {{$main_video->location}}</li>
+                                <li data-cy=""><strong>Vendor Name </strong> <a style="color:#3f0aa7" href="{{'/all_videos_'.$main_video->user_id}}"> {{$vendor->first_name ?? 'Admin'}} {{$vendor->last_name ?? 'Contributor'}}</a></li>
+
                                 <li></li>
                             </ul>
                         </div>
-
+                      
+                    
                         <form id="add-to-cart-form" action="/add_to_cart" accept-charset="UTF-8" method="post">
                             
                             @csrf

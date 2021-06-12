@@ -669,67 +669,12 @@
                             <div class="elementor-container elementor-column-gap-default">
                                 <div class="elementor-row">
 
-                                    <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-786ea4c"
-                                        data-id="786ea4c" data-element_type="column">
-                                        <div class="elementor-column-wrap elementor-element-populated">
-                                            <div class="elementor-widget-wrap">
-                                                <div class="elementor-element elementor-element-3fd995ac elementor-widget elementor-widget-mayosis-pricing-table"
-                                                    data-id="3fd995ac" data-element_type="widget"
-                                                    data-widget_type="mayosis-pricing-table.default">
-                                                    <div class="elementor-widget-container">
-
-                                                        <!-- Element Code start -->
-
-                                                        <div class="dm_pricing_table">
-                                                            <div class="pricing_title"
-                                                                style="background:rgba(198,201,204,0)">
-                                                                <h2 style="color:#1d314f; text-align:center;"> Silver
-                                                                </h2>
-                                                            </div>
-                                                            <div class="pricing_content">
-                                                                <div class="pricing_table_title_box">
-                                                                    <h3 class="price_tag_table table_pricing_amount">
-                                                                        <sub class="pricing_currency">$</sub> 99<span
-                                                                            class="pricing_timeframe">/mo</span></h3>
-                                                                </div>
-
-                                                                <div class="main_price_content"
-                                                                    style="text-align:left;">
-                                                                    <ul>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Download <b>5
-                                                                                Videos</b> Per Month</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i> <b>1080P Full HD
-                                                                            </b>Quality</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Access To All
-                                                                            Videos</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Unlimited
-                                                                            Broadcast Views</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Unlimited Web
-                                                                            Views</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Unlimited /
-                                                                            Forever Use License – Royalty-Free</li>
-                                                                    </ul>
-                                                                </div>
-                                                                <a href="#"
-                                                                    class="btn_blue_pricing btn"
-                                                                    style="background:rgba(255,35,65,0);border-color:rgba(29,49,79,0.44);color:#1d314f;">Purchase</a>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    
+                                    @foreach($plans as $plan)
+                                    @if($plan->popular == 'Yes')
                                     <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-781fe88e"
                                         data-id="781fe88e" data-element_type="column">
+                                        
                                         <div class="elementor-column-wrap elementor-element-populated">
                                             <div class="elementor-widget-wrap">
                                                 <div class="elementor-element elementor-element-7b241fa elementor-widget elementor-widget-mayosis-pricing-table"
@@ -742,7 +687,7 @@
                                                         <div class="dm_pricing_table">
                                                             <div class="pricing_title"
                                                                 style="background:rgba(198,201,204,0)">
-                                                                <h2 style="color:#1d314f; text-align:center;"> Gold</h2>
+                                                                <h2 style="color:#1d314f; text-align:center;"> {{$plan->title}}</h2>
                                                             </div>
                                                             <div class="lable_price_data">
                                                                 <span class="label_pricing"
@@ -751,31 +696,24 @@
                                                             <div class="pricing_content">
                                                                 <div class="pricing_table_title_box">
                                                                     <h3 class="price_tag_table table_pricing_amount">
-                                                                        <sub class="pricing_currency">$</sub> 199<span
+                                                                        <sub class="pricing_currency">$</sub> {{$plan->price}}<span
                                                                             class="pricing_timeframe">/mo</span></h3>
                                                                 </div>
-
+                                                            @php
+                                                                if($plan->features != null){
+                                                                    $features = json_decode($plan->features);
+                                                                    $features = explode(',',$features);
+                                                                }
+                                                            @endphp
                                                                 <div class="main_price_content"
                                                                     style="text-align:left;">
                                                                     <ul>
+                                                                    @if(isset($features))
+                                                                    @foreach($features as $feature)
                                                                         <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Download <b>8
-                                                                                Videos</b> Per Month</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i><b>2160P
-                                                                                4K+1080p</b> Quality</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Access To All
-                                                                            Videos</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Unlimited
-                                                                            Broadcast Views</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Unlimited Web
-                                                                            Views</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Unlimited /
-                                                                            Forever Use License – Royalty-Free</li>
+                                                                                aria-hidden="true"></i>{{$feature}}</li>
+                                                                    @endforeach 
+                                                                    @endif   
                                                                     </ul>
                                                                 </div>
                                                                 <a href="#"
@@ -788,8 +726,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </div>
-
+                                    @endif
+                                    @if($plan->popular == 'No')
                                     <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-715756c3"
                                         data-id="715756c3" data-element_type="column">
                                         <div class="elementor-column-wrap elementor-element-populated">
@@ -804,37 +744,30 @@
                                                         <div class="dm_pricing_table">
                                                             <div class="pricing_title"
                                                                 style="background:rgba(198,201,204,0)">
-                                                                <h2 style="color:#1d314f; text-align:center;"> Diamond
+                                                                <h2 style="color:#1d314f; text-align:center;"> {{$plan->title}}
                                                                 </h2>
                                                             </div>
                                                             <div class="pricing_content">
                                                                 <div class="pricing_table_title_box">
                                                                     <h3 class="price_tag_table table_pricing_amount">
-                                                                        <sub class="pricing_currency">$</sub> 399<span
+                                                                        <sub class="pricing_currency">$</sub> {{$plan->price}}<span
                                                                             class="pricing_timeframe">/mo</span></h3>
                                                                 </div>
-
+                                                                @php
+                                                                if($plan->features != null){
+                                                                    $features = json_decode($plan->features);
+                                                                    $features = explode(',',$features);
+                                                                }
+                                                            @endphp
                                                                 <div class="main_price_content"
                                                                     style="text-align:left;">
                                                                     <ul>
+                                                                    @if(isset($features))
+                                                                    @foreach($features as $feature)
                                                                         <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Download <b>17
-                                                                                Videos</b> Per Month</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>2160P 4K+1080p
-                                                                            Quality</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Access To All
-                                                                            Videos</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i><b>Unlimited</b>
-                                                                            Broadcasting</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Unlimited Web
-                                                                            Views</li>
-                                                                        <li><i class="fa fa-check-circle"
-                                                                                aria-hidden="true"></i>Unlimited /
-                                                                            Forever Use License – Royalty-Free</li>
+                                                                                aria-hidden="true"></i>{{$feature}}</li>
+                                                                    @endforeach 
+                                                                    @endif   
                                                                     </ul>
                                                                 </div>
                                                                 <a href="#"
@@ -848,6 +781,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
+                                    @endforeach
                                 </div>
                             </div>
                         </section>

@@ -193,6 +193,12 @@ class HomeController extends Controller
        
     }
 
+    public function all_vendor_videos()
+    {
+            return view('all_vendor_videos');
+       
+    }
+
     public function postUser(Request $request){
         
        $validated = $request->validate([
@@ -245,8 +251,10 @@ class HomeController extends Controller
             'video' => 'required',
             'description' => 'required',
             'category_id' => 'required|integer',
-             'model_released' => 'required',
+            'model_released' => 'required',
             'property_released' =>'required',
+            'location' => 'required',
+            'device_model' =>'required',
         ]);
 
 
@@ -264,108 +272,115 @@ class HomeController extends Controller
             $size = $file->getSize();
             $size = number_format($size / 1048576, 2);
             $file->move($path, $filename);
+    
+        if($request->file('pdf_file')){
+            $file_1 = $request->file('pdf_file');
+            $filename_1 = $file_1->getClientOriginalName();
+            $path_1 = public_path();
+            $file_1->move($path_1, $filename_1);
+        } 
 
             // Resolutions
-            $processOutput = \FFMpeg::fromDisk('public')->open($filename)
-                ->export()
-                ->addFilter(['-filter:a', 'volumedetect', '-f', 'null'])
-                ->getProcessOutput();
+            // $processOutput = \FFMpeg::fromDisk('public')->open($filename)
+            //     ->export()
+            //     ->addFilter(['-filter:a', 'volumedetect', '-f', 'null'])
+            //     ->getProcessOutput();
 
 
-            foreach ($processOutput->all() as $key => $value){ 
-                      if(str_contains($value, 'Stream')){
-                         $processOutput = explode(',',$processOutput->all()[$key]); 
-                         break;
-                      }
-              }
+            // foreach ($processOutput->all() as $key => $value){ 
+            //           if(str_contains($value, 'Stream')){
+            //              $processOutput = explode(',',$processOutput->all()[$key]); 
+            //              break;
+            //           }
+            //   }
 
 
-            // For watermark
-            \FFMpeg::fromDisk('public')->open($filename)
-            ->addWatermark(function(WatermarkFactory $watermark) {
-                $watermark->open('watermark.png')
-                    ->left(25)
-                    ->bottom(25) 
-                    ->width(300)
-                    ->height(300);
-            })->export()->inFormat(new \FFMpeg\Format\Video\X264)
-             ->save("drone{$filena}.mp4");  
-
-
-
-            // Video resolution
-            $video_resolution = explode(' ',$processOutput[3]);
-            $video_resolution =  explode('x',$video_resolution[1]);
-            $video_resolution = $video_resolution[1];
+            // // For watermark
+            // \FFMpeg::fromDisk('public')->open($filename)
+            // ->addWatermark(function(WatermarkFactory $watermark) {
+            //     $watermark->open('watermark.png')
+            //         ->left(25)
+            //         ->bottom(25) 
+            //         ->width(300)
+            //         ->height(300);
+            // })->export()->inFormat(new \FFMpeg\Format\Video\X264)
+            //  ->save("drone{$filena}.mp4");  
 
 
 
-            if($video_resolution >=  '4320'){
-                $video_resolution = '8k';
-            }elseif ($video_resolution >= '3160') {
-               $video_resolution = '6k';
-            }elseif ($video_resolution >= '2160') {
+            // // Video resolution
+            // $video_resolution = explode(' ',$processOutput[3]);
+            // $video_resolution =  explode('x',$video_resolution[1]);
+            // $video_resolution = $video_resolution[1];
+
+
+
+            // if($video_resolution >=  '4320'){
+            //     $video_resolution = '8k';
+            // }elseif ($video_resolution >= '3160') {
+            //    $video_resolution = '6k';
+            // }elseif ($video_resolution >= '2160') {
                  
 
-                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
-                  ->export()
-                  ->resize(1920, 1080)
-                  ->inFormat(new \FFMpeg\Format\Video\X264)
-                  ->save("1080drone{$filena}.mp4");
+            //     \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+            //       ->export()
+            //       ->resize(1920, 1080)
+            //       ->inFormat(new \FFMpeg\Format\Video\X264)
+            //       ->save("1080drone{$filena}.mp4");
 
 
 
-                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
-                  ->export()
-                  ->resize(1280, 720)
-                  ->inFormat(new \FFMpeg\Format\Video\X264)
-                  ->save("720drone{$filena}.mp4");
+            //     \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+            //       ->export()
+            //       ->resize(1280, 720)
+            //       ->inFormat(new \FFMpeg\Format\Video\X264)
+            //       ->save("720drone{$filena}.mp4");
 
-                  $size_fourK = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
-                  $size_fourK = number_format($size_fourK / 1048576, 2);
-                  $size_fhd = \File::size(public_path('/storage/1080drone'.$filena.'.mp4'));
-                  $size_fhd = number_format($size_fhd / 1048576, 2);
-                  $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
-                  $size_hd = number_format($size_hd / 1048576, 2);
+            //       $size_fourK = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
+            //       $size_fourK = number_format($size_fourK / 1048576, 2);
+            //       $size_fhd = \File::size(public_path('/storage/1080drone'.$filena.'.mp4'));
+            //       $size_fhd = number_format($size_fhd / 1048576, 2);
+            //       $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
+            //       $size_hd = number_format($size_hd / 1048576, 2);
 
-               $video_resolution = '4k';
-            }elseif ($video_resolution >= '1080') {
+            //    $video_resolution = '4k';
+            // }elseif ($video_resolution >= '1080') {
 
-                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
-                  ->export()
-                  ->resize(1280, 720)
-                  ->inFormat(new \FFMpeg\Format\Video\X264)
-                  ->save("720drone{$filena}.mp4");
+            //     \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+            //       ->export()
+            //       ->resize(1280, 720)
+            //       ->inFormat(new \FFMpeg\Format\Video\X264)
+            //       ->save("720drone{$filena}.mp4");
 
-                  $size_fhd = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
-                  $size_fhd = number_format($size_fhd / 1048576, 2);
-                  $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
-                  $size_hd = number_format($size_hd / 1048576, 2);
+            //       $size_fhd = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
+            //       $size_fhd = number_format($size_fhd / 1048576, 2);
+            //       $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
+            //       $size_hd = number_format($size_hd / 1048576, 2);
 
-                  $video_resolution = 'FHD';
-            }else{
-                return redirect()->back()->with('alert','Uploading failed. Video Resolutions accepted: 4k, 6k or 8K');
-            }    
+            //       $video_resolution = 'FHD';
+            // }else{
+            //     return redirect()->back()->with('alert','Uploading failed. Video Resolutions accepted: 4k, 6k or 8K');
+            // }    
 
-            // Frame per second
-            $fps = $processOutput[5];
+            // // Frame per second
+            // $fps = $processOutput[5];
 
-            // Bitrate
-            $bitrate = $processOutput[4];
+            // // Bitrate
+            // $bitrate = $processOutput[4];
 
 
-             // For thumbnail
-             \FFMpeg::fromDisk('public')
-                ->open("drone{$filena}.mp4")
-                ->getFrameFromSeconds(1)
-                ->export()
-                ->toDisk('public')
-                ->save("drone{$filena}.png");
+            //  // For thumbnail
+            //  \FFMpeg::fromDisk('public')
+            //     ->open("drone{$filena}.mp4")
+            //     ->getFrameFromSeconds(1)
+            //     ->export()
+            //     ->toDisk('public')
+            //     ->save("drone{$filena}.png");
 
-            // For length 
-            $media = \FFMpeg::fromDisk('public')->open("drone{$filena}.mp4");
-            $durationInSeconds = $media->getDurationInSeconds(); // returns an int
-            $length = gmdate("i:s", $durationInSeconds); 
+            // // For length 
+            // $media = \FFMpeg::fromDisk('public')->open("drone{$filena}.mp4");
+            // $durationInSeconds = $media->getDurationInSeconds(); // returns an int
+            // $length = gmdate("i:s", $durationInSeconds); 
 
             $eightK = DB::table('qualities')->where('title','8K')->pluck('price')->first();
             $sixtK = DB::table('qualities')->where('title','6K')->pluck('price')->first();
@@ -384,16 +399,18 @@ class HomeController extends Controller
                 'title' => $request->title,
                 'file' => $filename,
                 'category_id' => $request->category_id,
-                'poster' => 'drone'.$filena.'.png',
+                'poster' => 'drone'.$filena.'.png'??null,
                 'price' => 1,
                 'description' => $request->description,
-                'length' => $length,
-                'size' => $size,
+                'length' => $length??null,
+                'size' => $size??null,
                 'model_released' => $request->model_released,
                 'property_released' => $request->property_released,
+                'location' => $request->location,
+                'device_model' => $request->device_model,
                 'fps' => $fps??null,
                 'bitrate' => $bitrate??null,
-                'resolution' => $video_resolution,
+                'resolution' => $video_resolution??null,
                 'eightK' => $eightK,
                 'sixK' =>  $sixtK,
                 'fourK' => $fourK,
@@ -405,6 +422,7 @@ class HomeController extends Controller
                 'size_fourK' => $size_fourK,
                 'size_fhd' => $size_fhd,
                 'size_hd' => $size_hd,
+                'pdf_file' => $request->pdf_file??null,
 
 
                 ]);
@@ -450,6 +468,8 @@ class HomeController extends Controller
                      'description' => $request->description, 
                      'model_released' => $request->model_released,
                      'property_released' => $request->property_released,
+                     'location' => $request->location,
+                     'device_model' => $request->device_model,
                      'keywords' => $request->keywords?json_encode($request->keywords):null,
 
  
@@ -525,11 +545,45 @@ class HomeController extends Controller
        
     }
 
+ 
+
 
     public function getLogout()
     {
         Auth::guard('web')->logout();
         return redirect('/');
+    }
+
+    
+    public function view_plans()
+    {
+        $plans = DB::table('plans')->orderby('id','desc')->get();
+
+        return  view('home.view_plans',compact('plans'));
+    }
+
+
+    public function postAddPlan(Request $request){
+        
+        $validated = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'features' => 'required',
+
+            
+        ]);
+
+
+        
+
+             DB::Table('plans')->insert([
+            'title' => $request->name,
+            'price' => $request->price,
+            'features' => $request->features?json_encode($request->features):null,
+            'popular' => $request->popular,
+            ]);
+
+             return redirect()->back()->with('success','Successfully Added');
     }
 
 }
