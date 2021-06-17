@@ -2,22 +2,22 @@
      $footer_categories = DB::table('categories')->orderby('id','desc')->limit(10)->get();
  @endphp
 
- <footer class="main-footer container-fluid">
+ <footer class=" container-fluid" style=" background: linear-gradient(190deg, #1e0051, #3b009e); padding-top: 120px; padding-right: 0px;  padding-bottom: 40px; padding-left: 0px;">
             <div class="container-fluid">
                 <div class="">
                     <!-- Begin Footer Section-->
                     <div class="footer-widget ">
-                        <div class="footer-sidebar widget_digital_about">
+                        <div class="footer-sidebar ">
                             <div class="row">
                                 <!-- <div class="col-lg-1" style="width:10.333333% !important"></div> -->
-                                <div class="col-lg-2" style="width: 20% !important;margin-left: 2%">
-                                    <h4 class="footer-widget-title">The Company</h4>
+                                <div class="col-lg-2" style="width: 20% !important;margin-left: 3%">
+                                  <h4 class="footer-widget-title">The Company</h4>
                                     <ul>
-                                        <li>About Us</li>
-                                        <li>Contact Us</li>
-                                        <li>Privacy Policy</li>
-                                        <li>Refunf Policy</li>
-                                        <li>Terms & Conditions</li>
+                                        <a href="/about_us"><li>About Us</li></a>
+                                        <a href="/contact_us"><li>Contact Us</li></a>
+                                        <a href="/privacy_policy"><li>Privacy Policy</li></a>
+                                        <a href="refund_policy"><li>Refund Policy</li></a>
+                                        <a href="/terms_and_conditions"><li>Terms & Conditions</li></a>
                                     </ul>
                                 <div class="clearfix"></div>
                                 </div>    
@@ -27,7 +27,7 @@
                                     <h4 class="footer-widget-title">Categories</h4>
                                     <ul>
                                         @foreach($footer_categories as $row)
-                                            <a href="{{'/category_'.$row->title}}"><li onclick="alert()">{{$row->title}}</li></a>
+                                            <a href="{{'/category_'.$row->title}}"><li>{{$row->title}}</li></a>
                                         @endforeach
                                         
                                     </ul>
@@ -38,9 +38,9 @@
                                     <h4 class="footer-widget-title">Account</h4>
                                     <div class="clearfix"></div>
                                     <ul>
-                                        <li>Customer Dashboard</li>
-                                        <li>Contributor Dashboard</li>
-                                        <li>Sell your footage</li>
+                                        <a href="/customer"><li>Customer Dashboard</li></a>
+                                        <a href="/contributor"><li>Contributor Dashboard</li></a>
+                                        <a href="/sell_footage"><li>Sell your footage</li></a>
                                         
                                     </ul>
                                 </div>    
@@ -48,9 +48,9 @@
                                 <div class="col-lg-2">
                                     <h4 class="footer-widget-title">Site</h4>
                                     <ul>
-                                        <li>Home</li>
-                                        <li>Blog</li>
-                                        <li>FAQ's</li>
+                                        <a href="/"><li>Home</li></a>
+                                        <a href="#"><li>Blog</li></a>
+                                        <a href="faqs"><li>FAQ's</li></a>
                                         
                                     </ul>
                                   
@@ -60,13 +60,13 @@
                                 <div class="col-lg-2" style="width: 20% !important">
                                     <h4 class="footer-widget-title">We are very social</h4>
                                     <ul>
-                                        <li><i class="fab fa-facebook-f"></i> Facebook</li>
-                                        <li><i class="fab fa-youtube"></i> Youtube</li>
-                                        <li><i class="fab fa-instagram"></i> Intsagram</li>
-                                        <li><i class="fab fa-twitter"></i> Twitter</li>
+                                        <a href="#"><li><i class="fab fa-facebook-f"></i> Facebook</li></a>
+                                        <a href="#"><li><i class="fab fa-youtube"></i> Youtube</li></a>
+                                        <a href="#"><li><i class="fab fa-instagram"></i> Instagram</li></a>
+                                        <a href="#"><li><i class="fab fa-twitter"></i> Twitter</li></a>
                                         
                                     </ul>
-                                    <img src="{{asset('images/logo.png')}}">
+                                    <a href="/"><img src="{{asset('images/logo.png')}}"></a>
                                     <div class="clearfix"></div>
                                 </div>    
                             
@@ -114,3 +114,11 @@
             </div>
         </div>
         <!-- End Footer Section-->
+
+        <script>
+            $("a").mousedown(function(ev) {
+              ev.preventDefault();
+              console.log($(this).attr("href"));
+              console.log("Click triggered");
+            });
+        </script>

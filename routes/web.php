@@ -135,6 +135,8 @@ Route::get('paypal',function(){
     return view('asd');
 });
 
+Route::get('sell_footage','\App\Http\Controllers\HomeController@sellFootage');
+
 Route::post('/payment/add-funds/paypal','\App\Http\Controllers\PaymentController@payWithpaypal');
 
 

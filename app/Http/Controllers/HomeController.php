@@ -717,6 +717,10 @@ class HomeController extends Controller
              return redirect()->back()->with('success','Successfully Added');
     }
 
+    public function sellFootage(){
+        return view('sell_footage');
+    }
+
 
 
 
