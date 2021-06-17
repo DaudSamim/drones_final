@@ -16,7 +16,6 @@ class VendorRegistrationController extends Controller
 {
 
     
-
     $this->validate($request, [
         'email' => 'required|unique:users',
         'last_name' => 'required',
@@ -45,6 +44,6 @@ class VendorRegistrationController extends Controller
         
     ]);    
 
-    return redirect('vendor')->with('info', 'You have Registered Successfully!');
+    return redirect('login')->with('success', 'You have Registered Successfully!');
 }
 }

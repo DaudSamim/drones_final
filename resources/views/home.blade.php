@@ -979,29 +979,36 @@ If you are interested to partner with us, please sign up and start uploading
 <div class="mayosis-modern-login mb-2">
   	<div class="row main_login_form">
     	<div class="login_form_dm" style="background-color:#6ec1e4; padding:3%">
-	         <form id="edd_register_form" class="edd_form" action="" method="post">
+	         <form id="edd_register_form" class="edd_form" action="/register_vendor" method="post">
+               @csrf
 	
 	<fieldset>
 
-		
 		<p class="edd_registration_username">
-			<input id="edd-user-login" class="required edd-input" type="text" name="edd_user_login" placeholder="Username"/>
+         <input id="edd-user-login" class="required edd-input" type="text" name="first_name" placeholder="First Name"/>
+      </p>
+
+      <p class="edd_registration_username">
+         <input id="edd-user-login" class="required edd-input" type="text" name="last_name" placeholder="Last name"/>
+      </p>
+
+		<p class="edd_registration_username">
+			<input id="edd-user-login" class="required edd-input" type="text" name="username" placeholder="Username"/>
 		</p>
 
 		<p class="edd_registration_email">
 		
-			<input id="edd-user-email" class="required edd-input" type="email" name="edd_user_email" placeholder="Email" />
+			<input id="edd-user-email" class="required edd-input" type="email" name="email" placeholder="Email" />
 		</p>
 
 		<p class="edd_registration_password">
 		
-			<input id="edd-user-pass" class="password required edd-input" type="text" name="edd_user_pass" placeholder="Password" />
+			<input id="edd-user-pass" class="password required edd-input" style="padding: 1%; width: 100%;margin-bottom: 1%"  type="password" name="password" placeholder="Password" />
 		</p>
 
-		<p class="edd_registration_password">
-			
-			<input id="edd-user-pass2" class="password required edd-input" type="text" name="edd_user_pass2" placeholder="Confirm Password" />
-		</p>
+      <p class="edd_registration_username">
+         <input id="edd-user-login" class="required edd-input" type="text" name="display_name" placeholder="Display Name"/>
+      </p>
 
 
 		

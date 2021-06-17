@@ -25,8 +25,7 @@ Route::get('/',function(){
     $categories_search = DB::table('categories')->get();
     $videos = DB::table('videos')->where('status',1)->orderBy('id','desc')->limit(6)->get();
     $plans = DB::table('plans')->orderby('id','desc')->limit(3)->get();
-
-
+   
     return view('home',compact('categories','categories_search','videos','plans'));
 });
 
