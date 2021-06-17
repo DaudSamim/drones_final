@@ -105,7 +105,7 @@
                     <div class="copyright-columned">
                         <span class="copyright-text col-md-12 col-xs-12">
                             <span style="margin-right: 2%"> <i class="fas fa-envelope-open" style="margin-right: 1%"></i>info@dronestockclips.com</span>
-                           <span> <i class="fas fa-phone-alt"></i> +92 3044519969 </span>
+                           <span> <i class="fas fa-phone-alt"></i><a href="https://api.whatsapp.com/send?phone=+923044519969&text=Hello">+923044519969 </a> </span>
                        
                       
                     </div>

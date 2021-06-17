@@ -26,8 +26,23 @@ class HomeController extends Controller
 {
     public function getStats()
 
-    {      
-      return view('home.view-stats');
+    {     
+        $videos = DB::table('videos')->get();
+                        $categories = DB::table('categories')->get();
+                        $purchases = DB::table('orders')->get();
+                        $plans = DB::table('plans')->get();
+                        $vendors = DB::table('vendors')->get();
+                        $subs = DB::table('subscriptions')->get();
+
+                        $count_videos = count($videos);
+                        $count_categories = count($categories);
+                        $count_purchases = count($purchases);
+                        $count_plans = count($plans);
+                        $count_vendors = count($vendors);
+                        $count_subs = count($subs);
+
+
+      return view('home.view-stats',compact('count_videos','count_subs','count_vendors','count_categories','count_purchases','count_plans'));
     }
 
     public function search(Request $request){

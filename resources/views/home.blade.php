@@ -1,4 +1,6 @@
 @include('header')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div class="mayosis-wrapper">
 @include('header_for_single_page')
 <div class="mayosis-container" style="background:#ffffff">
@@ -96,17 +98,24 @@
          data-id="dcd2318" data-element_type="section"
          data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
          <div class="elementor-container elementor-column-gap-default">
-            <div class="elementor-row">
+         
+
+            <div class="elementor-row ">
+            
                @if(isset($categories))
+               <div class="owl-carousel owl-theme">
                @foreach($categories as $category)
-               <div class="elementor-column elementor-col-16 elementor-top-column elementor-element elementor-element-a2025a3"
+               <div class="item" style="width:500%!important">
+
+               <div class="elementor-column elementor-col-16 elementor-top-column elementor-element elementor-element-a2025a3 "
                   data-id="a2025a3" data-element_type="column">
-                  <div class="elementor-column-wrap elementor-element-populated">
-                     <div class="elementor-widget-wrap">
-                        <div class="elementor-element elementor-element-3e50a25 elementor-widget elementor-widget-image"
+                  <div class="elementor-column-wrap elementor-element-populated ">
+                     <div class="elementor-widget-wrap ">
+
+                        <div class="elementor-element elementor-element-3e50a25 elementor-widget elementor-widget-image "
                            data-id="3e50a25" data-element_type="widget"
                            data-widget_type="image.default">
-                           <div class="elementor-widget-container">
+                           <div class="elementor-widget-container ">
                               <div class="elementor-image">
                                  <a href="{{'/category_'.$category->title}}">
                                  <img style="max-width: 100%;height: 150px"
@@ -117,6 +126,7 @@
                               </div>
                            </div>
                         </div>
+                        
                         <div class="elementor-element elementor-element-50b210f elementor-widget elementor-widget-heading"
                            data-id="50b210f" data-element_type="widget"
                            data-widget_type="heading.default">
@@ -125,12 +135,17 @@
                                  href="{{'/category_'.$category->title}}">{{$category->title}}</a></h1>
                            </div>
                         </div>
+                        
                      </div>
                   </div>
                </div>
+               </div>
                @endforeach
                @endif
+            
             </div>
+            </div>
+         </div>
          </div>
       </section>
       <section data-particle_enable="false" data-particle-mobile-disabled="false"
@@ -1039,6 +1054,9 @@ If you are interested to partner with us, please sign up and start uploading
 </div>
 <a id="back-to-top" href="#" class="back-to-top" role="button"><i class="zil zi-chevron-up"></i></a>
 <script src="js/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
    // YouTube Player API for header BG video
    
@@ -1148,6 +1166,27 @@ If you are interested to partner with us, please sign up and start uploading
    
       });
    
+</script>
+<script>
+$('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    dots:false,
+    
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
+            
+        }
+    }
+})
 </script>
 </body>
 <!-- End Main Layout -->

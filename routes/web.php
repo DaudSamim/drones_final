@@ -21,7 +21,7 @@ Route::post('/add_to_cart', '\App\Http\Controllers\CartController@add_to_cart');
 
 
 Route::get('/',function(){
-    $categories = DB::table('categories')->limit(6)->get();
+    $categories = DB::table('categories')->limit(7)->get();
     $categories_search = DB::table('categories')->get();
     $videos = DB::table('videos')->where('status',1)->orderBy('id','desc')->limit(6)->get();
     $plans = DB::table('plans')->orderby('id','desc')->limit(3)->get();
