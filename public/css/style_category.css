@@ -4913,7 +4913,7 @@ footer.main-footer:after {
     background: url(https://africandronestock.com/wp-content/uploads/2019/10/footer-shape.png) 100% 100% no-repeat;
 }
 
-footer.main-footer, .footer-text, .footer-sidebar ul li a, .main-footer a, .main-footer ul li a {
+footer.main-footer, .footer-text, .footer-sidebar ul li , .main-footer , .main-footer ul li  {
     color: #ffffff;
 }
 
