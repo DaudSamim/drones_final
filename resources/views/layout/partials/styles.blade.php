@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('vendors/flag-icon-css/css/flag-icon.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/demo_1/style.css') }}">
 <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
+
 <style>
     .form-control
     {

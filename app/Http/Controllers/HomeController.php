@@ -573,9 +573,6 @@ class HomeController extends Controller
             
         ]);
 
-
-        
-
              DB::Table('plans')->insert([
             'title' => $request->name,
             'price' => $request->price,
@@ -585,5 +582,127 @@ class HomeController extends Controller
 
              return redirect()->back()->with('success','Successfully Added');
     }
+
+    public function update_plans(Request $request){
+        $validated = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'features' => 'required',
+        ]);
+
+
+        DB::table('plans')->where('id',$request->id)->update([
+            'title' => $request->name,
+            'price' => $request->price,
+            'features' => $request->features?json_encode($request->features):null,
+            'popular' => $request->popular,
+        ]);
+
+        return redirect('/view-plans')->with('success','Successfully Updated');
+    }
+
+    public function edit_plan($id){
+        $plan = DB::table('plans')->where('id',$id)->first();
+        if(!$plan){
+            return redirect()->back();
+        }
+        return view('home.edit_plans',compact('plan'));
+    }
+
+    public function postAddCoupons(Request $request){
+        
+        
+        $validated = $request->validate([
+            'title' => 'required',
+            'discount' => 'required',
+            'description' => 'required',
+
+            
+        ]);
+        
+        $date = date('Y-m-d', time());
+        $request->today_date = $date;
+        if($request->today_date > $request->date){
+            return redirect()->back()->with('alert','The Expiry Date Should Be Greater Than Todays Date');
+
+        }
+        
+
+        $alph = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        $code='';
+
+        for($i=0;$i<7;$i++){
+           $code .= $alph[rand(0, 55)];
+        }
+        
+        
+
+             DB::Table('coupons')->insert([
+            'title' => $request->title,
+            'discount' => $request->discount,
+            'description' => $request->description,
+            'expire_date' => $request->date,
+            'code' => $code,
+            ]);
+
+             return redirect()->back()->with('success','Successfully Added');
+    }
+
+
+
+    public function postCheckout(Request $request){
+        
+        
+        $validated = $request->validate([
+            'code' => 'required|min:6',    
+        ]);
+
+                $variable = DB::table('coupons')->where('code', $request->code)->first();
+                
+                if(isset($variable)){
+                    $used = DB::table('used_coupons')->where('coupon_id', $variable->id)->first();
+                    if(isset($used)){
+                    if($used->user_id == auth()->user()->id){
+                        return redirect()->back()->with('alert','Coupon Already Used');
+                    }
+                    }
+                    $date = date('Y-m-d', time());
+                    if($variable->expire_date > $date){
+                    $order_data = DB::table('carts')->where('user_id',auth()->user()->id)->get();
+                    foreach($order_data as $order){
+                        $discount = ((100 - $variable->discount) * $order->price)/100;
+                        
+                        DB::Table('carts')->where('id',$order->id)->update([
+                            'discounted_price' => $discount,
+                            ]);
+                        
+                    }
+                    DB::Table('temp_coupon')->insert([
+                        'user_id' => auth()->user()->id,
+                        'coupon_id' => $variable->id,
+                        ]);
+
+                } 
+                else
+                {
+
+                    return redirect()->back()->with('alert','Coupon Expired');
+
+                }
+
+                }
+                else
+                {
+                    return redirect()->back()->with('alert','Coupon Not found');
+
+                }
+            
+
+
+             return redirect()->back()->with('success','Successfully Added');
+    }
+
+
+
 
 }

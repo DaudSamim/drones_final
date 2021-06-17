@@ -52,7 +52,18 @@ class CartController extends Controller
 	}
 
 	public function getStripe(){
-		$amount = DB::table('carts')->where('user_id',auth()->user()->id)->get()->sum('price');
+		$amount = 0;
+		$variables = DB::table('carts')->where('user_id',auth()->user()->id)->get();
+		foreach($variables as $variable){
+			if($variable->discounted_price == null){
+				$amount = $amount + $variable->price;
+			}
+			else 
+			{
+				$amount = $amount + $variable->discounted_price ;
+			}
+		}
+		
 		return view('stripe',compact('amount'));
 	}
 
@@ -108,6 +119,13 @@ class CartController extends Controller
 
 					$total_amount = null;
 			 }
+			 $variable = DB::table('temp_coupon')->where('user_id', auth()->user()->id)->first();
+
+			 DB::Table('used_coupons')->insert([
+				'user_id' => auth()->user()->id,
+				'coupon_id' => $variable->coupon_id,
+				]);
+			 DB::table('temp_coupon')->where('user_id',auth()->user()->id)->delete();
 
 
 			 

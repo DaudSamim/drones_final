@@ -59,8 +59,9 @@
                                             <input style="width: 100% !important;;" type="text" class="form-control {{ $errors->has('location') ? 'is-invalid' : '' }}"  name="location"  aria-describedby="emailHelp" value="{{$video->location}}">                                          
                                         </div>
 
-                                        <label for="exampleInputEmail1">Device Model</label>
-                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('device_model') ? 'is-invalid' : '' }}"  name="device_model"  aria-describedby="emailHelp" placeholder="Device Model" value="{{$video->device_model}}">
+                                        <div>
+                                        <label for="exampleInputEmail1">Drone Model</label>
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('device_model') ? 'is-invalid' : '' }}"  name="device_model"  aria-describedby="emailHelp" placeholder="Drone Model" value="{{$video->device_model}}">
                                         </div>
 
                                         <div class="form-group">

@@ -218,6 +218,7 @@ Route::middleware('auth')->group(function ()
     Route::get('download_product_{id}','\App\Http\Controllers\HomeController@downloadProduct');
 
     //checkout 
+    Route::post('/checkout', '\App\Http\Controllers\HomeController@postCheckout')->name('/checkout');
     Route::get('checkout','\App\Http\Controllers\CartController@getCheckout');
     Route::get('paypal','\App\Http\Controllers\CartController@getPaypal');
     Route::get('stripe','\App\Http\Controllers\CartController@getStripe');
@@ -249,6 +250,21 @@ Route::middleware('auth')->group(function ()
     Route::get('download_client_product/{link}','\App\Http\Controllers\HomeController@downloadClientProduct');
     Route::get('/view-plans', '\App\Http\Controllers\HomeController@view_plans');
     Route::post('/add_plan', '\App\Http\Controllers\HomeController@postAddPlan')->name('/add_plan');
+    Route::post('/edit_plan','\App\Http\Controllers\HomeController@update_plans');
+    Route::get('/add_plan/{id}', '\App\Http\Controllers\HomeController@edit_plan');
+    Route::get('delete_plan/{id}',function($id){
+        DB::Table('plans')->where('id',$id)->delete();
+        return redirect()->back()->with('success','Successfully Deleted');
+    });
+    Route::get('/view-coupons',function(){
+        
+        $coupons =  DB::Table('coupons')->orderby('id','desc')->get();
+  
+      
+          return view('home.view_coupons',compact('coupons'));
+      });
+  
+      Route::post('/view-coupons', '\App\Http\Controllers\HomeController@postAddCoupons')->name('/view-coupons');
 
  
 });

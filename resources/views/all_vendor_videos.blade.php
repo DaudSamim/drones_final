@@ -118,7 +118,7 @@
 
                     <div class="col-md-8 col-xs-12 single_main_header_products">
                         <div class="single--post--content">
-                            <h1 class="single-post-title"><h1>{{$vendor->first_name?? 'Admin'}} {{$vendor->last_name?? 'Contributor'}}</h1>
+                            <h1 class="single-post-title"><h1>{{$vendor->first_name?? 'Drone Stock'}} {{$vendor->last_name?? 'Clips'}}</h1>
                         </div>
                     </div>
 

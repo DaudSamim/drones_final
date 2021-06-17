@@ -273,8 +273,8 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Device Model</label>
-                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('device_model') ? 'is-invalid' : '' }}"  name="device_model"  aria-describedby="emailHelp" placeholder="Device Model">
+                                            <label for="exampleInputEmail1">Drone Model</label>
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('device_model') ? 'is-invalid' : '' }}"  name="device_model"  aria-describedby="emailHelp" placeholder="Drone Model">
                                         </div>
 
                                         <div class="form-group">

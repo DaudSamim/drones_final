@@ -1,3 +1,4 @@
+
 @extends('layout.app')
 
 @section('content')
@@ -26,9 +27,9 @@
             <div class="card">
                 <div class="card-body">
                     <button type="button" class="card-title btn btn-primary btn-sm float-right text-white" data-toggle="modal" data-target="#new_video">
-                        Add New Plan
+                        Add New Coupons
                     </button>
-                    <h6 class="card-title">Plans</h6>
+                    <h6 class="card-title">Coupons</h6>
 
                      <div class="table-responsive">
                         <table id="product_table" class="table table-bordered table-striped">
@@ -36,32 +37,29 @@
                             <tr>
 
                                 <th>Title</th>
-                                <th>price</th>
+                                <th>Discount</th>
                                 <!-- <th>File</th> -->
                                 
-                                <th>Actions</th>
-                                <th>Created At</th>
+                                <th>Description</th>
+                                <th>Code</th>
+                                <th>Expiry Date</th>
                                 
-
                             </tr>
                             </thead>
                             <tbody>
-                               
-                                        @foreach($plans as $plan)
+                               @foreach($coupons as $coupon)
                                         <tr>
-                                            <td>{{$plan->title}}</td>
-                                            <td>{{$plan->price}}</td>
-                                            <td>
-                                            <a href="{{'/add_plan/'.$plan->id}}"><button class="btn btn-warning">Edit</button></a>
-                                            <a href="{{'/delete_plan/'.$plan->id}}"><button class="btn btn-danger">Delete</button></a>
+                                            <td>{{$coupon->title}}</td>
+                                            <td>{{$coupon->discount}}</td>
+                                            <td>{{$coupon->description}}</td>
+                                            <td>{{$coupon->code}}</td>
+                                            <td>{{$coupon->expire_date}}</td>
                                             
-                                            </td>
-                                            <td>{{$plan->created_at}}</td>
 
                                             
 
                                         </tr>
-                                        @endforeach
+                                @endforeach
 
 
 
@@ -87,34 +85,35 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Add New Plan</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Add New Coupon</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
+                                
                                 <div class="modal-body" id="m-body">
                                     <span id="form_result"></span>
-                                    <form id="btn-submit" method="post" action="/add_plan" enctype='multipart/form-data'>
-                                    <div class="form-group">
-                                            <label for="exampleInputEmail1">Popular choice?</label>
-                                            <select class="form-select" aria-label="Default select example"id=""  name="popular">
-                                              <option selected  value="No">No</option>
-                                              <option value ="Yes"> Yes </option>      
-                                            </select>                                   
-                                    </div>
+                                    <form id="btn-submit" method="post" action="/view-coupons" enctype='multipart/form-data'>
+                                    
                                     <div class="form-group">
                                             <label for="exampleInputEmail1">Title</label>
-                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('name') ? 'is-invalid' : '' }}"  name="name"  aria-describedby="emailHelp" placeholder="Title">
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('title') ? 'is-invalid' : '' }}"  name="title"  aria-describedby="emailHelp" placeholder="Title">
                                     </div>
 
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Price</label>
-                                            <input style="width: 100% !important;;" type="number" class="form-control addName {{ $errors->has('price') ? 'is-invalid' : '' }}"  name="price"  aria-describedby="emailHelp" placeholder="Price">
+                                        <input class="form-check-input" type="hidden" name="today_date" value="">
+
+                                            <label for="exampleInputEmail1">Discount</label>
+                                            <input style="width: 100% !important;;" type="number" class="form-control addName {{ $errors->has('discount') ? 'is-invalid' : '' }}"  name="discount"  aria-describedby="emailHelp" placeholder="Discount">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Expiry Date</label>
+                                            <input style="width: 100% !important;;" type="date" class="form-control addName {{ $errors->has('date') ? 'is-invalid' : '' }}"  name="date"  aria-describedby="emailHelp" placeholder="date">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Features </label><br>
-                                            <small  style="color: red">Enter comma (,) seperated Features. </small>
-                                            <textarea name="features" class="form-control" placeholder="Enter comma seperated keywords" rows="4"></textarea>
+                                            <label for="exampleInputEmail1">Description </label><br>
+                                            <textarea name="description" class="form-control" placeholder="description" rows="4"></textarea>
                                         </div>
 
                                         <div class="modal-footer">
@@ -132,7 +131,6 @@
                             </div>
                         </div>
                     </div>
-                    
 
 
 <script>
