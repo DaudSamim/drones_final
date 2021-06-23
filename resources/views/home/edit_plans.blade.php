@@ -48,6 +48,22 @@
                                             <input style="width: 100% !important;;" type="number" class="form-control addName {{ $errors->has('price') ? 'is-invalid' : '' }}"  name="price"  aria-describedby="emailHelp" placeholder="Price" value="{{$plan->price}}">
                                         </div>
                                         <div class="form-group">
+                                            <label for="exampleInputEmail1">Download Limit</label>
+                                            <input style="width: 100% !important;;" type="number" class="form-control addName {{ $errors->has('download_limit') ? 'is-invalid' : '' }}"  name="download_limit"  aria-describedby="emailHelp" placeholder="Download Limit" value="{{$plan->download_limit}}">
+                                        </div>
+                                       
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Maximum Quality</label>
+                                            <select class="form-select" aria-label="Default select example"id=""  name="maximum_quality">
+                                              @foreach($qualities as $quality)
+                                              <option @if ($plan->maximum_quality == $quality->title) selected
+                                              @endif 
+                                              >{{$quality->title}}</option>
+                                              @endforeach
+                                            </select>   
+                                        </div>
+
+                                        <div class="form-group">
                                             <label for="exampleInputEmail1">Features </label><br>
                                             <small  style="color: red">Enter comma (,) seperated Features. </small>
                                             <textarea name="features" class="form-control" placeholder="Enter comma seperated keywords" rows="4"> {{json_decode($plan->features)}}</textarea>

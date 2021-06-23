@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-
+use DateTime;
+use DatePeriod;
+use DateInterval;
 use ProtoneMedia\LaravelFFMpeg;
 use ProtoneMedia\LaravelFFMpeg\Filters\WatermarkFactory;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -462,6 +464,35 @@ class HomeController extends Controller
         return redirect()->back()->with('success','Successfully Updated');
     }
 
+    public function Purchase($id){
+        $plan = DB:: table('plans')->where('id', $id)->first();
+        
+        DB::table('plan_purchases')->insert([
+
+            'user_id' => auth()->user()->id,
+            'plan_id' => $id,
+            'plan_price' => $plan->price, 
+        
+        ]);
+        
+        $limit= DB:: table('plans')->where('id', $id)->first();
+        $current_limit = DB:: table('users')->where('id', auth()->user()->id)->first();
+        
+        $date = new DateTime('today');
+        $interval = new DateInterval('P30D');
+        $date->add($interval);
+        echo $date->format("Y-m-d");
+        
+        DB::table('users')->where('id', auth()->user()->id)->update([
+            'recent_plan' => $limit->title,
+            'downloads_limit' => $current_limit->downloads_limit + $limit->download_limit,
+            'expiry_date' => $date,
+        ]);
+        
+        return redirect()->back();
+
+    }
+
 
     public function posteditVideos(Request $request){
  
@@ -573,8 +604,11 @@ class HomeController extends Controller
     public function view_plans()
     {
         $plans = DB::table('plans')->orderby('id','desc')->get();
+        $qualities = DB::table('qualities')->get();
+        return  view('home.view_plans',compact('plans', 'qualities'));
 
-        return  view('home.view_plans',compact('plans'));
+        
+
     }
 
 
@@ -584,6 +618,10 @@ class HomeController extends Controller
             'name' => 'required',
             'price' => 'required',
             'features' => 'required',
+            'download_limit' => 'required',
+            'maximum_quality' => 'required',
+
+
 
             
         ]);
@@ -593,7 +631,10 @@ class HomeController extends Controller
             'price' => $request->price,
             'features' => $request->features?json_encode($request->features):null,
             'popular' => $request->popular,
-            ]);
+            'download_limit' => $request->download_limit,
+            'maximum_quality' => $request->maximum_quality,
+
+        ]);
 
              return redirect()->back()->with('success','Successfully Added');
     }
@@ -603,6 +644,9 @@ class HomeController extends Controller
             'name' => 'required',
             'price' => 'required',
             'features' => 'required',
+            'download_limit' => 'required',
+            'maximum_quality' => 'required',
+
         ]);
 
 
@@ -611,6 +655,9 @@ class HomeController extends Controller
             'price' => $request->price,
             'features' => $request->features?json_encode($request->features):null,
             'popular' => $request->popular,
+            'download_limit' => $request->download_limit,
+            'maximum_quality' => $request->maximum_quality,
+
         ]);
 
         return redirect('/view-plans')->with('success','Successfully Updated');
@@ -621,7 +668,9 @@ class HomeController extends Controller
         if(!$plan){
             return redirect()->back();
         }
-        return view('home.edit_plans',compact('plan'));
+        $qualities = DB::table('qualities')->get();
+
+        return view('home.edit_plans',compact('plan', 'qualities'));
     }
 
     public function postAddCoupons(Request $request){
@@ -721,7 +770,28 @@ class HomeController extends Controller
         return view('sell_footage');
     }
 
+    public function plan_purchases($id){
+         
+        $purchases= DB::table('plan_purchases')->get();
+        $user= DB::table('users')->get();
+        $plan= DB::table('plans')->get();
+        return  view('home.plan_purchase',compact('plan', 'purchases', 'user'));
 
+      
+        DB::table('plan_purchases')->insert([
+            'id' => $request->id,
+            'user_id' => $request->user_id,
+            'plan_id' => $request->plan_id,
+            'plan_price' => $request->plan_price,
+            'created_at' => $request->created_at
 
+        ]);
+        }
 
+        public function purchased(){
+            return view('purchased');
+            
+        }
+
+    
 }

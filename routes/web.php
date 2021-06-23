@@ -267,5 +267,8 @@ Route::middleware('auth')->group(function ()
   
       Route::post('/view-coupons', '\App\Http\Controllers\HomeController@postAddCoupons')->name('/view-coupons');
 
- 
+      Route::get('/view-purchase', '\App\Http\Controllers\HomeController@plan_purchases');
+      Route::get('/purchase/{id}', '\App\Http\Controllers\HomeController@Purchase');
+      Route::get('/purchased', '\App\Http\Controllers\HomeController@purchased');
+
 });

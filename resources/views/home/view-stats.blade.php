@@ -9,17 +9,14 @@
     <div class="row justify-content-center">
         <div class="col-md-3 grid-margin stretch-card">
             <div class="card ">
-                <div class="card-body text-center">
+              <div  class="card-body text-center">
                 <br>
                 <h2><i class="fas fa-play"></i></h2>
                 <br><br>
-
+                
                    <h3>Videos</h3>
                    <br>
                    <h4>{{$count_videos}}</h4>
-
-              
-                   
 
                 </div>
             </div>

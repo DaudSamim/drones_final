@@ -34,15 +34,14 @@
                         <table id="product_table" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-
                                 <th>Title</th>
                                 <th>price</th>
-                                <!-- <th>File</th> -->
+                                <th>Download Limit</th>
+                                <th>Maximum Quality</th>
                                 
+                                <!-- <th>File</th> -->
                                 <th>Actions</th>
                                 <th>Created At</th>
-                                
-
                             </tr>
                             </thead>
                             <tbody>
@@ -51,6 +50,8 @@
                                         <tr>
                                             <td>{{$plan->title}}</td>
                                             <td>{{$plan->price}}</td>
+                                            <td>{{$plan->download_limit}}</td>
+                                            <td>{{$plan->maximum_quality}}</td>
                                             <td>
                                             <a href="{{'/add_plan/'.$plan->id}}"><button class="btn btn-warning">Edit</button></a>
                                             <a href="{{'/delete_plan/'.$plan->id}}"><button class="btn btn-danger">Delete</button></a>
@@ -83,6 +84,7 @@
     </div>
 
                  <!-- Modal -->
+               
                     <div id="new_video" class="modal fade" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -111,6 +113,22 @@
                                             <label for="exampleInputEmail1">Price</label>
                                             <input style="width: 100% !important;;" type="number" class="form-control addName {{ $errors->has('price') ? 'is-invalid' : '' }}"  name="price"  aria-describedby="emailHelp" placeholder="Price">
                                         </div>
+                                       
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Download Limit</label>
+                                            <input style="width: 100% !important;;" type="number" class="form-control addName {{ $errors->has('download_limit') ? 'is-invalid' : '' }}"  name="download_limit"  aria-describedby="emailHelp" placeholder="Download Limit">
+                                        </div>
+                     
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Maximum Quality</label>
+                                            <select class="form-select" aria-label="Default select example"id=""  name="maximum_quality">
+                                              @foreach($qualities as $quality)
+                                              <option value="{{$quality->title}}" >{{$quality->title}}</option>
+                                              @endforeach
+                                            </select>   
+                                        </div>
+                                       
+
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Features </label><br>
                                             <small  style="color: red">Enter comma (,) seperated Features. </small>

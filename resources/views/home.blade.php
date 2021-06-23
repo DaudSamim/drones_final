@@ -6,147 +6,139 @@
 <div class="mayosis-container" style="background:#ffffff">
 <div data-elementor-type="wp-post" data-elementor-id="24" class="elementor elementor-24"
    data-elementor-settings="[]">
-<div class="elementor-inner">
-   <div class="elementor-section-wrap">
-      <section 
-         class="elementor-section elementor-top-section elementor-element elementor-element-16adda4 custom-bg-color elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-         data-id="16adda4" data-element_type="section"
-         >
-         <div class="elementor-background-video-container">
-            <div data-video="69yA-F7yOiQ" class="header__video js-background-video">
-               <div class="header__background">
-                  <div id="yt-player"></div>
+   <div class="elementor-inner">
+      <div class="elementor-section-wrap">
+         <section 
+            class="elementor-section elementor-top-section elementor-element elementor-element-16adda4 custom-bg-color elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+            data-id="16adda4" data-element_type="section"
+            >
+            <div class="elementor-background-video-container">
+               <div data-video="69yA-F7yOiQ" class="header__video js-background-video">
+                  <div class="header__background">
+                     <div id="yt-player"></div>
+                  </div>
+               </div>
+               <div class="header__video-overlay js-video-overlay" style="background-image: url('https://img.youtube.com/vi/69yA-F7yOiQ/maxresdefault.jpg');"></div>
+            </div>
+            <div class="elementor-background-overlay"></div>
+            <div class="elementor-container elementor-column-gap-default">
+               <div class="elementor-row">
+                  <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-1c44438"
+                     data-id="1c44438" data-element_type="column">
+                     <div class="elementor-column-wrap elementor-element-populated">
+                        <div class="elementor-widget-wrap">
+                           <div class="elementor-element elementor-element-7da0020 elementor-widget elementor-widget-mayosis-theme-hero"
+                              data-id="7da0020" data-element_type="widget"
+                              data-widget_type="mayosis-theme-hero.default">
+                              <div class="elementor-widget-container">
+                                 <!-- Element Code start -->
+                                 <div
+                                    class="col-md-12  col-xs-12 col-sm-12 mayosis_theme_hero_box">
+                                    <h1 class="hero-title">THE BEST AERIAL VIDEOS SHARED BY
+                                       TALLENTED CREATORS
+                                       <span class="mhero_counter_main">
+                                       </span>
+                                    </h1>
+                                    <div class="hero-description"></div>
+                                 </div>
+                                 <div class="clearfix"></div>
+                              </div>
+                           </div>
+                           <div class="elementor-element elementor-element-32e332b elementor-widget elementor-widget-mayosis-search"
+                              data-id="32e332b" data-element_type="widget"
+                              data-widget_type="mayosis-search.default">
+                              <div class="elementor-widget-container">
+                                 <!-- Element Code start -->
+                                 <div class="product-search-form style1">
+                                    <form method="post" action="/search">
+                                       @csrf
+                                       <div class="search-fields">
+                                          <input name="keyword" value="" type="text"
+                                             placeholder="Search Now">
+                                          <span class="search-btn"><input value=""
+                                             type="button"></span>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
-            <div class="header__video-overlay js-video-overlay" style="background-image: url('https://img.youtube.com/vi/69yA-F7yOiQ/maxresdefault.jpg');"></div>
-         </div>
-         <div class="elementor-background-overlay"></div>
-         <div class="elementor-container elementor-column-gap-default">
-            <div class="elementor-row">
-               <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-1c44438"
-                  data-id="1c44438" data-element_type="column">
-                  <div class="elementor-column-wrap elementor-element-populated">
-                     <div class="elementor-widget-wrap">
-                        <div class="elementor-element elementor-element-7da0020 elementor-widget elementor-widget-mayosis-theme-hero"
-                           data-id="7da0020" data-element_type="widget"
-                           data-widget_type="mayosis-theme-hero.default">
-                           <div class="elementor-widget-container">
-                              <!-- Element Code start -->
-                              <div
-                                 class="col-md-12  col-xs-12 col-sm-12 mayosis_theme_hero_box">
-                                 <h1 class="hero-title">THE BEST AERIAL VIDEOS SHARED BY
-                                    TALLENTED CREATORS
-                                    <span class="mhero_counter_main">
-                                    </span>
+         </section>
+         <section data-particle_enable="false" data-particle-mobile-disabled="false"
+            class="elementor-section elementor-top-section elementor-element elementor-element-85b239a elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+            data-id="85b239a" data-element_type="section"
+            data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+            <div class="elementor-container elementor-column-gap-default">
+               <div class="elementor-row">
+                  <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-899d6e0"
+                     data-id="899d6e0" data-element_type="column">
+                     <div class="elementor-column-wrap elementor-element-populated">
+                        <div class="elementor-widget-wrap">
+                           <div class="elementor-element elementor-element-0dc32e0 elementor-widget elementor-widget-heading"
+                              data-id="0dc32e0" data-element_type="widget"
+                              data-widget_type="heading.default">
+                              <div class="elementor-widget-container">
+                                 <h1 class="elementor-heading-title elementor-size-default">OUR
+                                    CATEGORIES
                                  </h1>
-                                 <div class="hero-description"></div>
                               </div>
-                              <div class="clearfix"></div>
                            </div>
                         </div>
-                        <div class="elementor-element elementor-element-32e332b elementor-widget elementor-widget-mayosis-search"
-                           data-id="32e332b" data-element_type="widget"
-                           data-widget_type="mayosis-search.default">
-                           <div class="elementor-widget-container">
-                              <!-- Element Code start -->
-                              <div class="product-search-form style1">
-                                 <form method="post" action="/search">
-                                    @csrf
-                                    <div class="search-fields">
-                                       <input name="keyword" value="" type="text"
-                                          placeholder="Search Now">
-                                       <span class="search-btn"><input value=""
-                                          type="button"></span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section data-particle_enable="false" data-particle-mobile-disabled="false"
+            class="elementor-section elementor-top-section elementor-element elementor-element-dcd2318 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+            data-id="dcd2318" data-element_type="section"
+            data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+            <div class="elementor-container elementor-column-gap-default">
+               <div class="elementor-row ">
+                  @if(isset($categories))
+                  <div class="owl-carousel owl-theme">
+                     @foreach($categories as $category)
+                     <div class="item" style="width:500%!important">
+                        <div class="elementor-column elementor-col-16 elementor-top-column elementor-element elementor-element-a2025a3 "
+                           data-id="a2025a3" data-element_type="column">
+                           <div class="elementor-column-wrap elementor-element-populated ">
+                              <div class="elementor-widget-wrap ">
+                                 <div class="elementor-element elementor-element-3e50a25 elementor-widget elementor-widget-image "
+                                    data-id="3e50a25" data-element_type="widget"
+                                    data-widget_type="image.default">
+                                    <div class="elementor-widget-container ">
+                                       <div class="elementor-image">
+                                          <a href="{{'/category_'.$category->title}}">
+                                          <img style="max-width: 100%;height: 150px"
+                                             src="{{'images/'.$category->image}}"
+                                             class="attachment-large size-large" alt=""
+                                             loading="lazy"
+                                             /> </a>
+                                       </div>
                                     </div>
-                                 </form>
+                                 </div>
+                                 <div class="elementor-element elementor-element-50b210f elementor-widget elementor-widget-heading"
+                                    data-id="50b210f" data-element_type="widget"
+                                    data-widget_type="heading.default">
+                                    <div class="elementor-widget-container">
+                                       <h1 class="elementor-heading-title elementor-size-default"><a
+                                          href="{{'/category_'.$category->title}}">{{$category->title}}</a></h1>
+                                    </div>
+                                 </div>
                               </div>
                            </div>
                         </div>
                      </div>
+                     @endforeach
+                     @endif
                   </div>
                </div>
             </div>
-         </div>
-      </section>
-      <section data-particle_enable="false" data-particle-mobile-disabled="false"
-         class="elementor-section elementor-top-section elementor-element elementor-element-85b239a elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-         data-id="85b239a" data-element_type="section"
-         data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-         <div class="elementor-container elementor-column-gap-default">
-            <div class="elementor-row">
-               <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-899d6e0"
-                  data-id="899d6e0" data-element_type="column">
-                  <div class="elementor-column-wrap elementor-element-populated">
-                     <div class="elementor-widget-wrap">
-                        <div class="elementor-element elementor-element-0dc32e0 elementor-widget elementor-widget-heading"
-                           data-id="0dc32e0" data-element_type="widget"
-                           data-widget_type="heading.default">
-                           <div class="elementor-widget-container">
-                              <h1 class="elementor-heading-title elementor-size-default">OUR
-                                 CATEGORIES
-                              </h1>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <section data-particle_enable="false" data-particle-mobile-disabled="false"
-         class="elementor-section elementor-top-section elementor-element elementor-element-dcd2318 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-         data-id="dcd2318" data-element_type="section"
-         data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-         <div class="elementor-container elementor-column-gap-default">
-         
-
-            <div class="elementor-row ">
-            
-               @if(isset($categories))
-               <div class="owl-carousel owl-theme">
-               @foreach($categories as $category)
-               <div class="item" style="width:500%!important">
-
-               <div class="elementor-column elementor-col-16 elementor-top-column elementor-element elementor-element-a2025a3 "
-                  data-id="a2025a3" data-element_type="column">
-                  <div class="elementor-column-wrap elementor-element-populated ">
-                     <div class="elementor-widget-wrap ">
-
-                        <div class="elementor-element elementor-element-3e50a25 elementor-widget elementor-widget-image "
-                           data-id="3e50a25" data-element_type="widget"
-                           data-widget_type="image.default">
-                           <div class="elementor-widget-container ">
-                              <div class="elementor-image">
-                                 <a href="{{'/category_'.$category->title}}">
-                                 <img style="max-width: 100%;height: 150px"
-                                    src="{{'images/'.$category->image}}"
-                                    class="attachment-large size-large" alt=""
-                                    loading="lazy"
-                                    /> </a>
-                              </div>
-                           </div>
-                        </div>
-                        
-                        <div class="elementor-element elementor-element-50b210f elementor-widget elementor-widget-heading"
-                           data-id="50b210f" data-element_type="widget"
-                           data-widget_type="heading.default">
-                           <div class="elementor-widget-container">
-                              <h1 class="elementor-heading-title elementor-size-default"><a
-                                 href="{{'/category_'.$category->title}}">{{$category->title}}</a></h1>
-                           </div>
-                        </div>
-                        
-                     </div>
-                  </div>
-               </div>
-               </div>
-               @endforeach
-               @endif
-            
-            </div>
-            </div>
-         </div>
-         </div>
+      </div>
       </section>
       <section data-particle_enable="false" data-particle-mobile-disabled="false"
          class="elementor-section elementor-top-section elementor-element elementor-element-e26d8b3 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
@@ -612,7 +604,7 @@
       @endif   
       </ul>
       </div>
-      <a href="#"
+      <a href="purchase/{{$plan->id}}"
          class="btn_blue_pricing btn"
          style="background:#ff2341;border-color:#ffffff;color:#ffffff;">Purchase</a>
       </div>
@@ -662,7 +654,7 @@
       @endif   
       </ul>
       </div>
-      <a href="#"
+      <a href="purchase/{{$plan->id}}"
          class="btn_blue_pricing btn"
          style="background:rgba(255,35,65,0);border-color:rgba(29,49,79,0.44);color:#1d314f;">Purchase</a>
       </div>
@@ -969,84 +961,60 @@
             <h2 class="font-weight-bold" style="color:#6EC1E4">
             WE'RE FOCUSED</h1>
             <p class="pt-2" style="line-height:2.2">We are one of the very first <strong>DRONE ONLY WEBSITE</strong> on the planet and plan on being the name in this space. We are completely focused on this and aren’t distracted by other types of footage
-or media (audio, illustrations, etc.). search for and download aerial stock videos instantly 24 hours a day.
-
- </p>
+               or media (audio, illustrations, etc.). search for and download aerial stock videos instantly 24 hours a day.
+            </p>
          </div>
          <div class="row pt-2 text-center">
             <h2 class="font-weight-bold" style="color:#6EC1E4">
             SELL WITH DRONE STOCK CLIPS</h1>
             <p  class="pt-2" style="line-height:2.2;">We’re always looking for somebody special to join our team.Our team is super awesome. But we want it to be more awesome.
-We are always on the lookout for highly creative and skilled filmmakers and content creators who are able to produce great quality and unique content.
-If you are interested to partner with us, please sign up and start uploading
- </p>
+               We are always on the lookout for highly creative and skilled filmmakers and content creators who are able to produce great quality and unique content.
+               If you are interested to partner with us, please sign up and start uploading
+            </p>
          </div>
-        <p class="pb-3" style= border-bottom: 1px solid black>     </p>
-
-        <div class="row pt-2 text-center">
+         <p class="pb-3" style= border-bottom: 1px solid black>     </p>
+         <div class="row pt-2 text-center">
             <h2 class="font-weight-bold" style="color:#6EC1E4"; >
             JOIN OUR TEAM</h1>
-
             <div class="elementor-element elementor-element-da039cc elementor-widget elementor-widget-mayosis-edd-register" data-id="da039cc" data-element_type="widget" data-widget_type="mayosis-edd-register.default">
-				<div class="elementor-widget-container">
-			
-
-<div class="mayosis-modern-login mb-2">
-  	<div class="row main_login_form">
-    	<div class="login_form_dm" style="background-color:#6ec1e4; padding:3%">
-	         <form id="edd_register_form" class="edd_form" action="/register_vendor" method="post">
-               @csrf
-	
-	<fieldset>
-
-		<p class="edd_registration_username">
-         <input id="edd-user-login" class="required edd-input" type="text" name="first_name" placeholder="First Name"/>
-      </p>
-
-      <p class="edd_registration_username">
-         <input id="edd-user-login" class="required edd-input" type="text" name="last_name" placeholder="Last name"/>
-      </p>
-
-		<p class="edd_registration_username">
-			<input id="edd-user-login" class="required edd-input" type="text" name="username" placeholder="Username"/>
-		</p>
-
-		<p class="edd_registration_email">
-		
-			<input id="edd-user-email" class="required edd-input" type="email" name="email" placeholder="Email" />
-		</p>
-
-		<p class="edd_registration_password">
-		
-			<input id="edd-user-pass" class="password required edd-input" style="padding: 1%; width: 100%;margin-bottom: 1%"  type="password" name="password" placeholder="Password" />
-		</p>
-
-      <p class="edd_registration_username">
-         <input id="edd-user-login" class="required edd-input" type="text" name="display_name" placeholder="Display Name"/>
-      </p>
-
-
-		
-		<p>
-			<input type="hidden" name="edd_honeypot" value="" />
-			<input type="hidden" name="edd_action" value="user_register" />
-			<input type="hidden" name="edd_redirect" value="https://africandronestock.com/checkout-2/purchase-history/"/>
-			<input class="button dm_register_button" style="width: 100%; padding: 1%;" name="edd_register_submit" type="submit" value="Register" />
-		</p>
-
-			</fieldset>
-
-	</form>
-		</div>
-		
-</div>
-                                        
-                      </div>
-
-
-
-      		</div>
-				</div>
+               <div class="elementor-widget-container">
+                  <div class="mayosis-modern-login mb-2">
+                     <div class="row main_login_form">
+                        <div class="login_form_dm" style="background-color:#6ec1e4; padding:3%">
+                           <form id="edd_register_form" class="edd_form" action="/register_vendor" method="post">
+                              @csrf
+                              <fieldset>
+                                 <p class="edd_registration_username">
+                                    <input id="edd-user-login" class="required edd-input" type="text" name="first_name" placeholder="First Name"/>
+                                 </p>
+                                 <p class="edd_registration_username">
+                                    <input id="edd-user-login" class="required edd-input" type="text" name="last_name" placeholder="Last name"/>
+                                 </p>
+                                 <p class="edd_registration_username">
+                                    <input id="edd-user-login" class="required edd-input" type="text" name="username" placeholder="Username"/>
+                                 </p>
+                                 <p class="edd_registration_email">
+                                    <input id="edd-user-email" class="required edd-input" type="email" name="email" placeholder="Email" />
+                                 </p>
+                                 <p class="edd_registration_password">
+                                    <input id="edd-user-pass" class="password required edd-input" style="padding: 1%; width: 100%;margin-bottom: 1%"  type="password" name="password" placeholder="Password" />
+                                 </p>
+                                 <p class="edd_registration_username">
+                                    <input id="edd-user-login" class="required edd-input" type="text" name="display_name" placeholder="Display Name"/>
+                                 </p>
+                                 <p>
+                                    <input type="hidden" name="edd_honeypot" value="" />
+                                    <input type="hidden" name="edd_action" value="user_register" />
+                                    <input type="hidden" name="edd_redirect" value="https://africandronestock.com/checkout-2/purchase-history/"/>
+                                    <input class="button dm_register_button" style="width: 100%; padding: 1%;" name="edd_register_submit" type="submit" value="Register" />
+                                 </p>
+                              </fieldset>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
       @include('footer')
@@ -1056,7 +1024,6 @@ If you are interested to partner with us, please sign up and start uploading
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 <script>
    // YouTube Player API for header BG video
    
@@ -1168,25 +1135,25 @@ If you are interested to partner with us, please sign up and start uploading
    
 </script>
 <script>
-$('.owl-carousel').owlCarousel({
-    loop:true,
-    margin:10,
-    nav:true,
-    dots:false,
-    
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:3
-        },
-        1000:{
-            items:5
-            
-        }
-    }
-})
+   $('.owl-carousel').owlCarousel({
+       loop:true,
+       margin:10,
+       nav:true,
+       dots:false,
+       
+       responsive:{
+           0:{
+               items:1
+           },
+           600:{
+               items:3
+           },
+           1000:{
+               items:5
+               
+           }
+       }
+   })
 </script>
 </body>
 <!-- End Main Layout -->

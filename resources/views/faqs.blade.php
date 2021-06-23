@@ -78,7 +78,7 @@
       <div class="container">
       <div class="row justify-content-center mb-5">
       <div class="col-md-7 text-center border-primary">
-      <h2 class="font-weight-light text-primary">Frequently Ask Question</h2>
+      <h2 class="font-weight-light text-primary ">Frequently Ask Question</h2>
       
       </div>
       </div>

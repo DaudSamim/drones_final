@@ -64,7 +64,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'username' => $request->username,
                 'password' => bcrypt($request->password),
-                'role' => '3',
+                'role' => '3',  
             ]);
 
              return redirect('/login')->with('success','Successfully Registered');
