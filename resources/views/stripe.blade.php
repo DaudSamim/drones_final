@@ -56,7 +56,7 @@
 </style>
 <div class="site-wrap">
    @include('header_for_single_page')
-   <div class=" overlay" style="background-image: url(images/contact.jpg);height:50%!important" data-aos="fade" data-stellar-background-ratio="0.5">
+   <div class=" overlay" style="background-image: url(images/contact.jpg);height:50%!important" data-aos="fade" >
       <div class="container" style="height: 380px">
          <!-- <iframe width="100%" height="auto" src="https://www.youtube.com/embed/ZBZxQV6JDFI?autoplay=1&muted=1&loop=1&controls=0&rel=0&hd=1&playlist=ZBZxQV6JDFI&showinfo=0&fs=0" title="YouTube video player" frameborder="0"></iframe> -->
          <div class="row align-items-center justify-content-center text-center">
@@ -115,12 +115,14 @@
                     @endif
                    
   
-                    <form role="form" action="/stripe" method="post" class="require-validation"
+                    <form role="form" @if(isset($plan_id)) action="/stripe_plan" @else action="/stripe" @endif method="post" class="require-validation"
                                                      data-cc-on-file="false"
                                                     data-stripe-publishable-key="pk_test_51H2omrEBrijIcOQ027RdCxqbHjgHG7kQgdEmhrX8A9N9TzO8uqOzup9mf10Q2d9Hid3qMo87UOfymhfPoceLTS5F00oXrc9IhR"
                                                     id="payment-form">
                         @csrf
-  
+                        @if(isset($plan_id))
+                          <input name="plan_id" value="{{$plan_id}}" type="hidden">
+                        @endif
                         <div class='form-row row'>
                             <div class='col-xs-12 form-group required'>
                                 <label class='control-label'>Name on Card</label> <input

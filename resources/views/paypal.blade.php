@@ -56,7 +56,7 @@
 </style>
 <div class="site-wrap">
    @include('header_for_single_page')
-   <div class=" overlay" style="background-image: url(images/contact.jpg);height:50%!important" data-aos="fade" data-stellar-background-ratio="0.5">
+   <div class=" overlay" style="background-image: url(images/contact.jpg);height:50%!important" data-aos="fade" >
       <div class="container" style="height: 380px">
          <!-- <iframe width="100%" height="auto" src="https://www.youtube.com/embed/ZBZxQV6JDFI?autoplay=1&muted=1&loop=1&controls=0&rel=0&hd=1&playlist=ZBZxQV6JDFI&showinfo=0&fs=0" title="YouTube video player" frameborder="0"></iframe> -->
          <div class="row align-items-center justify-content-center text-center">
@@ -94,7 +94,7 @@
                             <div id="paypal-button-container" ></div>
                             </div>
                             <!-- Include the PayPal JavaScript SDK -->
-                            <script src="https://www.paypal.com/sdk/js?client-id=AbxrINd1yoSX8akx6OCv2lmihQSIZBunFBgbM1rp8tlrDxdLNhEezeipZ7EeIT47dfkoCcTCGc3uxWM9"></script>
+                            <script src="https://www.paypal.com/sdk/js?client-id=AVPdMEqNHIS6gl7AeYaCTiJeFU1TosfLLz-OW4XqvWmub7uoE0SN4bMWTWOYrJ3hvbPHlbn3uP3FqEEx"></script>
                             <script>
                             var total = document.getElementById('total').value;
                                 // Render the PayPal button into #paypal-button-container
@@ -115,15 +115,10 @@
                                     // Finalize the transaction
                                     onApprove: function(data, actions) {
                                         return actions.order.capture().then(function(details) {
-                                            // Show a success message to the buyer
-                                            // alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                                           
                                             var total = document.getElementById('total').value;
                                            
-                                            var url = 'checkout1'+total;
-                                            // console.log(url);
-                                            // url = url.replace(':price', total);
-                                            //console.log(url);
-                                            
+                                            var url = 'paypal_'+total;                                           
                                             window.location.href=url;
                                            
                                         });

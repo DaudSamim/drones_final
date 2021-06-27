@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Stripe;
+use DateTime;
+use DatePeriod;
+use DateInterval;
 
 
 class CartController extends Controller
@@ -51,6 +54,12 @@ class CartController extends Controller
 		return view('paypal',compact('amount'));
 	}
 
+	public function postPaypal($amount){
+		dd($amount);
+		$amount = DB::table('carts')->where('user_id',auth()->user()->id)->get()->sum('price');
+		return view('paypal',compact('amount'));
+	}
+
 	public function getStripe(){
 		$amount = 0;
 		$variables = DB::table('carts')->where('user_id',auth()->user()->id)->get();
@@ -67,6 +76,16 @@ class CartController extends Controller
 		return view('stripe',compact('amount'));
 	}
 
+	public function getStripePlan($id){
+		
+		$amount = DB::table('plans')->where('id',$id)->pluck('price')->first();
+		if($amount < 1){
+			return redirect()->back();
+		}
+		$plan_id = $id;
+		return view('stripe',compact('amount','plan_id'));
+	}
+
 	public function postStripe(Request $request){
 		$total_amount = null;
 		
@@ -81,7 +100,7 @@ class CartController extends Controller
                         "description" => "Test payment." 
                 ) );
 
-               
+                
             } catch ( \Exception $e ) {
                 
                 return redirect()->back();
@@ -131,6 +150,54 @@ class CartController extends Controller
 			 
 
             DB::table('carts')->where('user_id',auth()->user()->id)->delete();
+
+           
+            return redirect('/view-purchases')->with('message','Order Placed');
+	}
+
+	public function postStripePlan(Request $request){
+		$total_amount = null;
+		
+		\Stripe\Stripe::setApiKey ( 'sk_test_51H2omrEBrijIcOQ0FrcrRTJ0oFUOuaBvrr8r54VHpukmRzwHQ8HVDxGgMzp2ktmGY9SPzT9Bf0mp4SkuHCW1o9ZP00DHfHaVxj' );
+
+            $amount = $request->amount * 100;
+            try {
+                \Stripe\Charge::create ( array (
+                        "amount" => $amount,
+                        "currency" => "usd",
+                        "source" => $request->input( 'stripeToken' ), // obtained with Stripe.js
+                        "description" => "Test payment." 
+                ) );
+
+               
+            } catch ( \Exception $e ) {
+                
+                return redirect()->back();
+            }
+            
+            $id = $request->plan_id;
+          	$plan = DB:: table('plans')->where('id', $id)->first();
+        
+	        DB::table('plan_purchases')->insert([
+	            'user_id' => auth()->user()->id,
+	            'plan_id' => $id,
+	            'plan_price' => $plan->price, 
+	        
+	        ]);
+	        
+	        $limit = DB:: table('plans')->where('id', $id)->first();
+	        $current_limit = DB:: table('users')->where('id', auth()->user()->id)->first();
+	        
+	        $date = new DateTime('today');
+	        $interval = new DateInterval('P30D');
+	        $date->add($interval);
+	        echo $date->format("Y-m-d");
+	        
+	        DB::table('users')->where('id', auth()->user()->id)->update([
+	            'recent_plan' => $limit->title,
+	            'downloads_limit' => $current_limit->downloads_limit + $limit->download_limit,
+	            'expiry_date' => $date,
+	        ]);
 
            
             return redirect('/view-purchases')->with('message','Order Placed');

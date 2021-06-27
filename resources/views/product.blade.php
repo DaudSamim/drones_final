@@ -485,7 +485,7 @@
                             @if(isset($keywords))    
                            
                             @foreach($keywords as $word)    
-                            <a href="#"><span class="btn btn-default tag-link-button">{{$word}}
+                            <a href="/search_{{$word}}"><span class="btn btn-default tag-link-button">{{$word}}
                                 </span></a>
                             @endforeach
                             @else

@@ -42,9 +42,10 @@ class HomeController extends Controller
                         $count_plans = count($plans);
                         $count_vendors = count($vendors);
                         $count_subs = count($subs);
+                        $count_users = DB::table('users')->where('email','!=','admin@admin.com')->count();
 
 
-      return view('home.view-stats',compact('count_videos','count_subs','count_vendors','count_categories','count_purchases','count_plans'));
+      return view('home.view-stats',compact('count_videos','count_subs','count_vendors','count_categories','count_purchases','count_plans','count_users'));
     }
 
     public function search(Request $request){
@@ -468,14 +469,13 @@ class HomeController extends Controller
         $plan = DB:: table('plans')->where('id', $id)->first();
         
         DB::table('plan_purchases')->insert([
-
             'user_id' => auth()->user()->id,
             'plan_id' => $id,
             'plan_price' => $plan->price, 
         
         ]);
         
-        $limit= DB:: table('plans')->where('id', $id)->first();
+        $limit = DB:: table('plans')->where('id', $id)->first();
         $current_limit = DB:: table('users')->where('id', auth()->user()->id)->first();
         
         $date = new DateTime('today');

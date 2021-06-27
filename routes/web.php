@@ -25,8 +25,9 @@ Route::get('/',function(){
     $categories_search = DB::table('categories')->get();
     $videos = DB::table('videos')->where('status',1)->orderBy('id','desc')->limit(6)->get();
     $plans = DB::table('plans')->orderby('id','desc')->limit(3)->get();
-   
-    return view('home',compact('categories','categories_search','videos','plans'));
+    $keywords = DB::table('videos')->orderByRaw("RAND()")->where('keywords','!=',null)->limit(25)->get()->pluck('keywords');
+    // dd($keywords);
+    return view('home',compact('categories','categories_search','videos','plans','keywords'));
 });
 
 Route::get('product_{id}',function(Request $request,$id){
@@ -94,7 +95,16 @@ Route::post('subscribe',function(Request $request){
     DB::table('subscriptions')->insert([
         'email' => $request->email
     ]);
-    return redirect()->back();
+
+    return redirect()->back()->with('subscribe','yes');
+});
+
+Route::get('plan_details_{id}',function($id){
+    $plan = DB::table('plans')->where('id',$id)->first();
+    if(!$plan){
+        return redirect()->back();
+    }
+    return view('plan_details',compact('plan'));
 });
 
 Route::get('contact_us',function(){
@@ -131,10 +141,6 @@ Route::get('contributor',function(){
     return view('vendor_dashboard');
 });
 
-Route::get('paypal',function(){
-    return view('asd');
-});
-
 Route::get('sell_footage','\App\Http\Controllers\HomeController@sellFootage');
 
 Route::post('/payment/add-funds/paypal','\App\Http\Controllers\PaymentController@payWithpaypal');
@@ -164,8 +170,17 @@ Route::get('/previous_category_{id}',function($id){
 
 Route::get('approve_video/{id}','\App\Http\Controllers\HomeController@approveVideo');
 Route::post('reject_video','\App\Http\Controllers\HomeController@rejectVideo');
-Route::get('search',function(){
-    return redirect('/');
+Route::get('/search_{keyword}',function($keyword){
+
+       $videos = DB::Table('videos')->where('title', 'like', '%' . $keyword . '%')->orWhere('keywords', 'like', '%' . $keyword . '%')->get();
+      
+      foreach ($videos as $key => $value) {
+          if($value->status != 1){
+            unset($videos[$key]);
+          }
+      }
+
+       return view('search_results',compact('videos','keyword'));
 });
 Route::post('/search','\App\Http\Controllers\HomeController@search');
 
@@ -222,9 +237,14 @@ Route::middleware('auth')->group(function ()
     Route::post('/checkout', '\App\Http\Controllers\HomeController@postCheckout')->name('/checkout');
     Route::get('checkout','\App\Http\Controllers\CartController@getCheckout');
     Route::get('paypal','\App\Http\Controllers\CartController@getPaypal');
+    Route::get('paypal_{amount}','\App\Http\Controllers\CartController@postPaypal');
     Route::get('stripe','\App\Http\Controllers\CartController@getStripe');
     Route::post('stripe','\App\Http\Controllers\CartController@postStripe');
     Route::get('remove_cart_item/{id}','\App\Http\Controllers\CartController@removeItem');
+
+    // Plan Purchase
+    Route::get('stripe_plan_{id}','\App\Http\Controllers\CartController@getStripePlan');
+    Route::post('stripe_plan','\App\Http\Controllers\CartController@postStripePlan');
 
 
     

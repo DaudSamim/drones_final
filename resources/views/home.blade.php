@@ -238,6 +238,11 @@
                   </div>
                </div>
       </section>
+      @if(Session::has('subscribe'))
+      <script>
+         alert('You have successfully Subscribed');
+      </script>
+      @endif
       <section data-particle_enable="false" data-particle-mobile-disabled="false"
          class="elementor-section elementor-top-section elementor-element elementor-element-f0bf11b elementor-section-boxed elementor-section-height-default elementor-section-height-default"
          data-id="f0bf11b" data-element_type="section">
@@ -270,7 +275,7 @@
       <ul></ul>
       </div>
       <form
-         action="https://africandronestock.com/#wpcf7-f83-p24-o1"
+         action="/subscribe"
          method="post" class="wpcf7-form init"
          novalidate="novalidate" data-status="init">
       <div style="display: none;">
@@ -286,10 +291,11 @@
       <input type="hidden"
          name="_wpcf7_posted_data_hash" value="" />
       </div>
+      @csrf
       <div
          class="input-group subscribe_form_dm solid-input">
       <span
-         class="wpcf7-form-control-wrap email"><input
+         class="wpcf7-form-control-wrap email" style="width:80%"><input
          type="email" name="email" value=""
          size="40"
          class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-email form-control email-attach-mayo"
@@ -485,42 +491,17 @@
       <h2 class="section-title">Search With Tags </h2>
       <div class="search-term-style-five tag_widget_single">
       <ul>
-      <li><a href="#"
-         rel="nofollow">1080</a><a
-         href="#"
-         rel="nofollow">drone view</a><a
-         href="#"
-         rel="nofollow">h</a><a
-         href="#"
-         rel="nofollow">aerials</a><a
-         href="#"
-         rel="nofollow">a flock of birds flying over
-      a pond with beautiful cityscape aerial, uk
-      london-</a><a
-         href="#"
-         rel="nofollow">drone descends revealing
-      straight city pathway</a><a
-         href="#"
-         rel="nofollow">bird eye view of car
-      park</a><a
-         href="#"
-         rel="nofollow">drone videos</a><a
-         href="#"
-         rel="nofollow">videos</a><a
-         href="#"
-         rel="nofollow">dronevideos</a><a
-         href="#"
-         rel="nofollow">high angle view</a><a
-         href="#"
-         rel="nofollow">top down reveal city
-      aerial</a><a
-         href="#"
-         rel="nofollow">african girl</a><a
-         href="#"
-         rel="nofollow">nature</a><a
-         href="#"
-         rel="nofollow">flying forward over birds
-      swimming in the pond</a></li>
+      <li>
+      @foreach($keywords as $row)
+      @php
+      $row = json_decode($row);
+      $arr = explode(",", $row);
+      $row = $arr[0];
+      @endphp
+      <a href="/search_{{$row}}"
+         rel="nofollow">{{$row}}</a>
+      @endforeach
+      </li>
       </ul>
       </div>
       </div>
@@ -604,7 +585,7 @@
       @endif   
       </ul>
       </div>
-      <a href="purchase/{{$plan->id}}"
+      <a href="plan_details_{{$plan->id}}"
          class="btn_blue_pricing btn"
          style="background:#ff2341;border-color:#ffffff;color:#ffffff;">Purchase</a>
       </div>
@@ -654,7 +635,7 @@
       @endif   
       </ul>
       </div>
-      <a href="purchase/{{$plan->id}}"
+      <a href="plan_details_{{$plan->id}}"
          class="btn_blue_pricing btn"
          style="background:rgba(255,35,65,0);border-color:rgba(29,49,79,0.44);color:#1d314f;">Purchase</a>
       </div>
