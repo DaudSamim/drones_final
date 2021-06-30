@@ -792,6 +792,57 @@ class HomeController extends Controller
             return view('purchased');
             
         }
+        public function plans_purchased(){
 
+            $plans = DB::table('plan_purchases')->where('user_id',auth()->user()->id)->get();
+            return view('home.plans_purchased',compact('plans'));   
+        }
+
+
+        public function free_payment(){
+            $amount = 0;
+
+            $order_data = DB::table('carts')->where('user_id',auth()->user()->id)->get();
+			
+            DB::table('orders')->insert([
+            	'user_id' => auth()->user()->id,
+            	'order_data' => serialize($order_data),
+            	'price' => $amount,
+             ]);
+            
+			 $orders = DB::table('carts')->get();
+			 
+			 foreach($orders as $order)
+			 {
+				$find_id = DB::table('videos')->where('id',$order->product_id)->first();
+				
+				DB::table('vendor_orders')->insert([
+                         'price' => 0,
+						 'profit' => 0,
+						 'quality' => $order->quality,
+						 'product_id' => $find_id->id,
+						 'title' => $find_id->title,
+						 'vendor_id' => $find_id ->user_id,
+					]);
+					
+					
+					
+
+					$total_amount = null;
+			 }
+
+			 $carts = DB::table('carts')->where('user_id',auth()->user()->id)->get();
+             $count = count($carts);
+             $downloads = DB::table('users')->where('id',auth()->user()->id)->first();
+
+             DB::table('users')->update([
+                'downloads_limit' => $downloads->downloads_limit - $count,
+                
+           ]);
+
+             DB::table('carts')->where('user_id',auth()->user()->id)->delete();
+
+             return redirect('/view-purchases')->with('message','Order Placed');
+        }
     
 }

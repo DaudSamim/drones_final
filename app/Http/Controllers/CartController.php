@@ -46,6 +46,8 @@ class CartController extends Controller
 
 	public function getCheckout(){
 		$cart_products = DB::Table('carts')->where('user_id',auth()->user()->id)->get();
+		
+		
 		return view('cart',compact('cart_products'));
 	}
 
@@ -62,18 +64,29 @@ class CartController extends Controller
 
 	public function getStripe(){
 		$amount = 0;
+		$c = 0;
+		$free = 0;
+		$check_limit = DB::Table('users')->where('id',auth()->user()->id)->first();
 		$variables = DB::table('carts')->where('user_id',auth()->user()->id)->get();
-		foreach($variables as $variable){
-			if($variable->discounted_price == null){
-				$amount = $amount + $variable->price;
+			foreach($variables as $variable){
+             $c = $c + 1;
+			 
+			 $difference = $check_limit->downloads_limit - $c;
+			 if($difference < 0){
+				if($variable->discounted_price == null){
+					$amount = $amount + $variable->price;
+				}
+				else 
+				{
+					$amount = $amount + $variable->discounted_price ;
+				}
+			 } else {
+				$free = $free + 1;
+				$amount = $amount + 0;
+			 }
 			}
-			else 
-			{
-				$amount = $amount + $variable->discounted_price ;
-			}
-		}
-		
-		return view('stripe',compact('amount'));
+			
+		return view('stripe',compact('amount','free'));
 	}
 
 	public function getStripePlan($id){
@@ -88,6 +101,7 @@ class CartController extends Controller
 
 	public function postStripe(Request $request){
 		$total_amount = null;
+		
 		
 		\Stripe\Stripe::setApiKey ( 'sk_test_51H2omrEBrijIcOQ0FrcrRTJ0oFUOuaBvrr8r54VHpukmRzwHQ8HVDxGgMzp2ktmGY9SPzT9Bf0mp4SkuHCW1o9ZP00DHfHaVxj' );
 
@@ -115,7 +129,7 @@ class CartController extends Controller
              ]);
             
 			 $orders = DB::table('carts')->get();
-
+			 
 			 foreach($orders as $order)
 			 {
 				$find_id = DB::table('videos')->where('id',$order->product_id)->first();
@@ -139,15 +153,19 @@ class CartController extends Controller
 					$total_amount = null;
 			 }
 			 $variable = DB::table('temp_coupon')->where('user_id', auth()->user()->id)->first();
-
+             if(isset($variable)){
 			 DB::Table('used_coupons')->insert([
 				'user_id' => auth()->user()->id,
 				'coupon_id' => $variable->coupon_id,
 				]);
 			 DB::table('temp_coupon')->where('user_id',auth()->user()->id)->delete();
+			}
+			 $downloads = DB::table('users')->where('id',auth()->user()->id)->first();
 
-
-			 
+             DB::table('users')->update([
+                'downloads_limit' => $downloads->downloads_limit - $request->download,
+                
+           ]);
 
             DB::table('carts')->where('user_id',auth()->user()->id)->delete();
 
@@ -157,6 +175,7 @@ class CartController extends Controller
 
 	public function postStripePlan(Request $request){
 		$total_amount = null;
+		
 		
 		\Stripe\Stripe::setApiKey ( 'sk_test_51H2omrEBrijIcOQ0FrcrRTJ0oFUOuaBvrr8r54VHpukmRzwHQ8HVDxGgMzp2ktmGY9SPzT9Bf0mp4SkuHCW1o9ZP00DHfHaVxj' );
 

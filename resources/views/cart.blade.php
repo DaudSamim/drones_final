@@ -127,28 +127,29 @@
         <div class="row pt-5">
         @if(Session::has('success'))
       <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
-  @endif  
+        @endif  
 
-  @if(Session::has('alert'))
-      <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('alert') }}</p>
-  @endif  
+        @if(Session::has('alert'))
+            <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('alert') }}</p>
+        @endif  
 
 
-@php
-  $amount = 0;
-		$variables = DB::table('carts')->where('user_id',auth()->user()->id)->get();
-      $yoo = DB::table('carts')->where('user_id',auth()->user()->id)->sum('price');
+            @php
+            $amount = 0;
+                    $variables = DB::table('carts')->where('user_id',auth()->user()->id)->get();
+                $yoo = DB::table('carts')->where('user_id',auth()->user()->id)->sum('price');
 
-		foreach($variables as $variable){
-			if($variable->discounted_price == null){
-				$amount = $amount + $variable->price;
-			}
-			else 
-			{
-				$amount = $amount + $variable->discounted_price ;
-			}
-		}
-@endphp            <div class="col-12">
+                    foreach($variables as $variable){
+                        if($variable->discounted_price == null){
+                            $amount = $amount + $variable->price;
+                        }
+                        else 
+                        {
+                            $amount = $amount + $variable->discounted_price ;
+                        }
+                    }
+            @endphp            
+               <div class="col-12">
                 <h3>Products in Cart</h3>
                 @if(isset($cart_products))
                 <div class="cart-div">
@@ -167,9 +168,21 @@
                     </div>
                 </div>
                 <hr>
+                @php 
+                $c = 0;
+                $free = 0;
+                $count = count($cart_products);
+                
+                @endphp
                 @foreach($cart_products as $row)
                 @php
-                $row_product = DB::Table('videos')->where('id',$row->product_id)->first();
+                    $c = $c + 1;
+                    $row_product = DB::Table('videos')->where('id',$row->product_id)->first();
+                    $check_limit = DB::Table('users')->where('id',$row->user_id)->first();
+                    $plan_id = DB::Table('plan_purchases')->where('user_id',$row->user_id)->orderBy('id','desc')->first();
+                    $quality_check = DB::Table('plans')->where('id',$plan_id->plan_id)->first();
+                    
+                    $difference = $check_limit->downloads_limit - $c;
                 @endphp
                 <div class="cart-div">
                     <div class="name">
@@ -177,16 +190,77 @@
                                 class="vedio-name text-dark">{{$row_product->title}}</span>
                             <span class="text-dark ">{{$row->quality}}</span></a>
                     </div>
-                    <div>
-                    @if($row->discounted_price == null)
-                        <span class="vedio-price text-dark">${{$row->price}}</span>
-                        <span>
-                     @endif
-                     @if($row->discounted_price != null)
-                        <span class="vedio-price text-dark">${{$row->discounted_price}}</span>
-                        <span>
-                     @endif
-                    </div>
+                    @if($difference < 0)
+                        <div>
+                        @if($row->discounted_price == null)
+                            <span class="vedio-price text-dark">${{$row->price}}</span>
+                            <span>
+                        @endif
+                        @if($row->discounted_price != null)
+                            <span class="vedio-price text-dark">${{$row->discounted_price}}</span>
+                            <span>
+                        @endif
+                        </div>
+
+                        @else
+                        @if($quality_check->maximum_quality == '8k')
+                            @php 
+                                $free = $free + 1;
+                                $row->price = 0;
+                            @endphp
+                            <div>
+                            
+                                <span class="vedio-price text-dark">${{$row->price}}</span> 
+                            </div>
+                        @endif
+                        @if($quality_check->maximum_quality == '6k')
+                        
+                            @if(($row->quality == '6K') || ($row->quality == '4K'))
+                                @php 
+                                    $free = $free + 1;
+                                    $row->price = 0;
+                                @endphp
+                                <div>
+                                
+                                    <span class="vedio-price text-dark">${{$row->price}}</span> 
+                                </div>
+                                @else
+                                <div>
+                                
+                                    <span class="vedio-price text-dark">${{$row->price}}</span> 
+                                </div>
+
+                            @endif
+                        @endif
+
+                        @if($quality_check->maximum_quality == '4k')
+                        
+                            @if($row->quality == '4K')
+
+                            @php 
+                                $free = $free + 1;
+                                $row->price = 0;
+                            @endphp
+                            <div>
+                            
+                                <span class="vedio-price text-dark">${{$row->price}}</span> 
+                            </div>
+                            @else 
+                            <div>
+                            
+                                <span class="vedio-price text-dark">${{$row->price}}</span> 
+                            </div>
+
+                            @endif
+                        @endif
+
+
+                    @endif
+
+
+
+
+
 
                     <div class="price">
                         <a href="{{'/remove_cart_item/'.$row->id}}"><i class="fa fa-trash" style="color: red"
@@ -206,17 +280,46 @@
                 @endif
                 <br>
                 </div>
-
+                @if(($free > 0) && ($free != $count) )
                 <div style="float: right"><button class="btn btn-lg" data-toggle="modal" data-target="#checkout"
                         style="background-color: #3b009e; color:white">Checkout</button></div>
+                
+                        
+                @elseif($free == $count)
+                <button  class="btn btn-lg" data-toggle="modal" data-target="#free"
+                        style="background-color: #3b009e; color:white;float: right">Buy Free</button>
+                @endif
                 <div style="float: right"><button class="btn btn-lg" data-toggle="modal" data-target="#coupon"
                         style="background-color: #3b009e; color:white;margin-right:10px">Add Coupon</button></div>
 
             </div>
         </div>
     </div>
+ <!-- Modal of free -->
+    <div class="modal fade" id="free" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Select Payment Method</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="/free-payment"><button type="button" style="background-color: #3b009e; color:white"
+                            class="btn btn-secondary">Buy Now</button></a>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Modal -->
+
+    <!-- Modal Of Checkout -->
     <div class="modal fade" id="checkout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">

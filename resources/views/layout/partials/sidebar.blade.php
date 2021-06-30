@@ -81,6 +81,11 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="/purchased-plans"
+                               class="nav-link  ">Plans Purchased </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="/view-coupons"
                                class="nav-link  ">Coupons </a>
                         </li>
