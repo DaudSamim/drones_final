@@ -2883,7 +2883,7 @@ img.wp-smiley, img.emoji {
     }
     .mayosis-option-menu .mini_cart {
         left: 50%;
-        transform: translate(-50%);
+        transform: translate(-90%);
         text-transform: none;
     }
     .cart-style-one .cart-button .edd-cart-quantity {
@@ -8194,7 +8194,7 @@ h6 {
   
 .header__background {
 position: absolute;
-top: 65%;
+top: 61%;
 left: 50%;
 width: 120%;
 height: 0;
