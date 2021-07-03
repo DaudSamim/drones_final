@@ -20,7 +20,8 @@
                                 <th>Order ID</th>
                                 <th>Plan Name</th>
                                 <th>Plan Price</th>
-                                <th>Created At</th>
+                                <th>Download Limit</th>
+                                <th>Purchased At</th>
 
                             </tr>
                             
@@ -35,6 +36,7 @@
                             <td>{{$plan_name->title}}</td>
                             <td>${{$plan_name->price}}</td>
                             <td>{{$plan_name->download_limit}}</td>
+                            <td>{{$plan_name->created_at}}</td>
 
                             
                             

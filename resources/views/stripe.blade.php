@@ -156,9 +156,11 @@
                                     class='form-control card-expiry-year' placeholder='YYYY' size='4'
                                     type='text'>
                             </div>
+                            @if(isset($free))
                             <input
                                     autocomplete='off' value="{{$free}}"name="download" class='form-control card-number' 
                                     type='hidden'>
+                            @endif
                         </div>
   
                         <div class='form-row row'>

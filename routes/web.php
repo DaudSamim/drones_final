@@ -292,6 +292,8 @@ Route::middleware('auth')->group(function ()
       Route::get('/purchased', '\App\Http\Controllers\HomeController@purchased');
       Route::get('/purchased-plans', '\App\Http\Controllers\HomeController@plans_purchased');
       Route::get('/free-payment', '\App\Http\Controllers\HomeController@free_payment');
+      Route::get('/download/{filename}', '\App\Http\Controllers\HomeController@delete');
+
 
 
 });

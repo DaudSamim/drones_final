@@ -26,10 +26,7 @@
 
                     <ul class="nav sub-menu">
                    
-                        <li class="nav-item">
-                            <a href="{{ url('view-stats') }}"
-                               class="nav-link  ">Statistics</a>
-                        </li>
+                        
                    
                     @if( auth()->user()->role == 2 )
                         <li class="nav-item">
@@ -47,12 +44,13 @@
                                class="nav-link  ">Purchases </a>
                         </li>
 
-                         <li class="nav-item">
-                            <a href="/view-plans"
-                               class="nav-link  ">Plans </a>
-                        </li>
+                         
                     @endif
                     @if( auth()->user()->role == 1 )
+                    <li class="nav-item">
+                            <a href="{{ url('view-stats') }}"
+                               class="nav-link  ">Statistics</a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ url('view-all-videos') }}"
                                class="nav-link ">Videos </a>
@@ -69,10 +67,7 @@
                                class="nav-link ">Qualities </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="/view-purchases"
-                               class="nav-link  ">Purchases </a>
-                        </li>
+                        
                     
                     
                         <li class="nav-item">
@@ -80,10 +75,7 @@
                                class="nav-link  ">Plans </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="/purchased-plans"
-                               class="nav-link  ">Plans Purchased </a>
-                        </li>
+                        
 
                         <li class="nav-item">
                             <a href="/view-coupons"
@@ -114,6 +106,11 @@
                                class="nav-link  ">Subscriptions </a>
                         </li>
                     @endif
+                        
+                        <li class="nav-item">
+                            <a href="/purchased-plans"
+                               class="nav-link  ">Plans Purchased </a>
+                        </li>
                    
                         <li class="nav-item">
                             <a href="{{ url('change-password') }}"

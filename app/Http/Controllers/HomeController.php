@@ -297,6 +297,12 @@ class HomeController extends Controller
             $path_1 = public_path();
             $file_1->move($path_1, $filename_1);
         } 
+        if($request->file('pdf_file2')){
+            $file_2 = $request->file('pdf_file2');
+            $filename_2 = $file_2->getClientOriginalName();
+            $path_2 = public_path();
+            $file_2->move($path_2, $filename_2);
+        } 
 
             // Resolutions
             // $processOutput = \FFMpeg::fromDisk('public')->open($filename)
@@ -440,7 +446,9 @@ class HomeController extends Controller
                 'size_fourK' => $size_fourK,
                 'size_fhd' => $size_fhd,
                 'size_hd' => $size_hd,
-                'pdf_file' => $request->pdf_file??null,
+                'pdf_file' =>  $filename_1??null,
+                'pdf_file2' =>  $filename_2??null,
+
 
 
                 ]);
@@ -843,6 +851,11 @@ class HomeController extends Controller
              DB::table('carts')->where('user_id',auth()->user()->id)->delete();
 
              return redirect('/view-purchases')->with('message','Order Placed');
+        }
+
+        public function delete($filename){
+            $file_path = public_path($filename);
+            return response()->download($file_path);
         }
     
 }

@@ -180,7 +180,7 @@
                     $row_product = DB::Table('videos')->where('id',$row->product_id)->first();
                     $check_limit = DB::Table('users')->where('id',$row->user_id)->first();
                     $plan_id = DB::Table('plan_purchases')->where('user_id',$row->user_id)->orderBy('id','desc')->first();
-                    $quality_check = DB::Table('plans')->where('id',$plan_id->plan_id)->first();
+                    
                     
                     $difference = $check_limit->downloads_limit - $c;
                 @endphp
@@ -190,6 +190,7 @@
                                 class="vedio-name text-dark">{{$row_product->title}}</span>
                             <span class="text-dark ">{{$row->quality}}</span></a>
                     </div>
+                   
                     @if($difference < 0)
                         <div>
                         @if($row->discounted_price == null)
@@ -203,19 +204,11 @@
                         </div>
 
                         @else
-                        @if($quality_check->maximum_quality == '8k')
+                        @if(isset($plan_id))
                             @php 
-                                $free = $free + 1;
-                                $row->price = 0;
+                                $quality_check = DB::Table('plans')->where('id',$plan_id->plan_id)->first();
                             @endphp
-                            <div>
-                            
-                                <span class="vedio-price text-dark">${{$row->price}}</span> 
-                            </div>
-                        @endif
-                        @if($quality_check->maximum_quality == '6k')
-                        
-                            @if(($row->quality == '6K') || ($row->quality == '4K'))
+                            @if($quality_check->maximum_quality == '8k')
                                 @php 
                                     $free = $free + 1;
                                     $row->price = 0;
@@ -224,37 +217,50 @@
                                 
                                     <span class="vedio-price text-dark">${{$row->price}}</span> 
                                 </div>
-                                @else
+                            @endif
+                            @if($quality_check->maximum_quality == '6k')
+                            
+                                @if(($row->quality == '6K') || ($row->quality == '4K'))
+                                    @php 
+                                        $free = $free + 1;
+                                        $row->price = 0;
+                                    @endphp
+                                    <div>
+                                    
+                                        <span class="vedio-price text-dark">${{$row->price}}</span> 
+                                    </div>
+                                    @else
+                                    <div>
+                                    
+                                        <span class="vedio-price text-dark">${{$row->price}}</span> 
+                                    </div>
+
+                                @endif
+                            @endif
+
+                            @if($quality_check->maximum_quality == '4k')
+                            
+                                @if($row->quality == '4K')
+
+                                @php 
+                                    $free = $free + 1;
+                                    $row->price = 0;
+                                @endphp
+                                <div>
+                                
+                                    <span class="vedio-price text-dark">${{$row->price}}</span> 
+                                </div>
+                                @else 
                                 <div>
                                 
                                     <span class="vedio-price text-dark">${{$row->price}}</span> 
                                 </div>
 
+                                @endif
                             @endif
-                        @endif
-
-                        @if($quality_check->maximum_quality == '4k')
-                        
-                            @if($row->quality == '4K')
-
-                            @php 
-                                $free = $free + 1;
-                                $row->price = 0;
-                            @endphp
-                            <div>
-                            
-                                <span class="vedio-price text-dark">${{$row->price}}</span> 
-                            </div>
-                            @else 
-                            <div>
-                            
-                                <span class="vedio-price text-dark">${{$row->price}}</span> 
-                            </div>
-
-                            @endif
-                        @endif
 
 
+                    @endif
                     @endif
 
 

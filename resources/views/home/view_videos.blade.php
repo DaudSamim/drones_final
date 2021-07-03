@@ -247,10 +247,15 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Model Released</label>
                                             
-                                            <select class="form-select" aria-label="Default select example" name="model_released">
+                                            <select class="form-select" aria-label="Default select example"onchange ="model('noob');" id="noob" name="model_released">
                                               <option selected>No</option>
                                               <option> Yes </option>      
                                             </select>
+                                        </div>
+
+                                        <div class="form-group d-lg-none" id="yourdiv" >
+                                          <label for="exampleInputEmail1">Model Released file</label>
+                                          <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('pdf_file') ? 'is-invalid' : '' }}"  name="pdf_file2"  aria-describedby="emailHelp" placeholder="pdf">
                                         </div>
 
                                         <div class="form-group">
@@ -343,6 +348,22 @@
 <script>
 function property(str) {
   var element = document.getElementById("mydiv");
+  var choice =document.getElementById(str).value;
+  
+  if(choice == 'Yes'){
+  element.classList.remove("d-lg-none");
+}
+if(choice == 'No'){
+  element.classList.add("d-lg-none");
+}
+}
+  
+
+</script>
+
+<script>
+function model(str) {
+  var element = document.getElementById("yourdiv");
   var choice =document.getElementById(str).value;
   
   if(choice == 'Yes'){
