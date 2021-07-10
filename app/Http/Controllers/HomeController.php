@@ -268,7 +268,7 @@ class HomeController extends Controller
             'title' => 'required',
             'video' => 'required',
             'description' => 'required',
-            'category_id' => 'required|integer',
+            'category_id' => 'required',
             'model_released' => 'required',
             'property_released' =>'required',
             'location' => 'required',
@@ -282,27 +282,27 @@ class HomeController extends Controller
        $size_fhd = null;
        $size_hd = null;
 
-        if($request->file('video')){
-            $file = $request->file('video');
-            $filename = $file->getClientOriginalName();
-            $filena = pathinfo($filename, PATHINFO_FILENAME);
-            $path = storage_path().'/app/public/';
-            $size = $file->getSize();
-            $size = number_format($size / 1048576, 2);
-            $file->move($path, $filename);
+        // if($request->file('video')){
+        //     $file = $request->file('video');
+        //     $filename = $file->getClientOriginalName();
+        //     $filena = pathinfo($filename, PATHINFO_FILENAME);
+        //     $path = storage_path().'/app/public/';
+        //     $size = $file->getSize();
+        //     $size = number_format($size / 1048576, 2);
+        //     $file->move($path, $filename);
     
-        if($request->file('pdf_file')){
-            $file_1 = $request->file('pdf_file');
-            $filename_1 = $file_1->getClientOriginalName();
-            $path_1 = public_path();
-            $file_1->move($path_1, $filename_1);
-        } 
-        if($request->file('pdf_file2')){
-            $file_2 = $request->file('pdf_file2');
-            $filename_2 = $file_2->getClientOriginalName();
-            $path_2 = public_path();
-            $file_2->move($path_2, $filename_2);
-        } 
+        // if($request->file('pdf_file')){
+        //     $file_1 = $request->file('pdf_file');
+        //     $filename_1 = $file_1->getClientOriginalName();
+        //     $path_1 = public_path();
+        //     $file_1->move($path_1, $filename_1);
+        // } 
+        // if($request->file('pdf_file2')){
+        //     $file_2 = $request->file('pdf_file2');
+        //     $filename_2 = $file_2->getClientOriginalName();
+        //     $path_2 = public_path();
+        //     $file_2->move($path_2, $filename_2);
+        // } 
 
             // Resolutions
             // $processOutput = \FFMpeg::fromDisk('public')->open($filename)
@@ -414,24 +414,52 @@ class HomeController extends Controller
 
 
 
-            $filename = 'drone'.$filena.'.mp4';
+            // $filename = 'drone'.$filena.'.mp4';
+
+            $video = $request->title;
+            if($request->file('video')){
+                // dd($request->video[0]);
+            foreach ($video as $key => $value){
 
 
-              
+                   
+                        $file = $request->video[$key];
+                        $filename = $file->getClientOriginalName();
+                        $filena = pathinfo($filename, PATHINFO_FILENAME);
+                        $path = storage_path().'/app/public/';
+                        $size = $file->getSize();
+                        $size = number_format($size / 1048576, 2);
+                        $file->move($path, $filename);
+
+                        
+                    if(isset($request->pdf_file[$key])){
+                        $file_1 = $request->pdf_file[$key];
+                        $filename_1 = $file_1->getClientOriginalName();
+                        $path_1 = public_path();
+                        $file_1->move($path_1, $filename_1);
+                    } 
+                    if(isset($request->pdf_file2[$key])){
+                        $file_2 = $request->pdf_file2[$key];
+                        $filename_2 = $file_2->getClientOriginalName();
+                        $path_2 = public_path();
+                        $file_2->move($path_2, $filename_2);
+                    } 
+                    $filename = 'drone'.$filena.'.mp4';
+                    
                 DB::Table('videos')->insert([
                 'user_id' => auth()->user()->id,
-                'title' => $request->title,
+                'title' => $value,
                 'file' => $filename,
-                'category_id' => $request->category_id,
+                'category_id' => $request->category_id[$key],
                 'poster' => 'drone'.$filena.'.png'??null,
                 'price' => 1,
-                'description' => $request->description,
+                'description' => $request->description[$key],
                 'length' => $length??null,
                 'size' => $size??null,
-                'model_released' => $request->model_released,
-                'property_released' => $request->property_released,
-                'location' => $request->location,
-                'device_model' => $request->device_model,
+                'model_released' => $request->model_released[$key],
+                'property_released' => $request->property_released[$key],
+                'location' => $request->location[$key],
+                'device_model' => $request->device_model[$key],
                 'fps' => $fps??null,
                 'bitrate' => $bitrate??null,
                 'resolution' => $video_resolution??null,
@@ -440,7 +468,7 @@ class HomeController extends Controller
                 'fourK' => $fourK,
                 'fhd' =>  $fhd,
                 'hd' => $hd,
-                'keywords' => $request->keywords?json_encode($request->keywords):null,
+                'keywords' => $request->keywords[$key]?json_encode($request->keywords[$key]):null,
                 'size_eightK' => $size_eightK,
                 'size_sixK' => $size_sixK,
                 'size_fourK' => $size_fourK,
@@ -449,13 +477,14 @@ class HomeController extends Controller
                 'pdf_file' =>  $filename_1??null,
                 'pdf_file2' =>  $filename_2??null,
 
-
+        
 
                 ]);
+            }
 
                 return redirect()->back()->with('success','Successfully Added');
 
-             };
+             }
 
         return redirect()->back()->with('error','Something Wrong');
     }
