@@ -68,25 +68,42 @@ class CartController extends Controller
 		$free = 0;
 		$check_limit = DB::Table('users')->where('id',auth()->user()->id)->first();
 		$variables = DB::table('carts')->where('user_id',auth()->user()->id)->get();
+		$plan_id = DB::Table('plan_purchases')->where('user_id',auth()->user()->id)->orderBy('id','desc')->first();
 			foreach($variables as $variable){
-             $c = $c + 1;
-			 
-			 $difference = $check_limit->downloads_limit - $c;
-			 if($difference < 0){
-				if($variable->discounted_price == null){
-					$amount = $amount + $variable->price;
+				if($check_limit->downloads_limit < 1){
+					$amount = $amount + $variable->price;	
+				} 
+				else{
+					if($plan_id){
+						$quality_check = DB::Table('plans')->where('id',$plan_id->plan_id)->first();
+						if($quality_check->maximum_quality == "8K"){
+							$variable->price = 0;
+                            $amount = $amount + $variable->price;
+						}
+						if($quality_check->maximum_quality == '6k'){
+							if(($variable->quality == '6K') || ($variable->quality == '4K')){			
+								$variable->price = 0;
+								$amount = $amount + $variable->price;
+							} 
+							else{
+								$amount = $amount + $variable->price;
+							}
+						}
+						if($quality_check->maximum_quality == '4k'){
+							if($variable->quality == '4K'){						
+								$variable->price = 0;
+								$amount = $amount + $variable->price;
+							}
+							else{
+								$amount = $amount + $variable->price;
+							}
+						}
+
+					}
 				}
-				else 
-				{
-					$amount = $amount + $variable->discounted_price ;
-				}
-			 } else {
-				$free = $free + 1;
-				$amount = $amount + 0;
-			 }
 			}
 			
-		return view('stripe',compact('amount','free'));
+		return view('stripe',compact('amount'));
 	}
 
 	public function getStripePlan($id){

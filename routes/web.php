@@ -39,6 +39,7 @@ Route::get('product_{id}',function(Request $request,$id){
     if(!isset($main_video)){
         return redirect('/');
     }
+
     $categories = DB::table('categories')->limit(6)->get();
     $categories_search = DB::table('categories')->get();
 
@@ -47,7 +48,25 @@ Route::get('product_{id}',function(Request $request,$id){
     
     $user = $main_video->user_id;
     $vendor = DB::table('vendors')->where('user_id', $user)->first();
-    return view('product',compact('categories','categories_search','entire_videos','related_videos','main_video','quality', 'user', 'vendor', 'main_video'));
+
+    $orders = DB::table('orders')->where('user_id', $user)->get();
+    foreach($orders as $order){
+        $has = "false";
+        $check_id = unserialize($order->order_data);
+        foreach($check_id as $check){
+            if($check->product_id == $id){
+                $has = "true";
+                break;
+            };
+            if($has == "true"){
+                break;
+            }
+
+        }
+    }
+    
+
+    return view('product',compact('categories','categories_search','entire_videos','related_videos','main_video','quality', 'user', 'vendor', 'main_video','has'));
 });
 Route::get('/all_videos_{id}', function($id){
 

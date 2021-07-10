@@ -139,15 +139,7 @@
                     $variables = DB::table('carts')->where('user_id',auth()->user()->id)->get();
                 $yoo = DB::table('carts')->where('user_id',auth()->user()->id)->sum('price');
 
-                    foreach($variables as $variable){
-                        if($variable->discounted_price == null){
-                            $amount = $amount + $variable->price;
-                        }
-                        else 
-                        {
-                            $amount = $amount + $variable->discounted_price ;
-                        }
-                    }
+                    
             @endphp            
                <div class="col-12">
                 <h3>Products in Cart</h3>
@@ -182,7 +174,7 @@
                     $plan_id = DB::Table('plan_purchases')->where('user_id',$row->user_id)->orderBy('id','desc')->first();
                     
                     
-                    $difference = $check_limit->downloads_limit - $c;
+                    $difference = $check_limit->downloads_limit;
                 @endphp
                 <div class="cart-div">
                     <div class="name">
@@ -198,6 +190,9 @@
                             <span>
                         @endif
                         @if($row->discounted_price != null)
+                        @php 
+                        $amount = $amount + $row->price;
+                        @endphp
                             <span class="vedio-price text-dark">${{$row->discounted_price}}</span>
                             <span>
                         @endif
@@ -212,9 +207,9 @@
                                 @php 
                                     $free = $free + 1;
                                     $row->price = 0;
+                                    $amount = $amount + $row->price;
                                 @endphp
                                 <div>
-                                
                                     <span class="vedio-price text-dark">${{$row->price}}</span> 
                                 </div>
                             @endif
@@ -224,12 +219,17 @@
                                     @php 
                                         $free = $free + 1;
                                         $row->price = 0;
+                                        $amount = $amount + $row->price;
                                     @endphp
                                     <div>
                                     
                                         <span class="vedio-price text-dark">${{$row->price}}</span> 
                                     </div>
                                     @else
+                                    @php 
+                                    $amount = $amount + $row->price;
+                                    @endphp
+                                    
                                     <div>
                                     
                                         <span class="vedio-price text-dark">${{$row->price}}</span> 
@@ -245,12 +245,16 @@
                                 @php 
                                     $free = $free + 1;
                                     $row->price = 0;
+                                    $amount = $amount + $row->price;
                                 @endphp
                                 <div>
                                 
                                     <span class="vedio-price text-dark">${{$row->price}}</span> 
                                 </div>
                                 @else 
+                                @php 
+                                $amount = $amount + $row->price;
+                                @endphp
                                 <div>
                                 
                                     <span class="vedio-price text-dark">${{$row->price}}</span> 

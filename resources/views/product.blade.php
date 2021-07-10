@@ -259,14 +259,17 @@
                                 <li data-cy="video_uses_type"><strong>Type: </strong>Commercial License</li>
                                 <li data-cy="video_format"><strong>Bitrate: </strong>{{$main_video->bitrate}}</li>
                                 <li data-cy="video_copyright"><strong>Copyright: </strong><span style="font-size: 14px">DRONE STOCK CLIPS</span></li>
-                            @if($main_video->model_released == "Yes")
+                                @php
+                                
+                                @endphp
+                            @if(($main_video->model_released == "Yes") && ($has == "true"))
                                 <li data-cy="video_model_release"><strong>Model Released: {{$main_video->model_released}}</strong>
                                 <span> <a href="{{'/download/'.$main_video->pdf_file2}}"> <i style="color:green" class="fas fa-download"></i></span></li> </a>
                                 
                             @else
                                 <li data-cy="video_model_release"><strong>Model Released: {{$main_video->model_released}}</strong></li>
                             @endif
-                            @if($main_video->property_released == "Yes")
+                            @if(($main_video->property_released == "Yes") && ($has == "true"))
                             
                                 <li data-cy="video_property_release"><strong>Property Released: {{$main_video->property_released}}</strong>
                                 <span><a href="{{'/download/'.$main_video->pdf_file}}"><i style="color:green" class="fas fa-download"></i></a></span></li>
