@@ -1,6 +1,24 @@
 @include('header')
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .owl-prev, .owl-next {
+        width: 15px;
+        height: 100px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block !important;
+        border:0px solid black;
+        font-size: 400% !important;
+        background-color: lightgray;
+    }
+    .owl-prev { left: 0px; }
+    .owl-next { right: 0px; }
+    .owl-prev i , .owl-next i {transform : scale(2,5); color: #ffffff;font-size: 400% !important;}
+</style>
 <div class="mayosis-wrapper">
 @include('header_for_single_page')
 <div class="mayosis-container" style="background:#ffffff">
@@ -67,6 +85,7 @@
                   </div>
                </div>
             </div>
+            
          </section>
          <section data-particle_enable="false" data-particle-mobile-disabled="false"
             class="elementor-section elementor-top-section elementor-element elementor-element-85b239a elementor-section-boxed elementor-section-height-default elementor-section-height-default"
@@ -92,6 +111,7 @@
                   </div>
                </div>
             </div>
+            
          </section>
          <section data-particle_enable="false" data-particle-mobile-disabled="false"
             class="elementor-section elementor-top-section elementor-element elementor-element-dcd2318 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
@@ -863,8 +883,8 @@
       </div>
       </div>
       </div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+      <div  class="swiper-button-next"></div>
+      <div  class="swiper-button-prev"></div>
       <div class="swiper-pagination"></div>
       </div>
       </div>
@@ -999,6 +1019,7 @@
          </div>
       </div>
       @include('footer')
+      
    </div>
 </div>
 <a id="back-to-top" href="#" class="back-to-top" role="button"><i class="zil zi-chevron-up"></i></a>

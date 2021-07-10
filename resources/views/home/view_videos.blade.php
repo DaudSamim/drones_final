@@ -21,6 +21,12 @@
   @if(Session::has('alert'))
       <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('alert') }}</p>
   @endif  
+
+  @if ($errors->any())
+     @foreach ($errors->all() as $error)
+         <div>{{$error}}</div>
+     @endforeach
+ @endif
     <div class="row justify-content-center">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
@@ -224,7 +230,7 @@
 
                                        <div class="form-group">
                                             <label for="exampleInputEmail1">Video File</label>
-                                            <input class="form-control" accept="video/*" type="file" name="video" onchange="getFileData(this);">
+                                            <input class="form-control" accept="video/*" type="file" name="video[]" onchange="getFileData(this);">
 
                                             @if ($errors->has('video'))
                                                 <span class="text-danger">
@@ -235,7 +241,7 @@
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Title</label>
-                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('title') ? 'is-invalid' : '' }}" id="name" name="title"  aria-describedby="emailHelp" placeholder="Video Title">
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('title') ? 'is-invalid' : '' }}" id="name" name="title[]"  aria-describedby="emailHelp" placeholder="Video Title">
 
                                             @if ($errors->has('title'))
                                                 <span class="text-danger">
@@ -247,7 +253,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Model Released</label>
                                             
-                                            <select class="form-select" aria-label="Default select example"onchange ="model('noob');" id="noob" name="model_released">
+                                            <select class="form-select" aria-label="Default select example"onchange ="model('noob');" id="noob" name="model_released[]">
                                               <option selected>No</option>
                                               <option> Yes </option>      
                                             </select>
@@ -255,13 +261,13 @@
 
                                         <div class="form-group d-lg-none" id="yourdiv" >
                                           <label for="exampleInputEmail1">Model Released file</label>
-                                          <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('pdf_file') ? 'is-invalid' : '' }}"  name="pdf_file2"  aria-describedby="emailHelp" placeholder="pdf">
+                                          <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('pdf_file') ? 'is-invalid' : '' }}"  name="pdf_file2[]"  aria-describedby="emailHelp" placeholder="pdf">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Property Released</label>
                                             
-                                            <select class="form-select" aria-label="Default select example"id="pro" onchange ="property('pro');" name="property_released">
+                                            <select class="form-select" aria-label="Default select example"id="pro" onchange ="property('pro');" name="property_released[]">
                                               <option selected  value="No">No</option>
                                               <option value ="Yes"> Yes </option>      
                                             </select>
@@ -269,22 +275,22 @@
 
                                         <div class="form-group d-lg-none" id="mydiv" >
                                           <label for="exampleInputEmail1">Property released file</label>
-                                          <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('pdf_file') ? 'is-invalid' : '' }}"  name="pdf_file"  aria-describedby="emailHelp" placeholder="pdf">
+                                          <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('pdf_file') ? 'is-invalid' : '' }}"  name="pdf_file[]"  aria-describedby="emailHelp" placeholder="pdf">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Location</label>
-                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('location') ? 'is-invalid' : '' }}"  name="location"  aria-describedby="emailHelp" placeholder="Location">
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('location') ? 'is-invalid' : '' }}"  name="location[]"  aria-describedby="emailHelp" placeholder="Location">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Drone Model</label>
-                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('device_model') ? 'is-invalid' : '' }}"  name="device_model"  aria-describedby="emailHelp" placeholder="Drone Model">
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('device_model') ? 'is-invalid' : '' }}"  name="device_model[]"  aria-describedby="emailHelp" placeholder="Drone Model">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Description</label>
-                                            <textarea name="description" class="form-control" rows="3" required></textarea>
+                                            <textarea name="description[]" class="form-control" rows="3" required></textarea>
                                             @if ($errors->has('description'))
                                                 <span class="text-danger">
                                             <small class="font-weight-bold">{{ $errors->first('description') }}</small>
@@ -294,7 +300,7 @@
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Category</label>                                  
-                                            <select class="form-select" aria-label="Default select example" name="category_id">
+                                            <select class="form-select" aria-label="Default select example" name="category_id[]">
                                               <option selected>Categories</option>
                                                 @if(isset($categories))
                                                 @foreach($categories as $row)
@@ -313,9 +319,14 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Keywords </label><br>
                                             <small  style="color: red">Enter comma (,) seperated words. Max 30 words</small>
-                                            <textarea name="keywords" class="form-control" placeholder="Enter comma seperated keywords" rows="4"></textarea>
+                                            <textarea name="keywords[]" class="form-control" placeholder="Enter comma seperated keywords" rows="4"></textarea>
                                         </div>
+                                          <div class="addings">
 
+                                          <div class="div-btns text-center">
+                                            <button type="button" class="btn btn addmore">Add More</button>
+                                          </div>
+                                          </div>
                                         <div class="modal-footer">
                                             <input type="submit" name="action_button"  class="btn btn-primary btn-block" value="Add" />                                            
                                             <span
@@ -331,7 +342,110 @@
                             </div>
                         </div>
                     </div>
+<script>
+    
+    $(document).ready(function(){
+  $('.addmore').on('click', function(){
+     
+  
+    $(this).closest('.addings').before(` <hr> <br><div class="form-group">
+                                            <label for="exampleInputEmail1">Video File</label>
+                                            <input class="form-control" accept="video/*" type="file" name="video" onchange="getFileData(this);">
 
+                                            @if ($errors->has('video'))
+                                                <span class="text-danger">
+                                            <small class="font-weight-bold">{{ $errors->first('video') }}</small>
+                                        </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Video Title</label>
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('title') ? 'is-invalid' : '' }}" id="name" name="title[]"  aria-describedby="emailHelp" placeholder="Video Title">
+
+                                            @if ($errors->has('title'))
+                                                <span class="text-danger">
+                                            <small class="font-weight-bold">{{ $errors->first('title') }}</small>
+                                        </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Model Released</label>
+                                            
+                                            <select class="form-select" aria-label="Default select example"onchange ="model('noob');" id="noob" name="model_released[]">
+                                              <option selected>No</option>
+                                              <option> Yes </option>      
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group d-lg-none" id="yourdiv" >
+                                          <label for="exampleInputEmail1">Model Released file</label>
+                                          <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('pdf_file') ? 'is-invalid' : '' }}"  name="pdf_file2[]"  aria-describedby="emailHelp" placeholder="pdf">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Property Released</label>
+                                            
+                                            <select class="form-select" aria-label="Default select example"id="pro" onchange ="property('pro');" name="property_released[]">
+                                              <option selected  value="No">No</option>
+                                              <option value ="Yes"> Yes </option>      
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group d-lg-none" id="mydiv" >
+                                          <label for="exampleInputEmail1">Property released file</label>
+                                          <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('pdf_file') ? 'is-invalid' : '' }}"  name="pdf_file[]"  aria-describedby="emailHelp" placeholder="pdf">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Location</label>
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('location') ? 'is-invalid' : '' }}"  name="location[]"  aria-describedby="emailHelp" placeholder="Location">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Drone Model</label>
+                                            <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('device_model') ? 'is-invalid' : '' }}"  name="device_model[]"  aria-describedby="emailHelp" placeholder="Drone Model">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Video Description</label>
+                                            <textarea name="description[]" class="form-control" rows="3" required></textarea>
+                                            @if ($errors->has('description'))
+                                                <span class="text-danger">
+                                            <small class="font-weight-bold">{{ $errors->first('description') }}</small>
+                                        </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Video Category</label>                                  
+                                            <select class="form-select" aria-label="Default select example" name="category_id[]">
+                                              <option selected>Categories</option>
+                                                @if(isset($categories))
+                                                @foreach($categories as $row)
+                                              <option value="{{$row->id}}">{{$row->title}}</option>
+                                              @endforeach
+                                              @endif                                          
+                                            </select>
+
+                                            @if ($errors->has('category_id'))
+                                                <span class="text-danger">
+                                            <small class="font-weight-bold">{{ $errors->first('category_id') }}</small>
+                                        </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Video Keywords </label><br>
+                                            <small  style="color: red">Enter comma (,) seperated words. Max 30 words</small>
+                                            <textarea name="keywords[]" class="form-control" placeholder="Enter comma seperated keywords" rows="4"></textarea>
+                                        </div>`);
+                
+  });
+ });
+
+</script>
 
 <script>
     $('.extra').click(function() {
