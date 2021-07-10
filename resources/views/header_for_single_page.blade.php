@@ -68,23 +68,23 @@
 
                             </div>
                             <ul class="code-blocks" style="margin-left: 2%">
-                                <li class="html custom html_topbar_left">FOOTAGE</li>
+                                <li> <a href="/categories" style="color:white" class="html custom html_topbar_left">Categories</a></li>
                             </ul>
                             <ul class="code-blocks" style="margin-left: 2%">
-                                <li class="html custom html_topbar_left">IMAGES</li>
+                                <li> <a href="/sell_footage" style="color:white" hrefclass="html custom html_topbar_left">Sell Footage</a></li>
                             </ul>
                             <ul class="code-blocks" style="margin-left: 2%">
-                                <li class="html custom html_topbar_left">FREE STOCK</li>
+                                <li> <a href="/about_us" style="color:white" class="html custom html_topbar_left">About Us</a></li>
                             </ul>
                             <ul class="code-blocks" style="margin-left: 2%">
-                                <li class="html custom html_topbar_left">PRICING</li>
+                                <li> <a href="/blogs" style="color:white" class="html custom html_topbar_left">Blogs</a></li>
                             </ul>
                         </div>
 
                    
                         <div class="to-flex-col th-col-right hidden-sm hidden-xs flexright">
 
-                            <span> <i class="fas fa-phone-alt"></i><a href="https://api.whatsapp.com/send?phone=+923044519969&amp;text=Hello" style="color: white">+923044519969 </a> </span>
+                            <span> <i class="fas fa-phone-alt"></i><a href="https://api.whatsapp.com/send?phone=+447826644710&amp;text=Hello" style="color: white">+447826644710 </a> </span>
 
                             <ul id="account-button" class="mayosis-option-menu hidden-xs hidden-sm">
 

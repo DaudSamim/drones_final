@@ -293,6 +293,25 @@ Route::middleware('auth')->group(function ()
       Route::get('/purchased-plans', '\App\Http\Controllers\HomeController@plans_purchased');
       Route::get('/free-payment', '\App\Http\Controllers\HomeController@free_payment');
       Route::get('/download/{filename}', '\App\Http\Controllers\HomeController@delete');
+      Route::get('/categories', '\App\Http\Controllers\HomeController@list_categories');
+      Route::get('/view-blogs', '\App\Http\Controllers\HomeController@view_blogs');
+      Route::post('/post_blog', '\App\Http\Controllers\HomeController@post_blogs');
+      Route::post('/edit_blog','\App\Http\Controllers\HomeController@update_blogs');
+      Route::get('/post_blog/{id}', '\App\Http\Controllers\HomeController@edit_blog');
+      Route::get('/blogs', '\App\Http\Controllers\HomeController@list_blogs');
+     
+      Route::get('/blog_{title}',function($title){
+        $main_blog = DB::table('blogs')->where('title',$title)->first();
+        if(!isset($main_blog)){
+            return redirect()->back();
+        }
+            return view('blogs',compact('main_blog'));
+        
+    });
+    Route::get('delete_blog/{id}',function($id){
+        DB::Table('blogs')->where('id',$id)->delete();
+        return redirect()->back()->with('success','Successfully Deleted');
+    });
 
 
 

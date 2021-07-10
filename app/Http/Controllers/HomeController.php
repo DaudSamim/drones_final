@@ -791,7 +791,7 @@ class HomeController extends Controller
             'user_id' => $request->user_id,
             'plan_id' => $request->plan_id,
             'plan_price' => $request->plan_price,
-            'created_at' => $request->created_at
+            'created_at' => $request->created_at,
 
         ]);
         }
@@ -857,5 +857,88 @@ class HomeController extends Controller
             $file_path = public_path($filename);
             return response()->download($file_path);
         }
+
+        public function list_categories(){
+            return view ('list_categories');
+
+        }
+
+        public function list_blogs(){
+            return view ('list_blogs');
+
+        }
+       
+
+        public function view_blogs(){
+            $blogs= DB::table('blogs')->orderby('id', 'desc')->get();
+            return view ('home.view_blogs', compact('blogs'));
+
+        }
+
+        public function post_blogs(Request $request){
+           
+            $validated = $request->validate([
+                'title' => 'required',
+                'data' => 'required',
+                'image' => 'required|mimes:jpeg,jpg,png,gif|required|max:10000',
+            ]);
+
+            if($request->file('image')){
+                $file = $request->file('image');
+                $filename = $file->getClientOriginalName();
+                $path = public_path().'/images/';
+                $file->move($path, $filename);
+    
+            };
+            DB::Table('blogs')->insert([
+                'title' => $request->title,
+                'data' => $request->data,
+                'image' => $filename,
+                
+    
+            ]);
+            return redirect()->back()->with('success','Successfully Added');
+
+
+        }
+
+        public function update_blogs(Request $request){
+            $validated = $request->validate([
+                'title' => 'required',
+                'data' => 'required',
+                'image' => 'required|mimes:jpeg,jpg,png,gif|required|max:10000',
+    
+            ]);
+
+            if($request->file('image')){
+                $file = $request->file('image');
+                $filename = $file->getClientOriginalName();
+                $path = public_path().'/images/';
+                $file->move($path, $filename);
+            };
+    
+            DB::table('blogs')->where('id',$request->id)->update([
+                'title' => $request->title,
+                'data' => $request->data,
+                'image' => $filename,
+    
+            ]);
+    
+            return redirect('/view-blogs')->with('success','Successfully Updated');
+        }
+    
+        public function edit_blog($id){
+
+
+            $blog = DB::table('blogs')->where('id',$id)->first();
+            if(!$blog){
+                return redirect()->back();
+            }
+    
+            return view('home.edit_blogs',compact('blog'));
+        }
+      
+
+       
     
 }

@@ -23,6 +23,7 @@ class VendorRegistrationController extends Controller
         'username' => 'required|unique:users',
         'password' => 'min:6|required',
         
+        
     ]);
 
 
@@ -32,6 +33,8 @@ class VendorRegistrationController extends Controller
         'username' => $request->username,
         'password' => bcrypt($request->password), 
         'role'  => '2',
+        
+
        
     ]);    
     $user_id = DB::table('users')->orderBy('id', 'desc')->first();  
@@ -40,6 +43,7 @@ class VendorRegistrationController extends Controller
         'user_id' => $user_id->id,
         'last_name' => $request->last_name,
         'display_name' => $request->display_name,
+        
         
         
     ]);    
