@@ -243,15 +243,15 @@
       $cont_ids = DB::table('vendors')->get()->pluck('user_id');
       $users = DB::table('users')->whereIn('id',$cont_ids)->where('status',1)->get()->pluck('id');
       $contributors = DB::table('vendors')->whereIn('user_id',$users)->limit(4)->get();
-   @endphp
+      @endphp
 
    
   
       @foreach($contributors as $contributor)
          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-            <img src="images/team1.jpg" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-            <h3 class="h4 pl-3" >{{$contributor->first_name}} {{$contributor->last_name}}</h3>
-            <p class="caption mb-3 text-primary"></p>
+            <!-- <img src="images/team1.jpg" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"> -->
+            <h3 class="h4 " >{{$contributor->first_name}} {{$contributor->last_name}}</h3>
+            <p class="caption mb-3 text-primary">{{Str::limit($contributor->description, 200)}}</p>
          </div>
       @endforeach()
    

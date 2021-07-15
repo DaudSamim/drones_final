@@ -22,6 +22,8 @@ use ProtoneMedia\LaravelFFMpeg\Filters\WatermarkFactory;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use FFMpeg\Filters\Video\VideoFilters;
 use ProtoneMedia\LaravelFFMpeg\FFMpeg\CopyFormat;
+use Illuminate\Support\Facades\Input;
+
 
 
 class HomeController extends Controller
@@ -908,7 +910,6 @@ class HomeController extends Controller
            
             $validated = $request->validate([
                 'title' => 'required',
-                'data' => 'required',
                 'image' => 'required|mimes:jpeg,jpg,png,gif|required|max:10000',
             ]);
 

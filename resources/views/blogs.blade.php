@@ -80,7 +80,7 @@
             </div>
             <div class="col-lg-7 col 12">
                 <h4>Data</h4>
-                <p class="pt-3">{{$main_blog->data}}</p>
+                <p class="pt-3">{!!$main_blog->data!!}</p>
             </div>
     
         </div>

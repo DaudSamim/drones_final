@@ -143,6 +143,12 @@
                      </div>
                   </div>
                   <div class="row form-group">
+                     <div class="col-md-12 mb-2">
+                        <label class="text-black" for="subject">Description</label>
+                        <textarea type="text" row="3" id="subject" placeholder="Description"name="description" class="form-control"></textarea>
+                     </div>
+                  </div>
+                  <div class="row form-group">
                      <div class="col-md-12">
                         <input type="submit" value="Register" class="btn btn-primary py-2 px-4 text-white">
                         <input type="hidden" name="_token" value={{csrf_token()}}>
