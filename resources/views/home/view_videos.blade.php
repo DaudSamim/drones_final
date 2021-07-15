@@ -34,6 +34,9 @@
                     <button type="button" class="card-title btn btn-primary btn-sm float-right text-white" data-toggle="modal" data-target="#new_video">
                         Add New Video
                     </button>
+                    <button type="button" class="mr-2 card-title btn btn-primary btn-sm float-right text-white" data-toggle="modal" data-target="#multiple-videos">
+                        Add Multiple Videos
+                    </button>
                     <h6 class="card-title">Videos</h6>
 
                      <div class="table-responsive">
@@ -60,7 +63,6 @@
 
                                     @php
                                         $category = DB::Table('categories')->where('id',$row->category_id)->first();
-
                                     @endphp
                                         
                                         <tr>
@@ -342,15 +344,23 @@
                             </div>
                         </div>
                     </div>
-<script>
-    
-    $(document).ready(function(){
-  $('.addmore').on('click', function(){
-     
-  
-    $(this).closest('.addings').before(` <hr> <br><div class="form-group">
+ <!-- Modal -->
+ <div id="multiple-videos" class="modal fade" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add New Video</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="m-body">
+                                    <span id="form_result"></span>
+                                    <form id="btn-submit" method="post" action="/view_vid" enctype='multipart/form-data'>
+
+                                       <div class="form-group">
                                             <label for="exampleInputEmail1">Video File</label>
-                                            <input class="form-control" accept="video/*" type="file" name="video" onchange="getFileData(this);">
+                                            <input class="form-control" accept="video/*" type="file" name="video[]" onchange="getFileData(this);">
 
                                             @if ($errors->has('video'))
                                                 <span class="text-danger">
@@ -359,17 +369,52 @@
                                             @endif
                                         </div>
 
+                                       
+                                          <div class="adds">
+
+                                          <div class="div-btns text-center">
+                                            <button type="button" class="btn btn addmultiple">Add More</button>
+                                          </div>
+                                          </div>
+                                        <div class="modal-footer">
+                                            <input type="submit" name="action_button"  class="btn btn-primary btn-block" value="Add" />                                            
+                                            <span
+                                                className="close cursor-pointer"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                                id="myModalClose">
+                                            </span>
+                                            <input type="hidden" name="_token" value={{csrf_token()}}>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+<script>
+    
+  $(document).ready(function(){
+  $('.addmore').on('click', function(){
+     
+  
+    $(this).closest('.addings').before(` <hr> <br><div class="form-group">
+                                            <label for="exampleInputEmail1">Video File</label>
+                                            <input class="form-control" accept="video/*" type="file" name="video" onchange="getFileData(this);">
+                                            @if ($errors->has('video'))
+                                                <span class="text-danger">
+                                            <small class="font-weight-bold">{{ $errors->first('video') }}</small>
+                                        </span>
+                                            @endif
+                                        </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Title</label>
                                             <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('title') ? 'is-invalid' : '' }}" id="name" name="title[]"  aria-describedby="emailHelp" placeholder="Video Title">
-
                                             @if ($errors->has('title'))
                                                 <span class="text-danger">
                                             <small class="font-weight-bold">{{ $errors->first('title') }}</small>
                                         </span>
                                             @endif
                                         </div>
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Model Released</label>
                                             
@@ -378,12 +423,10 @@
                                               <option> Yes </option>      
                                             </select>
                                         </div>
-
                                         <div class="form-group d-lg-none" id="yourdiv" >
                                           <label for="exampleInputEmail1">Model Released file</label>
                                           <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('pdf_file') ? 'is-invalid' : '' }}"  name="pdf_file2[]"  aria-describedby="emailHelp" placeholder="pdf">
                                         </div>
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Property Released</label>
                                             
@@ -392,22 +435,18 @@
                                               <option value ="Yes"> Yes </option>      
                                             </select>
                                         </div>
-
                                         <div class="form-group d-lg-none" id="mydiv" >
                                           <label for="exampleInputEmail1">Property released file</label>
                                           <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('pdf_file') ? 'is-invalid' : '' }}"  name="pdf_file[]"  aria-describedby="emailHelp" placeholder="pdf">
                                         </div>
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Location</label>
                                             <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('location') ? 'is-invalid' : '' }}"  name="location[]"  aria-describedby="emailHelp" placeholder="Location">
                                         </div>
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Drone Model</label>
                                             <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('device_model') ? 'is-invalid' : '' }}"  name="device_model[]"  aria-describedby="emailHelp" placeholder="Drone Model">
                                         </div>
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Description</label>
                                             <textarea name="description[]" class="form-control" rows="3" required></textarea>
@@ -417,7 +456,6 @@
                                         </span>
                                             @endif
                                         </div>
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Category</label>                                  
                                             <select class="form-select" aria-label="Default select example" name="category_id[]">
@@ -428,14 +466,12 @@
                                               @endforeach
                                               @endif                                          
                                             </select>
-
                                             @if ($errors->has('category_id'))
                                                 <span class="text-danger">
                                             <small class="font-weight-bold">{{ $errors->first('category_id') }}</small>
                                         </span>
                                             @endif
                                         </div>
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Keywords </label><br>
                                             <small  style="color: red">Enter comma (,) seperated words. Max 30 words</small>
@@ -445,13 +481,29 @@
   });
  });
 
+ $(document).ready(function(){
+  $('.addmultiple').on('click', function(){
+     
+  
+    $(this).closest('.adds').before(` <hr> <br><div class="form-group">
+                                            <label for="exampleInputEmail1">Video File</label>
+                                            <input class="form-control" accept="video/*" type="file" name="video[]" onchange="getFileData(this);">
+                                            @if ($errors->has('video'))
+                                                <span class="text-danger">
+                                            <small class="font-weight-bold">{{ $errors->first('video') }}</small>
+                                        </span>
+                                            @endif
+                                        </div>
+                                `);
+                
+  }); 
+ });
 </script>
 
 <script>
     $('.extra').click(function() {
       $('.extra_box').toggle("slide");
     });
-
     function getFileData(myFile){
        var file = myFile.files[0];  
        var filename = file.name;
@@ -472,7 +524,6 @@ if(choice == 'No'){
 }
 }
   
-
 </script>
 
 <script>
@@ -488,8 +539,6 @@ if(choice == 'No'){
 }
 }
   
-
 </script>
 
 @endsection
-

@@ -35,6 +35,7 @@
                     <button type="button" class="card-title btn btn-primary btn-sm float-right text-white" data-toggle="modal" data-target="#new_video">
                         Add New Blog
                     </button>
+                    
                     <h6 class="card-title">Blogs</h6>
 
                      <div class="table-responsive">

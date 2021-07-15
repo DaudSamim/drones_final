@@ -156,7 +156,6 @@
                                                         @foreach($cart_data as $row)
                                                             @php
                                                                 $row_product = DB::table('videos')->where('id',$row->product_id)->first();
-
                                                             @endphp
                                                              <li class="cart_item empty" style="width: 100%">
                                                                <!--  <span class="edd_empty_cart">{{$row_product->title}}  {{$row->quality}}  {{$row->price}}</span> -->

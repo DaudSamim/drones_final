@@ -74,16 +74,15 @@
                                             @endif
                                         </div>
 
-
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Video Category</label>
                                             @php
                                             $categories = DB::Table('categories')->get();
                                             $selected_category = DB::Table('categories')->where('id',$video->category_id)->first();
                                             @endphp
+                                            
                                             <select class="form-select" aria-label="Default select example" name="category_id">
-                                              <option value="{{$selected_category->id}}" selected>{{$selected_category->title}}</option>
+                                              <option value="{{$selected_category->id??null}}" selected>{{$selected_category->title??null}}</option>
                                                 @if(isset($categories))
                                                 @foreach($categories as $row)
                                               <option value="{{$row->id}}">{{$row->title}}</option>
