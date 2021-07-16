@@ -19,7 +19,6 @@
                                 <th>id</th>
                                 <th>Product id</th>
                                 <th>Title</th>
-                                
                                 <th>Price</th>
                                 <th>Profit</th>
                                 <th>Quality</th>
@@ -31,7 +30,9 @@
                             <tbody>
                                 @if(isset($allOrders))
                                     @foreach($allOrders as $row)
-                                    
+                                        @php
+                                            $product = DB::table('videos')->where('id',$row->product_id)->first();
+                                        @endphp
                                        
                                         <tr>
                                             
@@ -42,7 +43,13 @@
                                             <td>{{$row->profit}}</td>
                                             <td>{{$row->quality}}</td>
                                             <td><a href=""><button class="btn btn-success">View</button></a>
-                                                <a href=""><button class="btn btn-primary">Download</button></a></td>
+                                                <a href=""><button class="btn btn-primary">Download</button></a>
+                                                @if(isset($product) && $product->property_released == 'Yes' )
+                                                <a href="{{'/download/'.$main_video->pdf_file}}"><button class="btn btn-primary">Property Release</button></a>
+                                                @endif
+                                                @if(isset($product) && $product->model_released == 'Yes' )
+                                                <a href="{{'/download/'.$main_video->pdf_file2}}"><button class="btn btn-primary">Model Release</button></a>
+                                            </td>
                                                 <td>{{$row->created_at}}</td>
                                         </tr>
 

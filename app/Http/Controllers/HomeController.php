@@ -418,7 +418,6 @@ class HomeController extends Controller
 
             $video = $request->title;
             if($request->file('video')){
-                // dd($request->video[0]);
             foreach ($video as $key => $value){
 
 

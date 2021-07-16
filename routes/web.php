@@ -202,6 +202,8 @@ Route::get('/search_{keyword}',function($keyword){
        return view('search_results',compact('videos','keyword'));
 });
 Route::post('/search','\App\Http\Controllers\HomeController@search');
+ Route::get('/blogs', '\App\Http\Controllers\HomeController@list_blogs');
+     
 
 
 
@@ -317,7 +319,6 @@ Route::middleware('auth')->group(function ()
       Route::post('/post_blog', '\App\Http\Controllers\HomeController@post_blogs');
       Route::post('/edit_blog','\App\Http\Controllers\HomeController@update_blogs');
       Route::get('/post_blog/{id}', '\App\Http\Controllers\HomeController@edit_blog');
-      Route::get('/blogs', '\App\Http\Controllers\HomeController@list_blogs');
      
       Route::get('/blog_{title}',function($title){
         $main_blog = DB::table('blogs')->where('title',$title)->first();

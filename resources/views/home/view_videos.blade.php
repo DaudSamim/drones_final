@@ -350,7 +350,7 @@
   
     $(this).closest('.addings').before(` <hr> <br><div class="form-group">
                                             <label for="exampleInputEmail1">Video File</label>
-                                            <input class="form-control" accept="video/*" type="file" name="video" onchange="getFileData(this);">
+                                            <input class="form-control" accept="video/*" type="file" name="video[]" onchange="getFileData(this);">
 
                                             @if ($errors->has('video'))
                                                 <span class="text-danger">
