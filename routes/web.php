@@ -238,7 +238,7 @@ Route::middleware('auth')->group(function ()
     Route::post('/view_videos','\App\Http\Controllers\HomeController@postVideos');
     Route::post('/edit_video','\App\Http\Controllers\HomeController@posteditVideos');
     Route::post('update_video_price','\App\Http\Controllers\HomeController@update_video_price');
-
+    Route::post('/view_vid','\App\Http\Controllers\HomeController@postMultipleVideos');
     Route::get('/show_orders','\App\Http\Controllers\HomeController@getorders');
 
 

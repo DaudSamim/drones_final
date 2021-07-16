@@ -227,7 +227,29 @@
                                        </div>
                                        <div class="count-download">
                                        <div class="product-price promo_price">
-                                       <span class="edd_price" id="edd_price_11718">${{$video->price}}</span>
+                                       @php
+                                          $price = null;
+                                             $vid=DB::table('videos')->where('id', $video->id)->pluck('resolution')->first();
+                                             if($vid=='HD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('hd')->first();
+                                                
+                                             }
+                                             if($vid=='FHD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fhd')->first();
+                                             }
+                                             if($vid=='4K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fourK')->first();
+                                             }
+                                             if($vid=='6K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('sixK')->first();
+                                             }
+                                             if($vid=='8K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('eightK')->first();
+                                             }
+                                       @endphp
+                                       
+                                       <span class="edd_price" id="edd_price_11718">${{$price}}</span>
+                                       
                                        </div>
                                        </div>
                                        <div class="clearfix"></div>
@@ -381,7 +403,28 @@
       </div>
       <div class="count-download">
       <div class="product-price promo_price">
-      <span class="edd_price" id="edd_price_11718">${{$video->price}}</span>
+      @php
+                                          $price = null;
+                                             $vid=DB::table('videos')->where('id', $video->id)->pluck('resolution')->first();
+                                             if($vid=='HD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('hd')->first();
+                                                
+                                             }
+                                             if($vid=='FHD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fhd')->first();
+                                             }
+                                             if($vid=='4K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fourK')->first();
+                                             }
+                                             if($vid=='6K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('sixK')->first();
+                                             }
+                                             if($vid=='8K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('eightK')->first();
+                                             }
+                                       @endphp
+
+      <span class="edd_price" id="edd_price_11718">${{$price}}</span>
       </div>
       </div>
       <div class="clearfix"></div>
@@ -588,7 +631,10 @@
       <sub class="pricing_currency">$</sub> {{$plan->price}}<span
          class="pricing_timeframe">/mo</span></h3>
       </div>
-      @php
+      
+      
+
+
       if($plan->features != null){
       $features = json_decode($plan->features);
       $features = explode(',',$features);

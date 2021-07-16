@@ -22,6 +22,8 @@ use ProtoneMedia\LaravelFFMpeg\Filters\WatermarkFactory;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use FFMpeg\Filters\Video\VideoFilters;
 use ProtoneMedia\LaravelFFMpeg\FFMpeg\CopyFormat;
+use Illuminate\Support\Facades\Input;
+
 
 
 class HomeController extends Controller
@@ -130,6 +132,7 @@ class HomeController extends Controller
 
         $validated = $request->validate([
             'price' => 'required|integer',
+            
             
         ]);
 
@@ -486,6 +489,39 @@ class HomeController extends Controller
              }
 
         return redirect()->back()->with('error','Something Wrong');
+    }
+    public function postMultipleVideos(Request $request){
+        $validated = $request->validate([
+            'video' => 'required',
+            
+        ]);
+
+        $videos= $request->video;
+        
+        foreach ($videos as $key=>$value){
+            
+            $file = $request->video[$key];
+            $filename = $file->getClientOriginalName();
+            $filena = pathinfo($filename, PATHINFO_FILENAME);
+            $path = storage_path().'/app/public/';
+            $size = $file->getSize();
+            $size = number_format($size / 1048576, 2);
+            $file->move($path, $filename);
+
+            DB::table('videos')->insert([
+                'file'=>$filename,
+                'user_id' => auth()->user()->id,
+
+                
+            ]);
+
+        }
+
+       
+         return redirect()->back()->with('success','Successfully Added');
+
+
+
     }
 
     public function update_video_price(Request $request){
@@ -907,7 +943,6 @@ class HomeController extends Controller
            
             $validated = $request->validate([
                 'title' => 'required',
-                'data' => 'required',
                 'image' => 'required|mimes:jpeg,jpg,png,gif|required|max:10000',
             ]);
 

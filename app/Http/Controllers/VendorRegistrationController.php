@@ -43,6 +43,7 @@ class VendorRegistrationController extends Controller
         'user_id' => $user_id->id,
         'last_name' => $request->last_name,
         'display_name' => $request->display_name,
+        'description' => $request->description,
         
         
         

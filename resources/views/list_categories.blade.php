@@ -80,7 +80,7 @@
 @endphp
     @foreach($categories as $category)
    <div  class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-      <img src=images/{{$category->image}} alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+      <img style="height:180px !important;" src=images/{{$category->image}} alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
       <h3> <a href="{{'/category_'.$category->title}}" class="h4">{{$category->title}}</a></h3>
       
    </div>

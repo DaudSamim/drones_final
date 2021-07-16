@@ -1,7 +1,14 @@
 @extends('layout.app')
 
 @section('content')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>                   
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" integrity="sha256-n3YISYddrZmGqrUgvpa3xzwZwcvvyaZco0PdOyUKA18=" crossorigin="anonymous" />
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+
+</head>
 <style>
     .form-check-input {
     position: absolute;
@@ -28,6 +35,7 @@
                     <button type="button" class="card-title btn btn-primary btn-sm float-right text-white" data-toggle="modal" data-target="#new_video">
                         Add New Blog
                     </button>
+                    
                     <h6 class="card-title">Blogs</h6>
 
                      <div class="table-responsive">
@@ -49,7 +57,7 @@
                                        
                                         <tr>
                                             <td>{{$blog->title}}</td>
-                                            <td>{{$blog->data}}</td>
+                                            <td>{!!$blog->data!!}</td>
                                             <td>{{$blog->image}}</td>
                                 
                                             <td>
@@ -87,7 +95,7 @@
                  <!-- Modal -->
                
                     <div id="new_video" class="modal fade" role="dialog">
-                        <div class="modal-dialog" role="document">
+                        <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Add New Blog</h5>
@@ -106,12 +114,12 @@
 
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Data</label>
-                                            <textarea style="width: 100% !important;;" rows="5" type="text" class="form-control addName {{ $errors->has('data') ? 'is-invalid' : '' }}"  name="data"  aria-describedby="emailHelp" placeholder="Data"></textarea>
+                                            <textarea id="editor" style="width: 100% !important;;" rows="5" type="text" class=" form-control addName {{ $errors->has('data') ? 'is-invalid' : '' }}"  name="data"  aria-describedby="emailHelp" placeholder="Data"></textarea>
                                         </div>
                                        
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Image</label>
-                                            <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('image') ? 'is-invalid' : '' }}"  name="image"  aria-describedby="emailHelp" placeholder="Download Limit">
+                                            <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('image') ? 'is-invalid' : '' }} summernote"  name="image"  aria-describedby="emailHelp" placeholder="Download Limit">
                                         </div>
                      
                                 
@@ -131,8 +139,6 @@
                             </div>
                         </div>
                     </div>
-                    
-
 
 <script>
     $('.extra').click(function() {
@@ -160,7 +166,19 @@ if(choice == 'No'){
 }
   
 
-</script>
 
+</script>
+<script>
+        $(document).ready(function() {
+          $('.summernote').summernote();
+        });
+</script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 @endsection
 

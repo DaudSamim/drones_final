@@ -1,6 +1,15 @@
+
 @extends('layout.app')
 
 @section('content')
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>                   
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" integrity="sha256-n3YISYddrZmGqrUgvpa3xzwZwcvvyaZco0PdOyUKA18=" crossorigin="anonymous" />
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+
+</head>
 <style>
 .form-check-input {
     position: absolute;
@@ -30,10 +39,11 @@
                                             <input style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('title') ? 'is-invalid' : '' }}"  name="title"  aria-describedby="emailHelp" placeholder="Title" value="{{$blog->title}}">
                                     </div>
 
-                                        <div class="form-group">
+                                    <div class="form-group">
                                             <label for="exampleInputEmail1">Data</label>
-                                            <textarea style="width: 100% !important;;" type="text" class="form-control addName {{ $errors->has('data') ? 'is-invalid' : '' }}"  name="data"  aria-describedby="emailHelp" placeholder="Data" value="{{$blog->data}}"></textarea>
+                                            <textarea id="editor" style="width: 100% !important;;" rows="5" type="text" class=" form-control addName {{ $errors->has('data') ? 'is-invalid' : '' }}"  name="data"  aria-describedby="emailHelp" placeholder="Data">{{{ $blog->data }}}</textarea>
                                         </div>
+                                       
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Image</label>
                                             <input style="width: 100% !important;;" type="file" class="form-control addName {{ $errors->has('image') ? 'is-invalid' : '' }}"  name="image"  aria-describedby="emailHelp" placeholder="Image" value="{{$blog->image}}">
@@ -62,5 +72,12 @@
             </div>
         </div>
     </div>
+    <script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 @endsection
 
