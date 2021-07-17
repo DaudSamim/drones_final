@@ -49,7 +49,7 @@
                                     <h4 class="footer-widget-title">Site</h4>
                                     <ul>
                                         <a href="/"><li>Home</li></a>
-                                        <a href="#"><li>Blog</li></a>
+                                        <a href="/blogs"><li>Blog</li></a>
                                         <a href="faqs"><li>FAQ's</li></a>
                                         
                                     </ul>
@@ -60,9 +60,9 @@
                                 <div class="col-lg-2" style="width: 20% !important">
                                     <h4 class="footer-widget-title">We are very social</h4>
                                     <ul>
-                                        <a href="#"><li><i class="fab fa-facebook-f"></i> Facebook</li></a>
-                                        <a href="#"><li><i class="fab fa-youtube"></i> Youtube</li></a>
-                                        <a href="#"><li><i class="fab fa-instagram"></i> Instagram</li></a>
+                                        <a href="https://www.facebook.com/African-Drone-Stock-352177435860332"><li><i class="fab fa-facebook-f"></i> Facebook</li></a>
+                                        <a href="https://www.youtube.com/channel/UC3zgqtlhtZY6vEuOlCSNQmQ"><li><i class="fab fa-youtube"></i> Youtube</li></a>
+                                        <a href="https://www.instagram.com/africandronestock/"><li><i class="fab fa-instagram"></i> Instagram</li></a>
                                         <a href="#"><li><i class="fab fa-twitter"></i> Twitter</li></a>
                                         
                                     </ul>

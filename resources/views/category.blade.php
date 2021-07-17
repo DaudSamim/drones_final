@@ -185,12 +185,13 @@
 
                                                         <!-- Element Code start -->
                                                         <div class="product-search-form style1">
-                                                            <form method="GET" action="#">
+                                                            <form method="POST" action="/search">
+                                                            @csrf
 
                                                                 
 
                                                                 <div class="search-fields">
-                                                                    <input name="s" value="" type="text"
+                                                                    <input name="keyword" value="" type="text"
                                                                         placeholder="Search Now">
                                                                     <input type="hidden" name="post_type"
                                                                         value="download">
