@@ -180,6 +180,8 @@ class CartController extends Controller
 						 'product_id' => $find_id->id,
 						 'title' => $find_id->title,
 						 'vendor_id' => $find_id ->user_id,
+						 'user_id' => auth()->user()->id,
+
 					]);
 					
 					DB::table('vendors')->where('user_id',$find_id->user_id)->update([

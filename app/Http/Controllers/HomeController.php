@@ -31,6 +31,8 @@ class HomeController extends Controller
     public function getStats()
 
     {     
+        $check_role = DB::table('users')->where('id',Auth::user()->id)->first();
+        if($check_role->role == 1){
         $videos = DB::table('videos')->get();
                         $categories = DB::table('categories')->get();
                         $purchases = DB::table('orders')->get();
@@ -48,6 +50,24 @@ class HomeController extends Controller
 
 
       return view('home.view-stats',compact('count_videos','count_subs','count_vendors','count_categories','count_purchases','count_plans','count_users'));
+    }
+    if ($check_role->role == 2){
+        $purchases = DB::table('orders')->where('user_id',Auth::user()->id)->get();
+        $count_purchases = count($purchases);
+        $plans = DB::table('plan_purchases')->where('user_id',Auth::user()->id)->get();
+        $count_plans = count($plans);
+        $videos = DB::table('videos')->where('user_id',Auth::user()->id)->get();
+        $count_videos = count($videos);
+
+        return view('home.view-stats',compact('count_purchases','count_plans','count_videos'));
+    }
+    if ($check_role->role == 3){
+        $purchases = DB::table('orders')->where('user_id',Auth::user()->id)->get();
+        $count_purchases = count($purchases);
+        $plans = DB::table('plan_purchases')->where('user_id',Auth::user()->id)->get();
+        $count_plans = count($plans);
+        return view('home.view-stats',compact('count_purchases','count_plans'));
+    }
     }
 
     public function search(Request $request){
@@ -116,7 +136,14 @@ class HomeController extends Controller
 
     public function downloadProduct($id){
         $link = DB::table('videos')->where('id',$id)->pluck('file')->first();
-        return response()->download(public_path('storage/'.$link));
+        if(isset($link)){
+            return response()->download(public_path('storage/'.$link));
+        }
+        else{
+            return redirect()->back()->with('alert','Video already DELETED');
+
+
+        }
     }
 
     public function downloadClientProduct($link){
@@ -1009,6 +1036,8 @@ class HomeController extends Controller
 						 'product_id' => $find_id->id,
 						 'title' => $find_id->title,
 						 'vendor_id' => $find_id ->user_id,
+                         'user_id' => auth()->user()->id,
+
 					]);
 					
 					

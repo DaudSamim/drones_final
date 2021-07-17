@@ -35,7 +35,7 @@
    border-radius: 30px;
    display: inline-block;
    background: #e9ecef;
-   color: #000;
+   color: #ffffff;
    font-size: 14px;
    -webkit-transition: .1s all ease;
    -o-transition: .1s all ease;
@@ -78,7 +78,7 @@
       <div class="container">
       <div class="row justify-content-center mb-5">
       <div class="col-md-7 text-center border-primary">
-      <h2 class="font-weight-light text-primary ">Frequently Ask Question</h2>
+      <h2 class="pt-5 font-weight-light text-primary ">Frequently Ask Question</h2>
       
       </div>
       </div>
@@ -88,7 +88,7 @@
       <a data-toggle="collapse" href="#collapse-1" role="button" aria-expanded="false" aria-controls="collapse-1" class="accordion-item h5 d-block mb-0">How to list my item?</a>
       <div class="collapse" id="collapse-1">
       <div class="pt-2">
-      <p class="mb-0">“Royalty-Free” is a type of license that allows the unlimited use of content for any media projects without having to pay royalty fees. All footage are royalty-free and they are yours to keep forever. 
+      <p class="mb-0 ">“Royalty-Free” is a type of license that allows the unlimited use of content for any media projects without having to pay royalty fees. All footage are royalty-free and they are yours to keep forever. 
 
 Royalty-free is a type of license that allows unlimited use of content in media projects without having to pay each time that clip appears in a project. This means that there are no fees applicable to the recurring usage of a singular or group of clips or media procured through valid means on the  African Drone stock site, and that all  content can be leveraged as a media asset without additional payment in perpetuity.  All of African Drone Stocks content is royalty-free! and are yours to keep forever. </p>
       </div>
