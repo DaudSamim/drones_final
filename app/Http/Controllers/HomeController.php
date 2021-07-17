@@ -285,129 +285,133 @@ class HomeController extends Controller
        $size_fhd = null;
        $size_hd = null;
 
-        // if($request->file('video')){
-        //     $file = $request->file('video');
-        //     $filename = $file->getClientOriginalName();
-        //     $filena = pathinfo($filename, PATHINFO_FILENAME);
-        //     $path = storage_path().'/app/public/';
-        //     $size = $file->getSize();
-        //     $size = number_format($size / 1048576, 2);
-        //     $file->move($path, $filename);
+        if($request->file('video')){
+
+
+            $file = $request->file('video');
+            $filename = $file->getClientOriginalName();
+            $filena = pathinfo($filename, PATHINFO_FILENAME);
+            $path = storage_path().'/app/public/';
+            $size = $file->getSize();
+            $size = number_format($size / 1048576, 2);
+            $file->move($path, $filename);
     
-        // if($request->file('pdf_file')){
-        //     $file_1 = $request->file('pdf_file');
-        //     $filename_1 = $file_1->getClientOriginalName();
-        //     $path_1 = public_path();
-        //     $file_1->move($path_1, $filename_1);
-        // } 
-        // if($request->file('pdf_file2')){
-        //     $file_2 = $request->file('pdf_file2');
-        //     $filename_2 = $file_2->getClientOriginalName();
-        //     $path_2 = public_path();
-        //     $file_2->move($path_2, $filename_2);
-        // } 
+        if($request->file('pdf_file')){
+            $file_1 = $request->file('pdf_file');
+            $filename_1 = $file_1->getClientOriginalName();
+            $path_1 = public_path();
+            $file_1->move($path_1, $filename_1);
+        } 
+        if($request->file('pdf_file2')){
+            $file_2 = $request->file('pdf_file2');
+            $filename_2 = $file_2->getClientOriginalName();
+            $path_2 = public_path();
+            $file_2->move($path_2, $filename_2);
+        } 
 
             // Resolutions
-            // $processOutput = \FFMpeg::fromDisk('public')->open($filename)
-            //     ->export()
-            //     ->addFilter(['-filter:a', 'volumedetect', '-f', 'null'])
-            //     ->getProcessOutput();
+            $processOutput = \FFMpeg::fromDisk('public')->open($filename)
+                ->export()
+                ->addFilter(['-filter:a', 'volumedetect', '-f', 'null'])
+                ->getProcessOutput();
 
 
-            // foreach ($processOutput->all() as $key => $value){ 
-            //           if(str_contains($value, 'Stream')){
-            //              $processOutput = explode(',',$processOutput->all()[$key]); 
-            //              break;
-            //           }
-            //   }
+            foreach ($processOutput->all() as $key => $value){ 
+                      if(str_contains($value, 'Stream')){
+                         $processOutput = explode(',',$processOutput->all()[$key]); 
+                         break;
+                      }
+              }
+
+              // dd($processOutput);
 
 
-            // // For watermark
-            // \FFMpeg::fromDisk('public')->open($filename)
-            // ->addWatermark(function(WatermarkFactory $watermark) {
-            //     $watermark->open('watermark.png')
-            //         ->left(25)
-            //         ->bottom(25) 
-            //         ->width(300)
-            //         ->height(300);
-            // })->export()->inFormat(new \FFMpeg\Format\Video\X264)
-            //  ->save("drone{$filena}.mp4");  
-
-
-
-            // // Video resolution
-            // $video_resolution = explode(' ',$processOutput[3]);
-            // $video_resolution =  explode('x',$video_resolution[1]);
-            // $video_resolution = $video_resolution[1];
+            // For watermark
+            \FFMpeg::fromDisk('public')->open($filename)
+            ->addWatermark(function(WatermarkFactory $watermark) {
+                $watermark->open('watermark.png')
+                    ->left(25)
+                    ->bottom(25) 
+                    ->width(300)
+                    ->height(300);
+            })->export()->inFormat(new \FFMpeg\Format\Video\X264)
+             ->save("drone{$filena}.mp4");  
 
 
 
-            // if($video_resolution >=  '4320'){
-            //     $video_resolution = '8k';
-            // }elseif ($video_resolution >= '3160') {
-            //    $video_resolution = '6k';
-            // }elseif ($video_resolution >= '2160') {
+            // Video resolution
+            $video_resolution = explode(' ',$processOutput[2]);
+            $video_resolution =  explode('x',$video_resolution[1]);
+            $video_resolution = $video_resolution[1];
+
+             // dd($video_resolution);   
+
+            if($video_resolution >=  '4320'){
+                $video_resolution = '8k';
+            }elseif ($video_resolution >= '3160') {
+               $video_resolution = '6k';
+            }elseif ($video_resolution >= '2160') {
                  
 
-            //     \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
-            //       ->export()
-            //       ->resize(1920, 1080)
-            //       ->inFormat(new \FFMpeg\Format\Video\X264)
-            //       ->save("1080drone{$filena}.mp4");
+                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+                  ->export()
+                  ->resize(1920, 1080)
+                  ->inFormat(new \FFMpeg\Format\Video\X264)
+                  ->save("1080drone{$filena}.mp4");
 
 
 
-            //     \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
-            //       ->export()
-            //       ->resize(1280, 720)
-            //       ->inFormat(new \FFMpeg\Format\Video\X264)
-            //       ->save("720drone{$filena}.mp4");
+                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+                  ->export()
+                  ->resize(1280, 720)
+                  ->inFormat(new \FFMpeg\Format\Video\X264)
+                  ->save("720drone{$filena}.mp4");
 
-            //       $size_fourK = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
-            //       $size_fourK = number_format($size_fourK / 1048576, 2);
-            //       $size_fhd = \File::size(public_path('/storage/1080drone'.$filena.'.mp4'));
-            //       $size_fhd = number_format($size_fhd / 1048576, 2);
-            //       $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
-            //       $size_hd = number_format($size_hd / 1048576, 2);
+                  $size_fourK = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
+                  $size_fourK = number_format($size_fourK / 1048576, 2);
+                  $size_fhd = \File::size(public_path('/storage/1080drone'.$filena.'.mp4'));
+                  $size_fhd = number_format($size_fhd / 1048576, 2);
+                  $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
+                  $size_hd = number_format($size_hd / 1048576, 2);
 
-            //    $video_resolution = '4k';
-            // }elseif ($video_resolution >= '1080') {
+               $video_resolution = '4k';
+            }elseif ($video_resolution >= '1080') {
 
-            //     \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
-            //       ->export()
-            //       ->resize(1280, 720)
-            //       ->inFormat(new \FFMpeg\Format\Video\X264)
-            //       ->save("720drone{$filena}.mp4");
+                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+                  ->export()
+                  ->resize(1280, 720)
+                  ->inFormat(new \FFMpeg\Format\Video\X264)
+                  ->save("720drone{$filena}.mp4");
 
-            //       $size_fhd = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
-            //       $size_fhd = number_format($size_fhd / 1048576, 2);
-            //       $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
-            //       $size_hd = number_format($size_hd / 1048576, 2);
+                  $size_fhd = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
+                  $size_fhd = number_format($size_fhd / 1048576, 2);
+                  $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
+                  $size_hd = number_format($size_hd / 1048576, 2);
 
-            //       $video_resolution = 'FHD';
-            // }else{
-            //     return redirect()->back()->with('alert','Uploading failed. Video Resolutions accepted: 4k, 6k or 8K');
-            // }    
+                  $video_resolution = 'FHD';
+            }else{
+                return redirect()->back()->with('alert','Uploading failed. Video Resolutions accepted: 4k, 6k or 8K');
+            }    
 
-            // // Frame per second
-            // $fps = $processOutput[5];
+            // Frame per second
+            $fps = $processOutput[5];
 
-            // // Bitrate
-            // $bitrate = $processOutput[4];
+            // Bitrate
+            $bitrate = $processOutput[4];
 
 
-            //  // For thumbnail
-            //  \FFMpeg::fromDisk('public')
-            //     ->open("drone{$filena}.mp4")
-            //     ->getFrameFromSeconds(1)
-            //     ->export()
-            //     ->toDisk('public')
-            //     ->save("drone{$filena}.png");
+             // For thumbnail
+             \FFMpeg::fromDisk('public')
+                ->open("drone{$filena}.mp4")
+                ->getFrameFromSeconds(1)
+                ->export()
+                ->toDisk('public')
+                ->save("drone{$filena}.png");
 
-            // // For length 
-            // $media = \FFMpeg::fromDisk('public')->open("drone{$filena}.mp4");
-            // $durationInSeconds = $media->getDurationInSeconds(); // returns an int
-            // $length = gmdate("i:s", $durationInSeconds); 
+            // For length 
+            $media = \FFMpeg::fromDisk('public')->open("drone{$filena}.mp4");
+            $durationInSeconds = $media->getDurationInSeconds(); // returns an int
+            $length = gmdate("i:s", $durationInSeconds); 
 
             $eightK = DB::table('qualities')->where('title','8K')->pluck('price')->first();
             $sixtK = DB::table('qualities')->where('title','6K')->pluck('price')->first();
@@ -419,49 +423,22 @@ class HomeController extends Controller
 
             // $filename = 'drone'.$filena.'.mp4';
 
-            $video = $request->title;
             if($request->file('video')){
-            foreach ($video as $key => $value){
-
-
-                   
-                        $file = $request->video[$key];
-                        $filename = $file->getClientOriginalName();
-                        $filena = pathinfo($filename, PATHINFO_FILENAME);
-                        $path = storage_path().'/app/public/';
-                        $size = $file->getSize();
-                        $size = number_format($size / 1048576, 2);
-                        $file->move($path, $filename);
-
-                        
-                    if(isset($request->pdf_file[$key])){
-                        $file_1 = $request->pdf_file[$key];
-                        $filename_1 = $file_1->getClientOriginalName();
-                        $path_1 = public_path();
-                        $file_1->move($path_1, $filename_1);
-                    } 
-                    if(isset($request->pdf_file2[$key])){
-                        $file_2 = $request->pdf_file2[$key];
-                        $filename_2 = $file_2->getClientOriginalName();
-                        $path_2 = public_path();
-                        $file_2->move($path_2, $filename_2);
-                    } 
-                    $filename = 'drone'.$filena.'.mp4';
-                    
+            
                 DB::Table('videos')->insert([
                 'user_id' => auth()->user()->id,
-                'title' => $value,
+                'title' => $request->title,
                 'file' => $filename,
-                'category_id' => $request->category_id[$key],
+                'category_id' => $request->category_id,
                 'poster' => 'drone'.$filena.'.png'??null,
                 'price' => 1,
-                'description' => $request->description[$key],
+                'description' => $request->description,
                 'length' => $length??null,
                 'size' => $size??null,
-                'model_released' => $request->model_released[$key],
-                'property_released' => $request->property_released[$key],
-                'location' => $request->location[$key],
-                'device_model' => $request->device_model[$key],
+                'model_released' => $request->model_released,
+                'property_released' => $request->property_released,
+                'location' => $request->location,
+                'device_model' => $request->device_model,
                 'fps' => $fps??null,
                 'bitrate' => $bitrate??null,
                 'resolution' => $video_resolution??null,
@@ -470,7 +447,7 @@ class HomeController extends Controller
                 'fourK' => $fourK,
                 'fhd' =>  $fhd,
                 'hd' => $hd,
-                'keywords' => $request->keywords[$key]?json_encode($request->keywords[$key]):null,
+                'keywords' => $request->keywords?json_encode($request->keywords):null,
                 'size_eightK' => $size_eightK,
                 'size_sixK' => $size_sixK,
                 'size_fourK' => $size_fourK,
@@ -482,11 +459,12 @@ class HomeController extends Controller
         
 
                 ]);
-            }
+          
 
                 return redirect()->back()->with('success','Successfully Added');
 
              }
+         }
 
         return redirect()->back()->with('error','Something Wrong');
     }
@@ -496,23 +474,159 @@ class HomeController extends Controller
             
         ]);
 
+
+
         $videos= $request->video;
         
         foreach ($videos as $key=>$value){
+
+           $size_eightK = null;
+           $size_sixK = null;
+           $size_fourK = null;
+           $size_fhd = null;
+           $size_hd = null;
             
             $file = $request->video[$key];
             $filename = $file->getClientOriginalName();
+            $title_temp = $filename;
             $filena = pathinfo($filename, PATHINFO_FILENAME);
             $path = storage_path().'/app/public/';
             $size = $file->getSize();
             $size = number_format($size / 1048576, 2);
             $file->move($path, $filename);
 
+
+             // Resolutions
+            $processOutput = \FFMpeg::fromDisk('public')->open($filename)
+                ->export()
+                ->addFilter(['-filter:a', 'volumedetect', '-f', 'null'])
+                ->getProcessOutput();
+
+
+            foreach ($processOutput->all() as $key => $value){ 
+                      if(str_contains($value, 'Stream')){
+                         $processOutput = explode(',',$processOutput->all()[$key]); 
+                         break;
+                      }
+              }
+
+              // dd($processOutput);
+
+
+            // For watermark
+            \FFMpeg::fromDisk('public')->open($filename)
+            ->addWatermark(function(WatermarkFactory $watermark) {
+                $watermark->open('watermark.png')
+                    ->left(25)
+                    ->bottom(25) 
+                    ->width(300)
+                    ->height(300);
+            })->export()->inFormat(new \FFMpeg\Format\Video\X264)
+             ->save("drone{$filena}.mp4");  
+
+
+
+            // Video resolution
+            $video_resolution = explode(' ',$processOutput[2]);
+            $video_resolution =  explode('x',$video_resolution[1]);
+            $video_resolution = $video_resolution[1];
+
+             // dd($video_resolution);   
+
+            if($video_resolution >=  '4320'){
+                $video_resolution = '8k';
+            }elseif ($video_resolution >= '3160') {
+               $video_resolution = '6k';
+            }elseif ($video_resolution >= '2160') {
+                 
+
+                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+                  ->export()
+                  ->resize(1920, 1080)
+                  ->inFormat(new \FFMpeg\Format\Video\X264)
+                  ->save("1080drone{$filena}.mp4");
+
+
+
+                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+                  ->export()
+                  ->resize(1280, 720)
+                  ->inFormat(new \FFMpeg\Format\Video\X264)
+                  ->save("720drone{$filena}.mp4");
+
+                  $size_fourK = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
+                  $size_fourK = number_format($size_fourK / 1048576, 2);
+                  $size_fhd = \File::size(public_path('/storage/1080drone'.$filena.'.mp4'));
+                  $size_fhd = number_format($size_fhd / 1048576, 2);
+                  $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
+                  $size_hd = number_format($size_hd / 1048576, 2);
+
+               $video_resolution = '4k';
+            }elseif ($video_resolution >= '1080') {
+
+                \FFMpeg::fromDisk('public')->open('drone'.$filena.'.mp4')
+                  ->export()
+                  ->resize(1280, 720)
+                  ->inFormat(new \FFMpeg\Format\Video\X264)
+                  ->save("720drone{$filena}.mp4");
+
+                  $size_fhd = \File::size(public_path('/storage/drone'.$filena.'.mp4'));
+                  $size_fhd = number_format($size_fhd / 1048576, 2);
+                  $size_hd = \File::size(public_path('/storage/720drone'.$filena.'.mp4'));
+                  $size_hd = number_format($size_hd / 1048576, 2);
+
+                  $video_resolution = 'FHD';
+            }else{
+                return redirect()->back()->with('alert','Uploading failed. Video Resolutions accepted: 4k, 6k or 8K');
+            }    
+
+            // Frame per second
+            $fps = $processOutput[5];
+
+            // Bitrate
+            $bitrate = $processOutput[4];
+
+
+             // For thumbnail
+             \FFMpeg::fromDisk('public')
+                ->open("drone{$filena}.mp4")
+                ->getFrameFromSeconds(1)
+                ->export()
+                ->toDisk('public')
+                ->save("drone{$filena}.png");
+
+            // For length 
+            $media = \FFMpeg::fromDisk('public')->open("drone{$filena}.mp4");
+            $durationInSeconds = $media->getDurationInSeconds(); // returns an int
+            $length = gmdate("i:s", $durationInSeconds); 
+
+            $eightK = DB::table('qualities')->where('title','8K')->pluck('price')->first();
+            $sixtK = DB::table('qualities')->where('title','6K')->pluck('price')->first();
+            $fourK = DB::table('qualities')->where('title','4K')->pluck('price')->first();
+            $fhd = DB::table('qualities')->where('title','FHD')->pluck('price')->first();
+            $hd = DB::table('qualities')->where('title','HD')->pluck('price')->first();
+
+
             DB::table('videos')->insert([
                 'file'=>$filename,
                 'user_id' => auth()->user()->id,
-
-                
+                'title' => $title_temp,
+                'fps' => $fps??null,
+                'bitrate' => $bitrate??null,
+                'resolution' => $video_resolution??null,
+                'eightK' => $eightK,
+                'sixK' =>  $sixtK,
+                'fourK' => $fourK,
+                'fhd' =>  $fhd,
+                'hd' => $hd,
+                'size_eightK' => $size_eightK,
+                'size_sixK' => $size_sixK,
+                'size_fourK' => $size_fourK,
+                'size_fhd' => $size_fhd,
+                'size_hd' => $size_hd,
+                'poster' => 'drone'.$filena.'.png'??null,
+                'length' => $length??null,
+                'size' => $size??null,  
             ]);
 
         }
