@@ -79,9 +79,9 @@
         $categories = DB::table('categories')->get();
 @endphp
     @foreach($categories as $category)
-   <div  class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-      <img style="height:180px !important;" src=images/{{$category->image}} alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-      <h3> <a href="{{'/category_'.$category->title}}" class="h4">{{$category->title}}</a></h3>
+   <div class="col-md-6 col-lg-3 mb-4 mb-lg-0" style="margin-bottom: 2% !important">
+      <a href="{{'/category_'.$category->title}}" class="h4"><img style="height:180px !important;" src="images/{{$category->image}}" alt="Image" class="img-fluid " data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+      <h3> {{$category->title}}</h3></a>
       
    </div>
    @endforeach
@@ -103,68 +103,7 @@
          pagespeed.CriticalImages.Run('/mod_pagespeed_beacon','https://preview.colorlib.com/theme/classyads/about.html','-ilGEe-FWC',true,false,'Nz18AuPAsfQ');
          //]]>
       </script>
-<!-- <div class="site-section">
-   <div class="container">
-   <div class="row justify-content-center mb-5">
-   <div class="col-md-7 text-center border-primary">
-   <h2 class="font-weight-light text-primary">Frequently Ask Question</h2>
-   <p class="color-black-opacity-5">Lorem Ipsum Dolor Sit Amet</p>
-   </div>
-   </div>
-   <div class="row justify-content-center">
-   <div class="col-8">
-   <div class="border p-3 rounded mb-2">
-   <a data-toggle="collapse" href="#collapse-1" role="button" aria-expanded="false" aria-controls="collapse-1" class="accordion-item h5 d-block mb-0">How to list my item?</a>
-   <div class="collapse" id="collapse-1">
-   <div class="pt-2">
-   <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti esse voluptates deleniti, ratione, suscipit quam cumque beatae, enim mollitia voluptatum velit excepturi possimus odio dolore molestiae officiis aspernatur provident praesentium.</p>
-   </div>
-   </div>
-   </div>
-   <div class="border p-3 rounded mb-2">
-   <a data-toggle="collapse" href="#collapse-4" role="button" aria-expanded="false" aria-controls="collapse-4" class="accordion-item h5 d-block mb-0">Is this available in my country?</a>
-   <div class="collapse" id="collapse-4">
-   <div class="pt-2">
-   <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti esse voluptates deleniti, ratione, suscipit quam cumque beatae, enim mollitia voluptatum velit excepturi possimus odio dolore molestiae officiis aspernatur provident praesentium.</p>
-   </div>
-   </div>
-   </div>
-   <div class="border p-3 rounded mb-2">
-   <a data-toggle="collapse" href="#collapse-2" role="button" aria-expanded="false" aria-controls="collapse-2" class="accordion-item h5 d-block mb-0">Is it free?</a>
-   <div class="collapse" id="collapse-2">
-   <div class="pt-2">
-   <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti esse voluptates deleniti, ratione, suscipit quam cumque beatae, enim mollitia voluptatum velit excepturi possimus odio dolore molestiae officiis aspernatur provident praesentium.</p>
-   </div>
-   </div>
-   </div>
-   <div class="border p-3 rounded mb-2">
-   <a data-toggle="collapse" href="#collapse-3" role="button" aria-expanded="false" aria-controls="collapse-3" class="accordion-item h5 d-block mb-0">How the system works?</a>
-   <div class="collapse" id="collapse-3">
-   <div class="pt-2">
-   <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti esse voluptates deleniti, ratione, suscipit quam cumque beatae, enim mollitia voluptatum velit excepturi possimus odio dolore molestiae officiis aspernatur provident praesentium.</p>
-   </div>
-   </div>
-   </div>
-   </div>
-   </div>
-   </div>
-   </div>
-   <div class="newsletter bg-primary py-5">
-   <div class="container">
-   <div class="row align-items-center">
-   <div class="col-md-6">
-   <h2>Newsletter</h2>
-   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-   </div>
-   <div class="col-md-6">
-   <form class="d-flex">
-   <input type="text" class="form-control" placeholder="Email">
-   <input type="submit" value="Subscribe" class="btn btn-white">
-   </form>
-   </div>
-   </div>
-   </div>
-   </div> -->
+
 @include('footer')
 </div>
 <script src="js/jquery-3.3.1.min.js"></script>

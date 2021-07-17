@@ -634,7 +634,7 @@
       
       
 
-
+      @php
       if($plan->features != null){
       $features = json_decode($plan->features);
       $features = explode(',',$features);

@@ -45,10 +45,11 @@
                                             <td><a href=""><button class="btn btn-success">View</button></a>
                                                 <a href=""><button class="btn btn-primary">Download</button></a>
                                                 @if(isset($product) && $product->property_released == 'Yes' )
-                                                <a href="{{'/download/'.$main_video->pdf_file}}"><button class="btn btn-primary">Property Release</button></a>
+                                                <a href="{{'/download/'.$product->pdf_file}}"><button class="btn btn-primary">Property Release</button></a>
                                                 @endif
                                                 @if(isset($product) && $product->model_released == 'Yes' )
-                                                <a href="{{'/download/'.$main_video->pdf_file2}}"><button class="btn btn-primary">Model Release</button></a>
+                                                <a href="{{'/download/'.$product->pdf_file2}}"><button class="btn btn-primary">Model Release</button></a>
+                                                @endif
                                             </td>
                                                 <td>{{$row->created_at}}</td>
                                         </tr>

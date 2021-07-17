@@ -68,8 +68,28 @@
                                         <tr>
                                             <td>{{$row->title}}</td>
                                             <td><img src="{{'/storage/'.$row->poster}}"></td>
-                                            <!-- <td>{{$row->file}}</td> -->
-                                            <td>${{$row->price}}</td>
+                                           
+                                               @php
+                                          $price = null;
+                                             $vid=DB::table('videos')->where('id', $row->id)->pluck('resolution')->first();
+                                             if($vid=='HD'){
+                                                $price = DB::table('videos')->where('id', $row->id)->pluck('hd')->first();
+                                                
+                                             }
+                                             if($vid=='FHD'){
+                                                $price = DB::table('videos')->where('id', $row->id)->pluck('fhd')->first();
+                                             }
+                                             if($vid=='4K'){
+                                                $price = DB::table('videos')->where('id', $row->id)->pluck('fourK')->first();
+                                             }
+                                             if($vid=='6K'){
+                                                $price = DB::table('videos')->where('id', $row->id)->pluck('sixK')->first();
+                                             }
+                                             if($vid=='8K'){
+                                                $price = DB::table('videos')->where('id', $row->id)->pluck('eightK')->first();
+                                             }
+                                       @endphp
+                                            <td>${{$price}}</td>
                                             <td>@if(isset($category)){{$category->title}}@endif</td>
                                             <td>@if($row->status == 0) Pending @elseif($row->status == 1) Active @else  <button class="btn btn-danger" data-toggle="modal" data-target="{{'#reject_message'.$row->id}}">Reject Message</button> @endif</td>
                                            @if(auth()->user()->role == 1) <td> 

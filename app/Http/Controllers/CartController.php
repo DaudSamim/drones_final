@@ -26,11 +26,32 @@ class CartController extends Controller
 			return redirect()->back()->with('message','Login to Add Product in Cart');
 		}
 
-		
+		$price = null;
+         $vid=$request->quality;
+         if(!$vid){
+         	$vid = DB::table('videos')->where('id',$request->product_id)->pluck('resolution')->first();
+         	$request->quality = $vid;
+         }
+         if($vid=='HD'){
+            $price = DB::table('videos')->where('id', $request->product_id)->pluck('hd')->first(); 
+         }
+         if($vid=='FHD'){
+            $price = DB::table('videos')->where('id', $request->product_id)->pluck('fhd')->first();
+         }
+         if($vid=='4K'){
+            $price = DB::table('videos')->where('id', $request->product_id)->pluck('fourK')->first();
+         }
+         if($vid=='6K'){
+            $price = DB::table('videos')->where('id', $request->product_id)->pluck('sixK')->first();
+         }
+         if($vid=='8K'){
+            $price = DB::table('videos')->where('id', $request->product_id)->pluck('eightK')->first();
+         }
+
 		DB::table('carts')->insert([
 			'user_id' => auth()->user()->id,
 			'product_id' => $request->product_id,
-			'price' => $request->price,
+			'price' => $price,
 			'quality' => $request->quality,
 
 		]);

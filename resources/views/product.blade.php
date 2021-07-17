@@ -262,20 +262,12 @@
                                 @php
                                 
                                 @endphp
-                            @if(($main_video->model_released == "Yes") && ($has == "true"))
-                                <li data-cy="video_model_release"><strong>Model Released: {{$main_video->model_released}}</strong>
-                                <span> <a href="{{'/download/'.$main_video->pdf_file2}}"> <i style="color:green" class="fas fa-download"></i></span></li> </a>
-                                
-                            @else
-                                <li data-cy="video_model_release"><strong>Model Released: {{$main_video->model_released}}</strong></li>
-                            @endif
-                            @if(($main_video->property_released == "Yes") && ($has == "true"))
                             
-                                <li data-cy="video_property_release"><strong>Property Released: {{$main_video->property_released}}</strong>
-                                <span><a href="{{'/download/'.$main_video->pdf_file}}"><i style="color:green" class="fas fa-download"></i></a></span></li>
-                            @else
+                                <li data-cy="video_model_release"><strong>Model Released: {{$main_video->model_released}}</strong></li>
+                            
+                           
                             <li data-cy="video_property_release"><strong>Property Released: {{$main_video->property_released}}</strong></li>
-                            @endif
+                           
                                 <li data-cy="location"><strong>Location: </strong> {{$main_video->location}}</li>
                                 <li data-cy=""><strong>Vendor Name </strong> <a style="color:#3f0aa7" href="{{'/all_videos_'.$main_video->user_id}}"> {{$vendor->first_name ?? 'Drone Stock'}} {{$vendor->last_name ?? 'Clips'}}</a></li>
 
@@ -288,16 +280,16 @@
                             
                             @csrf
                             <input type="hidden" name="product_id" value="{{$main_video->id}}">
-                             <input type="hidden" name="price" value="{{$main_video->price}}">
+                            
                             <input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token"
                                 value="Mme0CnA-wNCex5pqpxhnAJTJjtM6oU0d9zPwVUlbhwePQYCgfsO2pN7SqzIYIm50OSsASkEMROFOLC2KpIxXDg">
                             <div class="video-detail-sec2 video-detail-cntr">
                                 <div id="product-variants">
                                     <ul>
-                                        
+
                                         @if($main_video->resolution == '8k')
                                         <li data-cy="variant_detail">
-                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=8k'}}';" type="radio" name="quality" id="quality" value="4K"
+                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=8k'}}';" type="radio" name="quality" id="quality" value="8K"
                                                 data-price="₹5,000.00" data-in-stock="true" data-cy="select_variant"
                                                 @if($quality == '8K') checked @endif>
                                             <label data-cy="variant_name" for="variant_id_37656">
@@ -311,7 +303,7 @@
 
                                         @if($main_video->resolution == '8k' || $main_video->resolution == '6k')
                                         <li data-cy="variant_detail">
-                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=6k'}}';" type="radio" name="quality" id="quality" value="4K"
+                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=6k'}}';" type="radio" name="quality" id="quality" value="6K"
                                                 data-price="₹5,000.00" data-in-stock="true" data-cy="select_variant"
                                                  @if($quality == '6K') checked @endif>
                                             <label data-cy="variant_name" for="variant_id_37656">
@@ -339,7 +331,7 @@
 
                                         @if($main_video->resolution == '8k' || $main_video->resolution == '6k' || $main_video->resolution == '4k' || $main_video->resolution == 'FHD')
                                         <li data-cy="variant_detail">
-                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=FHD'}}';" type="radio" name="quality" id="quality" value="4K"
+                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=FHD'}}';" type="radio" name="quality" id="quality" value="FHD"
                                                 data-price="₹5,000.00" data-in-stock="true" data-cy="select_variant"
                                                 @if($quality == 'FHD') checked @endif>
                                             <label data-cy="variant_name" for="variant_id_37656">
@@ -354,7 +346,7 @@
                                         
                                         @if($main_video->resolution == '8k' || $main_video->resolution == '6k' || $main_video->resolution == '4k' || $main_video->resolution == 'FHD' || $main_video->resolution == 'HD')
                                         <li data-cy="variant_detail" >
-                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=HD'}}';" type="radio" name="quality" id="quality" value="4K"
+                                            <input onclick="location.href='{{'/product_'.$main_video->id.'?quality=HD'}}';" type="radio" name="quality" id="quality" value="HD"
                                                 data-price="₹5,000.00" data-in-stock="true" data-cy="select_variant"
                                                 @if($quality == 'HD') checked @endif>
                                             <label data-cy="variant_name" for="variant_id_37656">
@@ -374,7 +366,7 @@
                                 <div id="product-price">
                                     <link itemprop="availability" href="https://schema.org/InStock">
                                 </div>
-
+                               
                                 <div>
                                     <div>
                                         <input type="hidden" name="quantity" id="quantity" value="1"
@@ -423,7 +415,27 @@
                             Your browser does not support this file
                          </video>
                          <div style="padding: 1%">
-                         <p>{{$video->title}}<span style="float:right;">${{$video->price}}</span></p>
+                               @php
+                                          $price = null;
+                                             $vid=DB::table('videos')->where('id', $video->id)->pluck('resolution')->first();
+                                             if($vid=='HD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('hd')->first();
+                                                
+                                             }
+                                             if($vid=='FHD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fhd')->first();
+                                             }
+                                             if($vid=='4K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fourK')->first();
+                                             }
+                                             if($vid=='6K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('sixK')->first();
+                                             }
+                                             if($vid=='8K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('eightK')->first();
+                                             }
+                                       @endphp
+                         <p>{{$video->title}}<span style="float:right;">${{$price}}</span></p>
                          </div>
                       </a>
                    </div>
@@ -460,7 +472,27 @@
                             Your browser does not support this file
                          </video>
                          <div style="padding: 1%">
-                         <p>{{$video->title}}<span style="float:right;">${{$video->price}}</span></p>
+                               @php
+                                          $price = null;
+                                             $vid=DB::table('videos')->where('id', $video->id)->pluck('resolution')->first();
+                                             if($vid=='HD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('hd')->first();
+                                                
+                                             }
+                                             if($vid=='FHD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fhd')->first();
+                                             }
+                                             if($vid=='4K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fourK')->first();
+                                             }
+                                             if($vid=='6K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('sixK')->first();
+                                             }
+                                             if($vid=='8K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('eightK')->first();
+                                             }
+                                       @endphp
+                         <p>{{$video->title}}<span style="float:right;">${{$price}}</span></p>
                          </div>
                       </a>
                    </div>

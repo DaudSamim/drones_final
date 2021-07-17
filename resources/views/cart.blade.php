@@ -136,8 +136,8 @@
 
             @php
             $amount = 0;
-                    $variables = DB::table('carts')->where('user_id',auth()->user()->id)->get();
-                $yoo = DB::table('carts')->where('user_id',auth()->user()->id)->sum('price');
+            $variables = DB::table('carts')->where('user_id',auth()->user()->id)->get();
+            $yoo = DB::table('carts')->where('user_id',auth()->user()->id)->sum('price');
 
                     
             @endphp            
@@ -183,7 +183,7 @@
                             <span class="text-dark ">{{$row->quality}}</span></a>
                     </div>
                    
-                    @if($difference < 0)
+                    @if($difference < 1)
                         <div>
                         @if($row->discounted_price == null)
                             <span class="vedio-price text-dark">${{$row->price}}</span>
@@ -198,11 +198,13 @@
                         @endif
                         </div>
 
-                        @else
+                    @else
+
                         @if(isset($plan_id))
                             @php 
                                 $quality_check = DB::Table('plans')->where('id',$plan_id->plan_id)->first();
                             @endphp
+
                             @if($quality_check->maximum_quality == '8k')
                                 @php 
                                     $free = $free + 1;
@@ -212,10 +214,11 @@
                                 <div>
                                     <span class="vedio-price text-dark">${{$row->price}}</span> 
                                 </div>
-                            @endif
-                            @if($quality_check->maximum_quality == '6k')
                             
-                                @if(($row->quality == '6K') || ($row->quality == '4K'))
+
+                            @elseif($quality_check->maximum_quality == '6k')
+                            
+                                @if(($row->quality == '6K') || ($row->quality == '4K') || ($row->quality == 'FHD') || ($row->quality == 'HD'))
                                     @php 
                                         $free = $free + 1;
                                         $row->price = 0;
@@ -236,11 +239,11 @@
                                     </div>
 
                                 @endif
-                            @endif
-
-                            @if($quality_check->maximum_quality == '4k')
                             
-                                @if($row->quality == '4K')
+
+                            @elseif($quality_check->maximum_quality == '4k')
+                            
+                                @if($row->quality == '4K' || ($row->quality == 'FHD') || ($row->quality == 'HD'))
 
                                 @php 
                                     $free = $free + 1;
@@ -261,10 +264,11 @@
                                 </div>
 
                                 @endif
+                            
+
+
                             @endif
-
-
-                    @endif
+                            @endif
                     @endif
 
 
@@ -282,15 +286,15 @@
                 @endif
                 <div class="text-right">
                 @if(isset($amount))
-                <h3>Total Amount Before Discount = {{$yoo}}</h3>
-                <h3>Total Amount After Discount = {{$amount}}</h3>
+                <h3>Total Amount = {{$yoo}}</h3>
+                <h3>After Discount = {{$amount}}</h3>
                 @else
                 <h3>Total Amount = {{$yoo}}</h3>
 
                 @endif
                 <br>
                 </div>
-                @if(($free > 0) && ($free != $count) )
+                @if( ($free != $count) )
                 <div style="float: right"><button class="btn btn-lg" data-toggle="modal" data-target="#checkout"
                         style="background-color: #3b009e; color:white">Checkout</button></div>
                 

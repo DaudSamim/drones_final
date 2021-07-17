@@ -98,6 +98,11 @@
                             <a href="{{ url('view-blogs') }}"
                                class="nav-link ">Blogs </a>
                         </li>
+
+                         <li class="nav-item">
+                            <a href="/view-purchases"
+                               class="nav-link  ">Purchases </a>
+                        </li>
                     
                     
                         <li class="nav-item">

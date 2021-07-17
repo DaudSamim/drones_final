@@ -49,24 +49,10 @@ Route::get('product_{id}',function(Request $request,$id){
     $user = $main_video->user_id;
     $vendor = DB::table('vendors')->where('user_id', $user)->first();
 
-    $orders = DB::table('orders')->where('user_id', $user)->get();
-    foreach($orders as $order){
-        $has = "false";
-        $check_id = unserialize($order->order_data);
-        foreach($check_id as $check){
-            if($check->product_id == $id){
-                $has = "true";
-                break;
-            };
-            if($has == "true"){
-                break;
-            }
-
-        }
-    }
+    
     
 
-    return view('product',compact('categories','categories_search','entire_videos','related_videos','main_video','quality', 'user', 'vendor', 'main_video','has'));
+    return view('product',compact('categories','categories_search','entire_videos','related_videos','main_video','quality', 'user', 'vendor', 'main_video'));
 });
 Route::get('/all_videos_{id}', function($id){
 
@@ -202,7 +188,8 @@ Route::get('/search_{keyword}',function($keyword){
        return view('search_results',compact('videos','keyword'));
 });
 Route::post('/search','\App\Http\Controllers\HomeController@search');
- Route::get('/blogs', '\App\Http\Controllers\HomeController@list_blogs');
+Route::get('/blogs', '\App\Http\Controllers\HomeController@list_blogs');
+Route::get('/categories', '\App\Http\Controllers\HomeController@list_categories');
      
 
 
@@ -314,7 +301,7 @@ Route::middleware('auth')->group(function ()
       Route::get('/purchased-plans', '\App\Http\Controllers\HomeController@plans_purchased');
       Route::get('/free-payment', '\App\Http\Controllers\HomeController@free_payment');
       Route::get('/download/{filename}', '\App\Http\Controllers\HomeController@delete');
-      Route::get('/categories', '\App\Http\Controllers\HomeController@list_categories');
+     
       Route::get('/view-blogs', '\App\Http\Controllers\HomeController@view_blogs');
       Route::post('/post_blog', '\App\Http\Controllers\HomeController@post_blogs');
       Route::post('/edit_blog','\App\Http\Controllers\HomeController@update_blogs');

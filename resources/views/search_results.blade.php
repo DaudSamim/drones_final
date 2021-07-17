@@ -201,7 +201,27 @@
                             Your browser does not support this file
                          </video>
                          <div style="padding: 1%">
-                         <p>{{$video->title}}<span style="float:right;">${{$video->price}}</span></p>
+                               @php
+                                          $price = null;
+                                             $vid=DB::table('videos')->where('id', $video->id)->pluck('resolution')->first();
+                                             if($vid=='HD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('hd')->first();
+                                                
+                                             }
+                                             if($vid=='FHD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fhd')->first();
+                                             }
+                                             if($vid=='4K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fourK')->first();
+                                             }
+                                             if($vid=='6K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('sixK')->first();
+                                             }
+                                             if($vid=='8K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('eightK')->first();
+                                             }
+                                       @endphp
+                         <p>{{$video->title}}<span style="float:right;">${{$price}}</span></p>
                          </div>
                       </a>
                    </div>

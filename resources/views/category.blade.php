@@ -275,32 +275,52 @@
                        </video>
                         <div class="product-meta">
 
-                                                                                    <div class="product-tag">
+                        <div class="product-tag">
 
-                                                                                        <a href="#" class="mayosis-play--button-video icon-play" data-lity="">
-                                                                                        </a>
+                            <a href="#" class="mayosis-play--button-video icon-play" data-lity="">
+                            </a>
 
-                                                                                        <h4 class="product-title">
-                                                                                               {{$video->title}}</h4>
-
-
+                            <h4 class="product-title">
+                                   {{$video->title}}</h4>
 
 
 
-                                                                                    </div>
-
-                                                                                    <div class="count-download">
-
-                                                                                        <div class="product-price promo_price">
-                                                                                            <span class="edd_price" id="edd_price_11718">${{$video->price}}</span>
-                                                                                        </div>
-
-                                                                                    </div>
-
-                                                                                    <div class="clearfix"></div>
 
 
-                                                                                </div>
+                        </div>
+
+                        <div class="count-download">
+
+                            <div class="product-price promo_price">
+                                   @php
+                                          $price = null;
+                                             $vid=DB::table('videos')->where('id', $video->id)->pluck('resolution')->first();
+                                             if($vid=='HD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('hd')->first();
+                                                
+                                             }
+                                             if($vid=='FHD'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fhd')->first();
+                                             }
+                                             if($vid=='4K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('fourK')->first();
+                                             }
+                                             if($vid=='6K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('sixK')->first();
+                                             }
+                                             if($vid=='8K'){
+                                                $price = DB::table('videos')->where('id', $video->id)->pluck('eightK')->first();
+                                             }
+                                       @endphp
+                                <span class="edd_price" id="edd_price_11718">${{$price}}</span>
+                            </div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+
+                    </div>
                     </a>
                  </div>
                  @endforeach
