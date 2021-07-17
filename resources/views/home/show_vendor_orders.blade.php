@@ -1,6 +1,13 @@
 @extends('layout.app')
 
 @section('content')
+@if(Session::has('success'))
+      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
+  @endif  
+
+  @if(Session::has('alert'))
+      <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('alert') }}</p>
+  @endif  
     <div class="row justify-content-center">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
@@ -18,6 +25,7 @@
 
                                 <th>id</th>
                                 <th>Product id</th>
+                                <th>Buyer Username</th>
                                 <th>Title</th>
                                 <th>Price</th>
                                 <th>Profit</th>
@@ -32,18 +40,24 @@
                                     @foreach($allOrders as $row)
                                         @php
                                             $product = DB::table('videos')->where('id',$row->product_id)->first();
+                                            $name = DB::table('users')->where('id',$row->user_id)->first();
                                         @endphp
                                        
                                         <tr>
                                             
                                             <td>{{$row->id}}</td>
                                             <td>{{$row->product_id}}</td>
+                                            @if(isset($name))
+                                            <td>{{$name->username}}</td>
+                                            @else
+                                            <td></td>
+                                            @endif
                                             <td>{{$row->title}}</td>
                                             <td>{{$row->price}}</td>
                                             <td>{{$row->profit}}</td>
                                             <td>{{$row->quality}}</td>
-                                            <td><a href=""><button class="btn btn-success">View</button></a>
-                                                <a href=""><button class="btn btn-primary">Download</button></a>
+                                            <td><a href="{{'/product_'.$row->product_id}}"><button class="btn btn-success">View</button></a>
+                                                <a href="{{'/download_product_'.$row->product_id}}"><button class="btn btn-primary">Download</button></a>
                                                 @if(isset($product) && $product->property_released == 'Yes' )
                                                 <a href="{{'/download/'.$product->pdf_file}}"><button class="btn btn-primary">Property Release</button></a>
                                                 @endif

@@ -208,11 +208,12 @@
                             @if($quality_check->maximum_quality == '8k')
                                 @php 
                                     $free = $free + 1;
+                                    $original_price = $row->price;
                                     $row->price = 0;
                                     $amount = $amount + $row->price;
                                 @endphp
                                 <div>
-                                    <span class="vedio-price text-dark">${{$row->price}}</span> 
+                                <span class="vedio-price text-dark">${{$original_price}}</span> 
                                 </div>
                             
 
@@ -221,12 +222,15 @@
                                 @if(($row->quality == '6K') || ($row->quality == '4K') || ($row->quality == 'FHD') || ($row->quality == 'HD'))
                                     @php 
                                         $free = $free + 1;
+                                        $original_price = $row->price;
                                         $row->price = 0;
                                         $amount = $amount + $row->price;
+                                        dd($amount);
+
                                     @endphp
                                     <div>
-                                    
-                                        <span class="vedio-price text-dark">${{$row->price}}</span> 
+                                        <span class="vedio-price text-dark">${{$original_price}}</span> 
+
                                     </div>
                                     @else
                                     @php 
@@ -247,12 +251,13 @@
 
                                 @php 
                                     $free = $free + 1;
+                                    $original_price = $row->price;
                                     $row->price = 0;
                                     $amount = $amount + $row->price;
                                 @endphp
                                 <div>
                                 
-                                    <span class="vedio-price text-dark">${{$row->price}}</span> 
+                                <span class="vedio-price text-dark">${{$original_price}}</span> 
                                 </div>
                                 @else 
                                 @php 
@@ -293,7 +298,7 @@
 
                 @endif
                 <br>
-                </div>
+                </div>  
                 @if( ($free != $count) )
                 <div style="float: right"><button class="btn btn-lg" data-toggle="modal" data-target="#checkout"
                         style="background-color: #3b009e; color:white">Checkout</button></div>
