@@ -262,7 +262,7 @@
                                 
                                     <span class="vedio-price text-dark">${{$row->price}}</span> 
                                 </div>
-
+                            
                                 @endif
                             
 
@@ -286,8 +286,8 @@
                 @endif
                 <div class="text-right">
                 @if(isset($amount))
-                <h3>Total Amount = {{$yoo}}</h3>
-                <h3>After Discount = {{$amount}}</h3>
+                <h3>Total Amount = ${{$yoo}}</h3>
+                <h3>After Discount = ${{$amount}}</h3>
                 @else
                 <h3>Total Amount = {{$yoo}}</h3>
 
