@@ -104,7 +104,7 @@
                </form>
             </div>
             <div class="col-md-6 mb-0" data-aos="fade">
-               <form action="/register_vendor" method="post" class="p-5 bg-white">
+               <form action="/register_vendor" method="post" class="p-5 bg-white"  enctype='multipart/form-data'>
                   <h3 class="mb-5 text-center">Registration</h3>
                   <div class="row form-group">
                      <div class="col-md-12 mb-2">
@@ -146,6 +146,12 @@
                      <div class="col-md-12 mb-2">
                         <label class="text-black" for="subject">Description</label>
                         <textarea type="text" row="3" id="subject" placeholder="Description"name="description" class="form-control"></textarea>
+                     </div>
+                  </div>
+                  <div class="row form-group">
+                     <div class="col-md-12 mb-2">
+                        <label class="text-black" for="subject">Image</label>
+                        <input type="file" id="subject" name="image" class="form-control">
                      </div>
                   </div>
                   <div class="row form-group">

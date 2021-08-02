@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <link rel="icon" type="image/png" href="http://dronestockclips.com/images/logo.png"/>
+    <link rel='shortcut icon' type='image/x-icon' href='/images/logo.png' />
     <title>Video | ADMIN PANEL</title>
     {{--CSS--}}
     @include('layout.partials.styles')

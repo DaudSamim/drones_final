@@ -22,9 +22,18 @@ class VendorRegistrationController extends Controller
         'first_name' => 'required',
         'username' => 'required|unique:users',
         'password' => 'min:6|required',
+        'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+
         
         
     ]);
+    if($request->file('image')){
+        $file = $request->file('image');
+        $filename = $file->getClientOriginalName();
+        $path = public_path().'/images/';
+        $file->move($path, $filename);
+
+    };
 
 
     DB::table('users')->insert([   
@@ -44,6 +53,7 @@ class VendorRegistrationController extends Controller
         'last_name' => $request->last_name,
         'display_name' => $request->display_name,
         'description' => $request->description,
+        'image' => $filename,
         
         
         

@@ -29,6 +29,24 @@
     font-weight: 500;
 }
 
+    ul li a:hover {
+        color: #fff;
+        background: #939393;
+    }
+    ul li ul.dropdown {
+        min-width: 15%; /* Set width of the dropdown */
+        background: blue;
+        display: none;
+        position: absolute;
+        z-index: 999;
+    }
+    ul li:hover ul.dropdown {
+        display: block; /* Display the dropdown */
+    }
+    ul li ul.dropdown li {
+        display: block;
+    }
+
  .vedio-price{
     color: #fff;
     display: block;
@@ -42,7 +60,108 @@
 }
 </style>
 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
- <header id="main-header" class="main-header header-stacked">
+<link rel="icon" type="image/png" href="images/logo.png"/>
+ 
+<header id="main-header" class="main-header header-stacked">
+<div class="header-top">
+                <div class="container">
+
+
+                    <div class="to-flex-row  th-flex-flex-middle">
+                        <div class="to-flex-col th-col-left hidden-sm hidden-xs flexleft">
+
+
+                            <ul class="top-social-icon">
+                                <li><a href="https://www.facebook.com/African-Drone-Stock-352177435860332"
+                                        target="_blank"><i class="zil zi-facebook"></i></a></li>
+
+
+                                <li><a href="https://www.instagram.com/africandronestock/" target="_blank"><i
+                                            class="zil zi-instagram"></i></a></li>
+
+
+                                <li><a href="https://www.youtube.com/channel/UC3zgqtlhtZY6vEuOlCSNQmQ"
+                                        target="_blank"><i class="zil zi-youtube"></i></a></li>
+
+
+
+                            </ul>
+                        </div>
+
+                        <div class="to-flex-col th-col-center hidden-sm hidden-xs flexcenter">
+
+                            <ul class="code-blocks">
+                                <li  class="html custom html_topbar_left">DRONE STOCK CLIPS</li>
+                            </ul>
+                        </div><!-- center -->
+
+                        <div class="to-flex-col th-col-right hidden-sm hidden-xs flexright">
+
+                            <ul id="account-button" class="mayosis-option-menu hidden-xs hidden-sm">
+
+                                @if(!auth()->check())
+                                <li class="menu-item">
+
+                                    <!-- <a href="/login" class=""><i class="zil zi-user"></i> Login</a> -->
+                                </li>
+
+                                @else
+
+
+                                 <li class="menu-item">
+
+                                    <!-- <a href="/view-stats" class=""><i class="zil zi-user"></i> Dashboard</a> -->
+                                </li>
+
+                                <li class="menu-item">
+
+                                    <!-- <a href="/logout" class=""><i class="zil zi-user"></i> Logout</a> -->
+                                </li>
+
+
+                                @endif
+
+                            </ul>
+
+                            <div id="account-mob" class="mayosis-option-menu hidden-md hidden-lg">
+
+                                <div id="mayosis-sidemenu">
+
+                                    <ul>
+                                        @if(!auth()->check())
+                                        <li class="menu-item">
+                                            <a href="/login"><i class="zil zi-user"></i>
+                                                Login</a>
+                                        </li>
+                                         @else
+
+                                          <li class="menu-item">
+                                                        <a href="/view-stats"><i class="zil zi-user"></i>
+                                                            Dashboard</a>
+                                                    </li>
+
+                                           <li class="menu-item">
+                                                        <a href="/logout"><i class="zil zi-user"></i>
+                                                            Logout</a>
+                                                    </li>
+                                            @endif
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div><!-- .to-flex-col right -->
+
+
+                        <div class="to-flex-col hidden-md hidden-lg flex-grow flexright">
+                        </div>
+
+                    </div><!-- .to-flex-row -->
+
+
+
+                </div>
+            </div><!-- .header-top -->
+
             <div class="header-top" style="background-color: transparent; padding-top: 1%">
                 <div class="container-fluid">
 
@@ -67,31 +186,79 @@
                                 </a>
 
                             </div>
+                            <!-- <ul class="code-blocks" style="margin-left: 2%">
+                                <li> <a href="/categories" style="color:white" >Categories</a></li>
+                            </ul> -->
                             <ul class="code-blocks" style="margin-left: 2%">
-                                <li> <a href="/categories" style="color:white" class="html custom html_topbar_left">Categories</a></li>
+                               <span><a href="/">
+                               <li>
+                                    <span href="/blogs" style="color:#CA2633" class=" font-weight-bold html custom html_topbar_left">HO</span>
+                                    <span href="/blogs" style="color:white; margin: -10% !important;" class=" font-weight-bold html custom html_topbar_left">ME</span>
+                            </li>
+                            </a>
+                               </span> 
+                            </ul>
+                            <ul>
+        
+        <li>
+     
+        <span>
+            <a href="categories">
+          <span style="color:#CA2633 ;margin-left: 4% !important;" class="font-weight-bold html custom html_topbar_left pl-2" href="/categories">CATEG</span>
+          <span style="color:white;margin: -6% !important;" class="font-weight-bold html custom html_topbar_left" href="/categories">ORIES</span>
+          </a>
+        </span>
+       
+            <ul class="dropdown" style="line-height: 40px !important;">
+                @php
+                    $categories=DB::table('categories')->limit(6)->get();
+                @endphp
+                    @foreach($categories as $category)
+                    <li><a class="" style="color:white; padding-left:10px!important;" href="{{'/category_'.$category->title}}">   {{$category->title}}</a></li>
+                    @endforeach
+            </ul>
+        </li>
+        
+    </ul>
+   
+                            
+                            <ul class="code-blocks" style="margin-left: 2%">
+                                <span>
+                                    <a href="/sell_footage">
+                                <li> 
+                                    <span href="/sell_footage" style="color:#CA2633" class=" font-weight-bold html custom html_topbar_left"> SELL</span>
+                                    <span href="/sell_footage" style="color:white; " class=" font-weight-bold html custom html_topbar_left"> FOOTAGE </span>
+                                </li>
+                                </a>
+                            
+                                </span>  
+                               
                             </ul>
                             <ul class="code-blocks" style="margin-left: 2%">
-                                <li> <a href="/sell_footage" style="color:white" hrefclass="html custom html_topbar_left">Sell Footage</a></li>
+                            <span>  
+                                <a href="/free-stock"> 
+                                <li>
+                                     <span href="/about_us" style="color:#CA2633"  class=" font-weight-bold html custom html_topbar_left">FREE</span>
+                                     <span href="/about_us" style="color:white"  class=" font-weight-bold html custom html_topbar_left">STOCK</span>
+                                </li>
+                                </a>
+                            </span>
                             </ul>
-                            <ul class="code-blocks" style="margin-left: 2%">
-                                <li> <a href="/about_us" style="color:white" class="html custom html_topbar_left">About Us</a></li>
-                            </ul>
-                            <ul class="code-blocks" style="margin-left: 2%">
-                                <li> <a href="/blogs" style="color:white" class="html custom html_topbar_left">Blogs</a></li>
-                            </ul>
+                          
+                            
                         </div>
 
                    
                         <div class="to-flex-col th-col-right hidden-sm hidden-xs flexright">
 
-                            <span> <i class="fas fa-phone-alt"></i><a href="https://api.whatsapp.com/send?phone=+447826644710&amp;text=Hello" style="color: white">+447826644710 </a> </span>
+                            <span>  <i class="fab fa-whatsapp"></i><a href="https://api.whatsapp.com/send?phone=+447826644710&amp;text=Hello"  style="color: white;"> +447826644710 </a> </span>
 
                             <ul id="account-button" class="mayosis-option-menu hidden-xs hidden-sm">
 
                                 @if(!auth()->check())
                                 <li class="menu-item">
 
-                                    <a href="/login" class=""><i class="zil zi-user"></i> Login</a>
+                                    <a href="/login" class="font-weight-bold"> <i class="zil zi-user"></i> LOGIN</a>
                                 </li>
 
                                 @else
@@ -100,12 +267,12 @@
 
                                  <li class="menu-item">
 
-                                    <a href="/view-stats" class=""><i class="zil zi-user"></i> Dashboard</a>
+                                    <a href="/view-stats" style="color:#FF0000" class="font-weight-bold"> <i style="color:#FF0000" class="zil zi-user"></i> DASHBOARD</a> 
                                 </li>
 
                                 <li class="menu-item">
 
-                                    <a href="/logout" class=""><i class="zil zi-user"></i> Logout</a>
+                                    <a href="/logout" class="font-weight-bold"><i class="zil zi-user"></i> LOGOUT</a> 
                                 </li>
 
 

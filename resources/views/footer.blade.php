@@ -1,4 +1,4 @@
- @php
+@php
      $footer_categories = DB::table('categories')->orderby('id','desc')->limit(10)->get();
  @endphp
 
@@ -10,8 +10,19 @@
                         <div class="footer-sidebar ">
                             <div class="row">
                                 <!-- <div class="col-lg-1" style="width:10.333333% !important"></div> -->
-                                <div class="col-lg-2" style="width: 20% !important;margin-left: 3%">
+                                <div class="d-lg-block d-none col-lg-2" style="width: 20% !important;margin-left: 3%">
                                   <h4 class="footer-widget-title">The Company</h4>
+                                    <ul>
+                                        <a href="/about_us"><li>About Us</li></a>
+                                        <a href="/contact_us"><li>Contact Us</li></a>
+                                        <a href="/privacy_policy"><li>Privacy Policy</li></a>
+                                        <a href="refund_policy"><li>Refund Policy</li></a>
+                                        <a href="/terms_and_conditions"><li>Terms & Conditions</li></a>
+                                    </ul>
+                                <div class="clearfix"></div>
+                                </div>    
+                                <div class="col-4 d-block d-lg-none">
+                                  <h4 style="color:white">The Company</h4>
                                     <ul>
                                         <a href="/about_us"><li>About Us</li></a>
                                         <a href="/contact_us"><li>Contact Us</li></a>
@@ -23,7 +34,7 @@
                                 </div>    
                             
 
-                                <div class="col-lg-2" style="width: 20% !important">
+                                <div class="col-lg-2 d-lg-block d-none" style="width: 20% !important">
                                     <h4 class="footer-widget-title">Categories</h4>
                                     <ul>
                                         @foreach($footer_categories as $row)
@@ -33,19 +44,43 @@
                                     </ul>
                                     <div class="clearfix"></div>
                                 </div>    
+                                <div class="col-4 d-block d-lg-none" >
+                                    <h4 style="color:white">Categories</h4>
+                                    <ul>
+                                        @foreach($footer_categories as $row)
+                                            <a href="{{'/category_'.$row->title}}"><li>{{$row->title}}</li></a>
+                                        @endforeach
+                                        
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div> 
+                                   
                             
-                                <div class="col-lg-2" style="width: 20% !important">
+                                <div class="col-lg-2 d-lg-block d-none" style="width: 20% !important">
                                     <h4 class="footer-widget-title">Account</h4>
                                     <div class="clearfix"></div>
                                     <ul>
                                         <a href="/customer"><li>Customer Dashboard</li></a>
                                         <a href="/contributor"><li>Contributor Dashboard</li></a>
                                         <a href="/sell_footage"><li>Sell your footage</li></a>
+                                        <a href="/free-stock"><li>Free Stock</li></a>
+                                        
+                                    </ul>
+                                </div> 
+                                <div class="col-4 d-block d-lg-none">
+                                    <h4 style="color:white">Account</h4>
+                                    <div class="clearfix"></div>
+                                    <ul>
+                                        <a href="/customer"><li>Customer Dashboard</li></a>
+                                        <a href="/contributor"><li>Contributor Dashboard</li></a>
+                                        <a href="/sell_footage"><li>Sell your footage</li></a>
+                                        <a href="/free-stock"><li>Free Stock</li></a>
+
                                         
                                     </ul>
                                 </div>    
                             
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 d-lg-block d-none">
                                     <h4 class="footer-widget-title">Site</h4>
                                     <ul>
                                         <a href="/"><li>Home</li></a>
@@ -55,9 +90,21 @@
                                     </ul>
                                   
                                     <div class="clearfix"></div>
-                                </div>    
+                                </div>
+                                
+                                <div class="col-6 d-lg-none d-block pt-3">
+                                    <h4 style="color:white" >Site</h4>
+                                    <ul>
+                                        <a href="/"><li>Home</li></a>
+                                        <a href="/blogs"><li>Blog</li></a>
+                                        <a href="faqs"><li>FAQ's</li></a>
+                                        
+                                    </ul>
+                                  
+                                    <div class="clearfix"></div>
+                                </div>   
                             
-                                <div class="col-lg-2" style="width: 20% !important">
+                                <div class="col-lg-2  d-lg-block d-none" style="width: 20% !important">
                                     <h4 class="footer-widget-title">We are very social</h4>
                                     <ul>
                                         <a href="https://www.facebook.com/African-Drone-Stock-352177435860332"><li><i class="fab fa-facebook-f"></i> Facebook</li></a>
@@ -68,7 +115,18 @@
                                     </ul>
                                     <a href="/"><img src="{{asset('images/logo.png')}}"></a>
                                     <div class="clearfix"></div>
-                                </div>    
+                                </div>
+                                <div class="col-6 d-lg-none d-block pt-3">
+                                    <h4 style="color:white">We are very social</h4>
+                                    <ul>
+                                        <a href="https://www.facebook.com/African-Drone-Stock-352177435860332"><li><i class="fab fa-facebook-f"></i> Facebook</li></a>
+                                        <a href="https://www.youtube.com/channel/UC3zgqtlhtZY6vEuOlCSNQmQ"><li><i class="fab fa-youtube"></i> Youtube</li></a>
+                                        <a href="https://www.instagram.com/africandronestock/"><li><i class="fab fa-instagram"></i> Instagram</li></a>
+                                        <a href="#"><li><i class="fab fa-twitter"></i> Twitter</li></a>
+                                        
+                                    </ul>
+                                    <a href="/"><img src="{{asset('images/logo.png')}}"></a>
+                                </div>      
                             
                                 <!-- <div class="col-lg-1" style="width:10.333333% !important"></div> -->
                             
@@ -104,8 +162,9 @@
                 <div class="row">
                     <div class="copyright-columned">
                         <span class="copyright-text col-md-12 col-xs-12">
-                            <span style="margin-right: 2%"> <i class="fas fa-envelope-open" style="margin-right: 1%"></i>info@dronestockclips.com</span>
-                           <span> <i class="fas fa-phone-alt"></i><a href="https://api.whatsapp.com/send?phone=+447826644710&text=Hello">+447826644710 </a> </span>
+                                                    <a href="mailto:info@dronestockclips.com"><span style="margin-right: 2%"> <i class="fas fa-envelope-open" style="margin-right: 1%"></i>info@dronestockclips.com</span></a>
+
+                           <span><i class="fab fa-whatsapp"></i><a href="https://api.whatsapp.com/send?phone=+447826644710&text=Hello"> +447826644710 </a> </span>
                        
                       
                     </div>

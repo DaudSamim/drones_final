@@ -85,48 +85,36 @@ We believe that quality video content should be more affordable to masses of med
    </div>
    </div>
 
-   <div class="row mb-5 " >
-<div class="col-md-12  border-primary text-center">
-<h2 class="font-weight-light text-primary pb-0 ">Our Team</h2>
+   <div style="background-color:#454BB6; width: 100% !important;" class=" row mb-5 " >
+   <div style="background-color:#454BB6;width: 100% !important;" class="col-md-12  text-center">
+<h2 style="color:white" class="pb-0 ">Our Team</h2>
 </div>
 </div>
 <div class="row p-5" style="padding-top:0px!important">
-<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-<script data-pagespeed-no-defer>//<![CDATA[
-(function(){for(var g="function"==typeof Object.defineProperties?Object.defineProperty:function(b,c,a){if(a.get||a.set)throw new TypeError("ES3 does not support getters and setters.");b!=Array.prototype&&b!=Object.prototype&&(b[c]=a.value)},h="undefined"!=typeof window&&window===this?this:"undefined"!=typeof global&&null!=global?global:this,k=["String","prototype","repeat"],l=0;l<k.length-1;l++){var m=k[l];m in h||(h[m]={});h=h[m]}
-var n=k[k.length-1],p=h[n],q=p?p:function(b){var c;if(null==this)throw new TypeError("The 'this' value for String.prototype.repeat must not be null or undefined");c=this+"";if(0>b||1342177279<b)throw new RangeError("Invalid count value");b|=0;for(var a="";b;)if(b&1&&(a+=c),b>>>=1)c+=c;return a};q!=p&&null!=q&&g(h,n,{configurable:!0,writable:!0,value:q});var t=this;
-function u(b,c){var a=b.split("."),d=t;a[0]in d||!d.execScript||d.execScript("var "+a[0]);for(var e;a.length&&(e=a.shift());)a.length||void 0===c?d[e]?d=d[e]:d=d[e]={}:d[e]=c};function v(b){var c=b.length;if(0<c){for(var a=Array(c),d=0;d<c;d++)a[d]=b[d];return a}return[]};function w(b){var c=window;if(c.addEventListener)c.addEventListener("load",b,!1);else if(c.attachEvent)c.attachEvent("onload",b);else{var a=c.onload;c.onload=function(){b.call(this);a&&a.call(this)}}};var x;function y(b,c,a,d,e){this.h=b;this.j=c;this.l=a;this.f=e;this.g={height:window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight,width:window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth};this.i=d;this.b={};this.a=[];this.c={}}
-function z(b,c){var a,d,e=c.getAttribute("data-pagespeed-url-hash");if(a=e&&!(e in b.c))if(0>=c.offsetWidth&&0>=c.offsetHeight)a=!1;else{d=c.getBoundingClientRect();var f=document.body;a=d.top+("pageYOffset"in window?window.pageYOffset:(document.documentElement||f.parentNode||f).scrollTop);d=d.left+("pageXOffset"in window?window.pageXOffset:(document.documentElement||f.parentNode||f).scrollLeft);f=a.toString()+","+d;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.g.height&&d<=b.g.width)}a&&(b.a.push(e),
-b.c[e]=!0)}y.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&z(this,b)};u("pagespeed.CriticalImages.checkImageForCriticality",function(b){x.checkImageForCriticality(b)});u("pagespeed.CriticalImages.checkCriticalImages",function(){A(x)});
-function A(b){b.b={};for(var c=["IMG","INPUT"],a=[],d=0;d<c.length;++d)a=a.concat(v(document.getElementsByTagName(c[d])));if(a.length&&a[0].getBoundingClientRect){for(d=0;c=a[d];++d)z(b,c);a="oh="+b.l;b.f&&(a+="&n="+b.f);if(c=!!b.a.length)for(a+="&ci="+encodeURIComponent(b.a[0]),d=1;d<b.a.length;++d){var e=","+encodeURIComponent(b.a[d]);131072>=a.length+e.length&&(a+=e)}b.i&&(e="&rd="+encodeURIComponent(JSON.stringify(B())),131072>=a.length+e.length&&(a+=e),c=!0);C=a;if(c){d=b.h;b=b.j;var f;if(window.XMLHttpRequest)f=
-new XMLHttpRequest;else if(window.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(r){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(D){}}f&&(f.open("POST",d+(-1==d.indexOf("?")?"?":"&")+"url="+encodeURIComponent(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}}
-function B(){var b={},c;c=document.getElementsByTagName("IMG");if(!c.length)return{};var a=c[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var d=0;a=c[d];++d){var e=a.getAttribute("data-pagespeed-url-hash");e&&(!(e in b)&&0<a.width&&0<a.height&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a.width>=b[e].o&&a.height>=b[e].m)&&(b[e]={rw:a.width,rh:a.height,ow:a.naturalWidth,oh:a.naturalHeight})}return b}var C="";u("pagespeed.CriticalImages.getBeaconData",function(){return C});
-u("pagespeed.CriticalImages.Run",function(b,c,a,d,e,f){var r=new y(b,c,a,e,f);x=r;d&&w(function(){window.setTimeout(function(){A(r)},0)})});})();
+      @php   
+         $cont_ids = DB::table('vendors')->get()->pluck('user_id');
+         $users = DB::table('users')->whereIn('id',$cont_ids)->where('status',1)->get()->pluck('id');
+         $contributors = DB::table('vendors')->whereIn('user_id',$users)->limit(4)->get();
+      @endphp
 
-pagespeed.CriticalImages.Run('/mod_pagespeed_beacon','https://preview.colorlib.com/theme/classyads/about.html','-ilGEe-FWC',true,false,'Nz18AuPAsfQ');
-//]]></script><img src="images/team1.jpg" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-<h3 class="h4">Susan Horton</h3>
-<p class="caption mb-3 text-primary">Founder</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum facilis, sint libero commodi tenetur ducimus accusantium inventore.</p>
-</div>
-<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-<img src="images/team2.jpg" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3972416715" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-<h3 class="h4">Jonathan Kennedy</h3>
-<p class="caption mb-3 text-primary">Founder</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam voluptas autem qui alias officia eligendi, nam in.</p>
-</div>
-<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-<img src="images/team3.jpg" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="4266916636" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-<h3 class="h4">Gordon Meyer</h3>
-<p class="caption mb-3 text-primary">Lead Developer</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore animi quam, est vero. Omnis sunt, totam qui!</p>
-</div>
-<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-<img src="images/team4.jpg" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="266449261" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
-<h3 class="h4">Doug Hale Kennedy</h3>
-<p class="caption mb-3 text-primary">ProjectManager</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae exercitationem voluptatum, laboriosam unde ipsam modi iusto, numquam?</p>
-</div>
+   
+  
+      @foreach($contributors as $contributor)
+         <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+            @if(isset($contributor->image))
+              <a href="{{'/all_videos_'.$contributor->user_id}}"><img style="width:250px!important; height:180px!important" src= "images/{{$contributor->image}}" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                              </a>
+              @else
+              <a href="{{'/all_videos_'.$contributor->user_id}}"> <img style="width:250px!important; height:180px!important" src= "https://i.stack.imgur.com/l60Hf.png" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                              </a>
+              @endif
+            <a href="{{'/all_videos_'.$contributor->user_id}}"><h3 class="h4" style="color:black" >{{$contributor->first_name}} {{$contributor->last_name}}</h3></a>
+            <p class="caption mb-3 text-primary">Contributor</p>
+            <p class="caption mb-3 ">{{Str::limit($contributor->description, 200)}}</p>
+         </div>
+      @endforeach()
+   
+   
 </div>
 </div>
 </div> 
@@ -194,6 +182,19 @@ pagespeed.CriticalImages.Run('/mod_pagespeed_beacon','https://preview.colorlib.c
       </div> -->
    @include('footer')
 </div>
+<script data-pagespeed-no-defer>//<![CDATA[
+(function(){for(var g="function"==typeof Object.defineProperties?Object.defineProperty:function(b,c,a){if(a.get||a.set)throw new TypeError("ES3 does not support getters and setters.");b!=Array.prototype&&b!=Object.prototype&&(b[c]=a.value)},h="undefined"!=typeof window&&window===this?this:"undefined"!=typeof global&&null!=global?global:this,k=["String","prototype","repeat"],l=0;l<k.length-1;l++){var m=k[l];m in h||(h[m]={});h=h[m]}
+var n=k[k.length-1],p=h[n],q=p?p:function(b){var c;if(null==this)throw new TypeError("The 'this' value for String.prototype.repeat must not be null or undefined");c=this+"";if(0>b||1342177279<b)throw new RangeError("Invalid count value");b|=0;for(var a="";b;)if(b&1&&(a+=c),b>>>=1)c+=c;return a};q!=p&&null!=q&&g(h,n,{configurable:!0,writable:!0,value:q});var t=this;
+function u(b,c){var a=b.split("."),d=t;a[0]in d||!d.execScript||d.execScript("var "+a[0]);for(var e;a.length&&(e=a.shift());)a.length||void 0===c?d[e]?d=d[e]:d=d[e]={}:d[e]=c};function v(b){var c=b.length;if(0<c){for(var a=Array(c),d=0;d<c;d++)a[d]=b[d];return a}return[]};function w(b){var c=window;if(c.addEventListener)c.addEventListener("load",b,!1);else if(c.attachEvent)c.attachEvent("onload",b);else{var a=c.onload;c.onload=function(){b.call(this);a&&a.call(this)}}};var x;function y(b,c,a,d,e){this.h=b;this.j=c;this.l=a;this.f=e;this.g={height:window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight,width:window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth};this.i=d;this.b={};this.a=[];this.c={}}
+function z(b,c){var a,d,e=c.getAttribute("data-pagespeed-url-hash");if(a=e&&!(e in b.c))if(0>=c.offsetWidth&&0>=c.offsetHeight)a=!1;else{d=c.getBoundingClientRect();var f=document.body;a=d.top+("pageYOffset"in window?window.pageYOffset:(document.documentElement||f.parentNode||f).scrollTop);d=d.left+("pageXOffset"in window?window.pageXOffset:(document.documentElement||f.parentNode||f).scrollLeft);f=a.toString()+","+d;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.g.height&&d<=b.g.width)}a&&(b.a.push(e),
+b.c[e]=!0)}y.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&z(this,b)};u("pagespeed.CriticalImages.checkImageForCriticality",function(b){x.checkImageForCriticality(b)});u("pagespeed.CriticalImages.checkCriticalImages",function(){A(x)});
+function A(b){b.b={};for(var c=["IMG","INPUT"],a=[],d=0;d<c.length;++d)a=a.concat(v(document.getElementsByTagName(c[d])));if(a.length&&a[0].getBoundingClientRect){for(d=0;c=a[d];++d)z(b,c);a="oh="+b.l;b.f&&(a+="&n="+b.f);if(c=!!b.a.length)for(a+="&ci="+encodeURIComponent(b.a[0]),d=1;d<b.a.length;++d){var e=","+encodeURIComponent(b.a[d]);131072>=a.length+e.length&&(a+=e)}b.i&&(e="&rd="+encodeURIComponent(JSON.stringify(B())),131072>=a.length+e.length&&(a+=e),c=!0);C=a;if(c){d=b.h;b=b.j;var f;if(window.XMLHttpRequest)f=
+new XMLHttpRequest;else if(window.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(r){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(D){}}f&&(f.open("POST",d+(-1==d.indexOf("?")?"?":"&")+"url="+encodeURIComponent(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}}
+function B(){var b={},c;c=document.getElementsByTagName("IMG");if(!c.length)return{};var a=c[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var d=0;a=c[d];++d){var e=a.getAttribute("data-pagespeed-url-hash");e&&(!(e in b)&&0<a.width&&0<a.height&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a.width>=b[e].o&&a.height>=b[e].m)&&(b[e]={rw:a.width,rh:a.height,ow:a.naturalWidth,oh:a.naturalHeight})}return b}var C="";u("pagespeed.CriticalImages.getBeaconData",function(){return C});
+u("pagespeed.CriticalImages.Run",function(b,c,a,d,e,f){var r=new y(b,c,a,e,f);x=r;d&&w(function(){window.setTimeout(function(){A(r)},0)})});})();
+
+pagespeed.CriticalImages.Run('/mod_pagespeed_beacon','https://preview.colorlib.com/theme/classyads/about.html','-ilGEe-FWC',true,false,'Nz18AuPAsfQ');
+//]]></script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/jquery-migrate-3.0.1.min.js"></script>
 <script src="js/jquery-ui.js"></script>

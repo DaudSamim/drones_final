@@ -20,10 +20,12 @@
                             <tr>
                                 <th>First Name</th>
                                 <th>Last Name</th>
+                                <th>Image</th>
                                 <th>Email</th>
                                 <th>Username</th>
                                 <th>Commission</th>
                                 <th>Display Name</th>
+                                <th>Actions</th>
                                 <th>Created At</th>
                                 <th></th>
 
@@ -40,7 +42,7 @@
                                         <tr>
                                             <td>{{$row->first_name}}</td>
                                             <td>{{$row->last_name}}</td>
-                                            
+                                            <td>{{$row->image}}</td>
                                             <td>
                                             @if(isset($user))
                                             {{$user->email}}
@@ -60,6 +62,7 @@
                                             
                                             </td>
                                             <td>{{$row->display_name}}</td>
+                                            <td> <a href="{{'/delete_vendor/'.$row->id}}"><button class="btn btn-danger">Delete</button></a></td>
                                             <td>{{$row->created_at}}</td>
                                     
                                             @if($user->status==0)
@@ -136,6 +139,16 @@
                                             @if ($errors->has('password'))
                                                 <span class="text-danger">
                                             <small class="font-weight-bold">{{ $errors->first('password') }}</small>
+                                        </span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Image</label>
+                                            <input style="width: 100% !important;;" type="file" class="form-control {{ $errors->has('image') ? 'is-invalid' : '' }}" id="name" name="image"  aria-describedby="emailHelp" >
+
+                                            @if ($errors->has('email'))
+                                                <span class="text-danger">
+                                            <small class="font-weight-bold">{{ $errors->first('image') }}</small>
                                         </span>
                                             @endif
                                         </div>

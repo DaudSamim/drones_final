@@ -72,7 +72,7 @@
                                        @csrf
                                        <div class="search-fields">
                                           <input name="keyword" value="" type="text"
-                                             placeholder="Search Now">
+                                             placeholder="Search For Low-Cost, High-Quality Arial Stock Footage">
                                           <span class="search-btn"><input value=""
                                              type="button"></span>
                                        </div>
@@ -101,7 +101,7 @@
                               data-id="0dc32e0" data-element_type="widget"
                               data-widget_type="heading.default">
                               <div class="elementor-widget-container">
-                                 <h1 class="elementor-heading-title elementor-size-default">OUR
+                                 <h1 style="color:white!important" class="elementor-heading-title elementor-size-default">OUR
                                     CATEGORIES
                                  </h1>
                               </div>
@@ -174,7 +174,7 @@
                            data-id="30aa770" data-element_type="widget"
                            data-widget_type="heading.default">
                            <div class="elementor-widget-container">
-                              <h1 class="elementor-heading-title elementor-size-default">Most
+                              <h1 style="color: white !important;" class="elementor-heading-title elementor-size-default">Most
                                  Recent Videos
                               </h1>
                            </div>
@@ -269,7 +269,7 @@
                                     <!-- Element Code start -->
                                     <div class="elementor-button-area">
                                        <a class="custombuttonmain btn btn-primary btn-lg browse-more single_dm_btn"
-                                          href="#"
+                                          href="/all-videos"
                                           target="_self">Explore More <i class=""></i></a>
                                     </div>
                                  </div>
@@ -459,76 +459,80 @@
          data-id="8749ec5" data-element_type="section">
       <div class="elementor-container elementor-column-gap-default">
       <div class="elementor-row">
-      <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-08ed2a1 shadow-box"
-         data-id="08ed2a1" data-element_type="column"
-         data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-      <div
-         class="elementor-column-wrap elementor-element-populated">
-      <div class="elementor-widget-wrap">
-      <div class="elementor-element elementor-element-3ff7f70 shadow-bo elementor-widget elementor-widget-mayosis-counter"
-         data-id="3ff7f70" data-element_type="widget"
-         data-widget_type="mayosis-counter.default">
-      <div class="elementor-widget-container">
-      <!-- Element Code start -->
-      <div class="counter-box">
-      <h4 class="statistic-counter">35841
-      </h4> <span
-         class="counter-suffix"></span>
-      <p class="mcounter_title_promo">
-      PREMIUM STOCKS</p>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-4c6a766 shadow-box"
-         data-id="4c6a766" data-element_type="column"
-         data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-      <div
-         class="elementor-column-wrap elementor-element-populated">
-      <div class="elementor-widget-wrap">
-      <div class="elementor-element elementor-element-9afa1ac elementor-widget elementor-widget-mayosis-counter"
-         data-id="9afa1ac" data-element_type="widget"
-         data-widget_type="mayosis-counter.default">
-      <div class="elementor-widget-container">
-      <!-- Element Code start -->
-      <div class="counter-box">
-      <h4 class="statistic-counter">17852
-      </h4> <span
-         class="counter-suffix"></span>
-      <p class="mcounter_title_promo">
-      TOTAL DOWNLOADS</p>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-3009d65 shadow-box"
-         data-id="3009d65" data-element_type="column"
-         data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-      <div
-         class="elementor-column-wrap elementor-element-populated">
-      <div class="elementor-widget-wrap">
-      <div class="elementor-element elementor-element-5570bc5 elementor-widget elementor-widget-mayosis-counter"
-         data-id="5570bc5" data-element_type="widget"
-         data-widget_type="mayosis-counter.default">
-      <div class="elementor-widget-container">
-      <!-- Element Code start -->
-      <div class="counter-box">
-      <h4 class="statistic-counter">1132
-      </h4> <span
-         class="counter-suffix"></span>
-      <p class="mcounter_title_promo">
-      EMAIL SUBSCRIBER</p>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
-      </div>
+      @php 
+                                                   $video = DB::table('videos')->get();
+                                                   $videos = count($video);
+                                                   $user = DB::table('users')->get();
+                                                   $users = count($user);
+                                                   $order = DB::table('orders')->get();
+                                                    $orders = count($order);
+                                                    @endphp
+                                                    <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-08ed2a1 shadow-box"
+                                                        data-id="08ed2a1" data-element_type="column"
+                                                        data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+
+                                                        <div class="elementor-column-wrap elementor-element-populated">
+                                                            <div class="elementor-widget-wrap">
+                                                                <div class="elementor-element elementor-element-3ff7f70 shadow-bo elementor-widget elementor-widget-mayosis-counter"
+                                                                    data-id="3ff7f70" data-element_type="widget"
+                                                                    data-widget_type="mayosis-counter.default">
+                                                                    <div class="elementor-widget-container">
+                                                                        <!-- Element Code start -->
+                                                                        <div class="counter-box">
+                                                                            <h4 class="statistic-counter">{{$videos}}
+                                                                            </h4> <span class="counter-suffix"></span>
+                                                                            <p class="mcounter_title_promo">
+                                                                                PREMIUM STOCKS</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-08ed2a1 shadow-box"
+                                                        data-id="08ed2a1" data-element_type="column"
+                                                        data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+
+                                                        <div class="elementor-column-wrap elementor-element-populated">
+                                                            <div class="elementor-widget-wrap">
+                                                                <div class="elementor-element elementor-element-3ff7f70 shadow-bo elementor-widget elementor-widget-mayosis-counter"
+                                                                    data-id="3ff7f70" data-element_type="widget"
+                                                                    data-widget_type="mayosis-counter.default">
+                                                                    <div class="elementor-widget-container">
+                                                                        <!-- Element Code start -->
+                                                                        <div class="counter-box">
+                                                                            <h4 class="statistic-counter">{{$orders}}
+                                                                            </h4> <span class="counter-suffix"></span>
+                                                                            <p class="mcounter_title_promo">
+                                                                                  TOTAL DOWNLOADS</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-08ed2a1 shadow-box"
+                                                        data-id="08ed2a1" data-element_type="column"
+                                                        data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+
+                                                        <div class="elementor-column-wrap elementor-element-populated">
+                                                            <div class="elementor-widget-wrap">
+                                                                <div class="elementor-element elementor-element-3ff7f70 shadow-bo elementor-widget elementor-widget-mayosis-counter"
+                                                                    data-id="3ff7f70" data-element_type="widget"
+                                                                    data-widget_type="mayosis-counter.default">
+                                                                    <div class="elementor-widget-container">
+                                                                        <!-- Element Code start -->
+                                                                        <div class="counter-box">
+                                                                            <h4 class="statistic-counter">{{$users}}
+                                                                            </h4> <span class="counter-suffix"></span>
+                                                                            <p class="mcounter_title_promo">
+                                                                                TOTAL USERS</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
       </div>
       </section>
       </div>
@@ -590,8 +594,9 @@
          data-id="2fabcc9c" data-element_type="widget"
          data-widget_type="heading.default">
       <div class="elementor-widget-container">
-      <h2 class="elementor-heading-title elementor-size-default">
+      <h2 class="d-lg-block d-none elementor-heading-title elementor-size-default">
       Subscribe</h2>
+      <h2 class="d-block d-lg-none text-center" style="color:white">Subscribe</h2>
       </div>
       </div>
       </div>
@@ -737,7 +742,7 @@
       <i aria-hidden="true" class="fas fa-money-bill"></i>
       </div>
       <h4 class="mix-iconb-title">Secure Payment</h4>
-      <div class="icon-box-content">
+      <div style="line-height:2 !important" class="icon-box-content">
       <div>We do not share your full credit card, debit
       card, or bank account number with Third parties.
       We only receives information that is required to
@@ -768,7 +773,7 @@
       <i aria-hidden="true" class="far fa-thumbs-up"></i>
       </div>
       <h4 class="mix-iconb-title">Unlimited Use</h4>
-      <div class="icon-box-content">
+      <div style="line-height:2 !important" class="icon-box-content">
       <div>We like to keep things simple too. Our royalty
       free license is simple and gives you right to
       use licensed content in perpetuity across
@@ -798,7 +803,7 @@
       <i aria-hidden="true" class="far fa-angry"></i>
       </div>
       <h4 class="mix-iconb-title">Cancel Anytime</h4>
-      <div class="icon-box-content">
+      <div style="line-height:2 !important" class="icon-box-content">
       <div>You are free to cancel your subscription plan
       at anytime with no additional charges. Once a
       subscription has been canceled, you still will
@@ -816,7 +821,7 @@
       </div>
       </div>
       </section>
-      <section data-particle_enable="false" data-particle-mobile-disabled="false"
+      <!-- <section data-particle_enable="false" data-particle-mobile-disabled="false"
          class="elementor-section elementor-top-section elementor-element elementor-element-09c27ef elementor-section-boxed elementor-section-height-default elementor-section-height-default"
          data-id="09c27ef" data-element_type="section"
          data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
@@ -829,9 +834,9 @@
       <div class="elementor-element elementor-element-f391f25 elementor-widget elementor-widget-mayosis-theme-hero"
          data-id="f391f25" data-element_type="widget"
          data-widget_type="mayosis-theme-hero.default">
-      <div class="elementor-widget-container">
+      <div class="elementor-widget-container"> -->
       <!-- Element Code start -->
-      <div
+      <!-- <div
          class="col-md-12 col-xs-12 col-sm-12 mayosis_theme_hero_box">
       <h2 class="hero-title">Thousands Of Happy Customers!
       <span class="mhero_counter_main">
@@ -948,8 +953,8 @@
       </div>
       </div>
       </div>
-      </div>
-      </section>
+      </div> -->
+      <!-- </section> -->
       </div>
       </div>
       </div>
@@ -957,7 +962,7 @@
       <div class="clearfix"></div>
       <div class="container">
          <div class="row pt-5 text-center">
-            <h2 class="font-weight-bold" style="color:#6EC1E4">
+            <h2 style="color: black !important;" class="font-weight-bold" style="color:#6EC1E4">
             WHY DRONE STOCK CLIPS?</h1>
             <p class="pt-2" style="line-height:2.2">We are the unmatched pioneers in providing the most affordable Aerial stock video content to creators all over the world without
                compromising on quality. From Dronestockclips.com you always get the highest quality stock content that enhances your ability to engage your audience in a more effective
@@ -966,7 +971,7 @@
             </p>
          </div>
          <div class="row pt-2 text-center">
-            <h2 class="font-weight-bold" style="color:#6EC1E4">
+            <h2 style="color: #ff0606 !important;" class="font-weight-bold" style="color:#6EC1E4">
             AERIAL FOOTAGE</h1>
             <p class="pt-2" style="line-height:2.2">Stock footage or free royalty free videos available in the market are produced for the international market. It is very disheartening for Creators and advertisers
                to have no authentic Aerial stock videos at hand, that they can use to elevate their content. And even if they do find Arial stock videos it is so expensive that purchasing it becomes budgetary unviable.
@@ -974,7 +979,7 @@
             </p>
          </div>
          <div class="row pt-2 text-center">
-            <h2 class="font-weight-bold" style="color:#6EC1E4">
+            <h2 style="color: black !important;" class="font-weight-bold" style="color:#6EC1E4">
             BUYING FROM DRONE STOCK CLIPS</h1>
             <p class="pt-2" style="line-height:2.2">Besides the fact that our Drone stock footage is unique, we also provide free royalty free stock footage. Our competitive pricing is at par with the stock footage services offered by us.
                Our costing also puts us ahead of other market players. But the most compelling reason to buy Drone stock videos from
@@ -983,7 +988,7 @@
             </p>
          </div>
          <div class="row pt-2 text-center">
-            <h2 class="font-weight-bold" style="color:#6EC1E4">
+            <h2 style="color: #ff0606 !important;" class="font-weight-bold" style="color:#6EC1E4">
             THE TYPE OF LICENSE WE OFFER</h1>
             <p>  Anything you download will be covered by the standard license. </p>
             <p>  100% royalty-free </p>
@@ -994,7 +999,7 @@
             <p> Download is yours to keep forever and you are free to use the footages regardless the project.</p>
          </div>
          <div class="row pt-2 text-center">
-            <h2 class="font-weight-bold" style="color:#6EC1E4">
+            <h2 style="color: black !important;" class="font-weight-bold" style="color:#6EC1E4">
             DRONE STOCK CLIPS TEAM</h1>
             <p class="pt-2" style="line-height:2.2">Our team consists of passionate drone pilots who have a strong background in large-scale content creation and experience in handling multiple production projects simultaneously.
                We have illustrious years experience in large-scale content creation, and media production.
@@ -1005,25 +1010,26 @@
             </p>
          </div>
          <div class="row pt-2 text-center">
-            <h2 class="font-weight-bold" style="color:#6EC1E4">
+            <h2 style="color: #ff0606 !important;" class="font-weight-bold" style="color:#6EC1E4">
             WE'RE FOCUSED</h1>
             <p class="pt-2" style="line-height:2.2">We are one of the very first <strong>DRONE ONLY WEBSITE</strong> on the planet and plan on being the name in this space. We are completely focused on this and aren’t distracted by other types of footage
                or media (audio, illustrations, etc.). search for and download aerial stock videos instantly 24 hours a day.
             </p>
          </div>
          <div class="row pt-2 text-center">
-            <h2 class="font-weight-bold" style="color:#6EC1E4">
+            <h2 style="color: black !important;" class="font-weight-bold" style="color:#6EC1E4">
             SELL WITH DRONE STOCK CLIPS</h1>
             <p  class="pt-2" style="line-height:2.2;">We’re always looking for somebody special to join our team.Our team is super awesome. But we want it to be more awesome.
                We are always on the lookout for highly creative and skilled filmmakers and content creators who are able to produce great quality and unique content.
                If you are interested to partner with us, please sign up and start uploading
             </p>
          </div>
-         <p class="pb-3" style= border-bottom: 1px solid black>     </p>
-         <div class="row pt-2 text-center">
-            <h2 class="font-weight-bold" style="color:#6EC1E4"; >
-            JOIN OUR TEAM</h1>
-            <div class="elementor-element elementor-element-da039cc elementor-widget elementor-widget-mayosis-edd-register" data-id="da039cc" data-element_type="widget" data-widget_type="mayosis-edd-register.default">
+         <p class="pb-3" style=" border-bottom: 1px solid black">     </p>
+         <div style="padding: left 39% !important;" class="d-lg-block d-none row pt-2 pb-5 text-center">
+       <a href="contributor">  <button href="contributor" type="button" style="border-radius: 0px 70px 0px 70px!important; padding: left 3% !important; width:38%!important; background: color #F70505 !important;" class="btn btn-danger btn-lg font-weight-bold"> JOIN OUR TEAM</button></a>
+ <!-- <a href="contributor"> <h2 class="font-weight-bold pb-5" style="color:#6EC1E4"; >
+            JOIN OUR TEAM</h1></a> -->
+            <!-- <div class="elementor-element elementor-element-da039cc elementor-widget elementor-widget-mayosis-edd-register" data-id="da039cc" data-element_type="widget" data-widget_type="mayosis-edd-register.default">
                <div class="elementor-widget-container">
                   <div class="mayosis-modern-login mb-2">
                      <div class="row main_login_form">
@@ -1060,8 +1066,11 @@
                         </div>
                      </div>
                   </div>
-               </div>
+               </div> -->
             </div>
+               <div class=" d-lg-none d-block row pt-2 pb-5 text-center">
+              <a href="contributor">    <button href="contributor" type="button" style="border-radius: 0px 70px 0px 70px!important; padding: left 3% !important; width:60%!important; background: color #F70505 !important;" class="btn btn-danger btn-lg font-weight-bold"> JOIN OUR TEAM</button></a>
+               </div>
          </div>
       </div>
       @include('footer')

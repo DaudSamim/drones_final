@@ -1143,6 +1143,110 @@ class HomeController extends Controller
     
             return view('home.edit_blogs',compact('blog'));
         }
+
+        public function edit_category(Request $request){
+            if($request->file('file')){
+                $file = $request->file('file');
+                $filename = $file->getClientOriginalName();
+                $path = public_path().'/images/';
+                $file->move($path, $filename);
+
+                
+                DB::table('categories')->where('id',$request->id)->update([
+                    'title' => $request->title,
+                    'image' => $filename
+                    ]);
+                    return redirect()->back()->with('success','Successfully Added');
+
+            };
+            return redirect()->back()->with('success','Suc Added');
+    
+            }
+            public function view_all(){
+           $videos = DB::table('videos')->where('status',1)->get();
+           $categories = DB::table('categories')->limit(7)->get();
+            $categories_search = DB::table('categories')->get();
+            $keywords = DB::table('videos')->orderByRaw("RAND()")->where('keywords','!=',null)->limit(25)->get()->pluck('keywords');
+
+           return view('view_all_videos',compact('videos','categories','keywords'));
+
+
+        }
+        public function send_reply(Request $request){
+            
+            DB::table('contact_queries')->where('id',$request->id)->update([
+                'admin_reply' => $request->reply,    
+                'status' => 1,    
+
+            ]);
+
+            return redirect()->back()->with('success','Reply Sent');
+         }
+         public function admin_reply()
+    {
+            $change_status = DB::table('contact_queries')->where('email',auth()->user()->email)->where('status',1)->get();
+            foreach($change_status as $change){
+                DB::table('contact_queries')->where('id',$change->id)->update([
+                    'status' => 0,    
+                ]);
+            }
+            $queries = DB::table('contact_queries')->where('email',auth()->user()->email)->orderBy('id','desc')->get();
+            return view('home.admin_replies',compact('queries'));
+        
+    }
+    public function free_stock(){
+               
+        $videos = DB::table('videos')->where('status',1)->where('eightK', null)->where('sixK', null)->where('fourK', null)->where('fhd', null)->where('hd', null)->get();
+        $categories = DB::table('categories')->limit(7)->get();
+        $categories_search = DB::table('categories')->get();
+        $keywords = DB::table('videos')->orderByRaw("RAND()")->where('keywords','!=',null)->limit(25)->get()->pluck('keywords');
+
+       
+        return view('free_stock', compact('videos','categories','keywords'));
+    }
+    public function edit_profile(){
+    
+
+            return view('home.edit_profile');
+    }
+
+    public function update_profile(Request $request){
+        $validated = $request->validate([
+            'image' => 'required|mimes:jpeg,jpg,png,gif|required|max:10000',
+        ]);
+
+        if($request->file('image')){
+            $file = $request->file('image');
+            $filename = $file->getClientOriginalName();
+            $path = public_path().'/images/';
+            $file->move($path, $filename);
+        };
+        DB::table('vendors')->where('user_id',auth()->user()->id)->update([
+            'image' => $filename,
+            'account_holder' => $request->account_holder,
+            'account_number' => $request->account_number,
+            'bank_name' => $request->bank_name,
+            'phone_number' => $request->phone_number,
+        ]);
+
+        DB::table('users')->where('id',auth()->user()->id)->update([
+            'email'=>$request->email,
+        ]);
+        
+        return redirect('/edit_profile')->with('success','Successfully Updated');
+    }
+
+    public function add_comment(Request $request){
+
+        DB::table('comments')->insert([
+            'comment'=>$request->comment
+        ]);
+
+        return redirect('/')->with('success','Successfully Updated');
+
+
+    }
+
       
 
        

@@ -61,8 +61,11 @@
       <div class="row align-items-center justify-content-center text-center">
          <div class="col-md-12">
             <div class="row justify-content-center mb-4">
-               <div class="col-md-8 text-center  form-search-wrap" style="margin-top: 15%" >
+               <div class="d-lg-block d-none col-md-8 text-center  form-search-wrap" style="margin-top: 15%" >
                   <h1 style="color: white; font-weight: 800" class="" data-aos="fade-up">Categories</h1>
+               </div>
+               <div class="d-lg-none d-block  text-center ">
+                  <h1 style="color: white; font-weight: 800; padding-right: 7% !important;; padding-top: 50% !important;" class="pt-5" data-aos="fade-up">Categories</h1>
                </div>
             </div>
          </div>
@@ -70,8 +73,11 @@
    </div>
 </div>
 <div class="row mb-5 " >
-   <div class="col-md-12 pt-3  border-primary text-center">
+   <div class="d-lg-block d-none col-md-12 pt-3  border-primary text-center">
       <h2 class="font-weight-light text-primary pb-0 ">Our Categories</h2>
+   </div>
+   <div class="d-lg-none d-block text-center pt-4">
+      <h2 style="padding-right:2%!important" class="font-weight-light text-primary pb-0 ">Our Categories</h2>
    </div>
 </div>
 <div class="row p-5" style="padding-top:0px!important">
@@ -79,8 +85,8 @@
         $categories = DB::table('categories')->get();
 @endphp
     @foreach($categories as $category)
-   <div class="col-md-6 col-lg-3 mb-4 mb-lg-0" style="margin-bottom: 2% !important">
-      <a href="{{'/category_'.$category->title}}" class="h4"><img style="height:180px !important;" src="images/{{$category->image}}" alt="Image" class="img-fluid " data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+   <div class="col-md-6 col-lg-3 mb-4 mb-lg-0 pt-5" style="margin-bottom: 2% !important">
+      <a href="{{'/category_'.$category->title}}" class="h4"><img style="height:180px !important; width: 270px !important;" src="images/{{$category->image}}" alt="Image" class="img-fluid " data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
       <h3> {{$category->title}}</h3></a>
       
    </div>

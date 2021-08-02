@@ -54,11 +54,13 @@
    background: #1bc5ad;
    color: #fff; }
 </style>
+
 <div class="site-wrap">
   
   
    
    @include('header_for_single_page')
+   
 
    <div class=" overlay" style="background-image: url(images/contact.jpg);height:50%!important" data-aos="fade" >
       <div class="container" style="height: 380px">
@@ -74,7 +76,22 @@
          </div>
       </div>
    </div>
+   <br>
+   
    <div class="site-section bg-light">
+   @if(Session::has('success'))
+      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
+  @endif  
+
+  @if(Session::has('alert'))
+      <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('alert') }}</p>
+  @endif  
+
+  @if ($errors->any())
+     @foreach ($errors->all() as $error)
+         <div>{{$error}}</div>
+     @endforeach
+ @endif
       <div class="container">
          <div class="row">
             <div class="col-md-7 mb-5" data-aos="fade">

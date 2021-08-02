@@ -369,7 +369,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Add New Video</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Add New Videos</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -379,8 +379,8 @@
                                     <form id="btn-submit" method="post" action="/view_vid" enctype='multipart/form-data'>
 
                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Video File</label>
-                                            <input class="form-control" accept="video/*" type="file" name="video[]" onchange="getFileData(this);">
+                                            <label for="exampleInputEmail1">Video Files</label>
+                                            <input class="form-control" accept="video/*" type="file" multiple  name="video[]" onchange="getFileData(this);">
 
                                             @if ($errors->has('video'))
                                                 <span class="text-danger">
@@ -390,12 +390,12 @@
                                         </div>
 
                                        
-                                          <div class="adds">
+                                          <!-- <div class="adds">
 
                                           <div class="div-btns text-center">
                                             <button type="button" class="btn btn addmultiple">Add More</button>
                                           </div>
-                                          </div>
+                                          </div> -->
                                         <div class="modal-footer">
                                             <input type="submit" name="action_button"  class="btn btn-primary btn-block" value="Add" />                                            
                                             <span

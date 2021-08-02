@@ -178,7 +178,11 @@ if(choice == 'No'){
         .create( document.querySelector( '#editor' ) )
         .catch( error => {
             console.error( error );
-        } );
+        } )
+        .replace( 'editor1', {
+            filebrowserBrowseUrl: '/browser/browse.php',
+            filebrowserUploadUrl: '/uploader/upload.php'
+});
 </script>
 @endsection
 

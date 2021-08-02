@@ -79,8 +79,8 @@
         $blogs = DB::table('blogs')->get();
 @endphp
     @foreach($blogs as $blog)
-   <div  class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-      <img src=images/{{$blog->image}} alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+   <div  class="col-md-6 col-lg-3 mb-4 mb-lg-0 pt-5">
+    <a href="{{'/blog_'.$blog->title}}">  <img src="images/{{$blog->image}}" style="height: 200px !important; width:250px" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>
       <h3> <a href="{{'/blog_'.$blog->title}}" class="h4">{{$blog->title}}</a></h3>
       
    </div>

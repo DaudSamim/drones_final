@@ -306,20 +306,36 @@ Route::middleware('auth')->group(function ()
       Route::post('/post_blog', '\App\Http\Controllers\HomeController@post_blogs');
       Route::post('/edit_blog','\App\Http\Controllers\HomeController@update_blogs');
       Route::get('/post_blog/{id}', '\App\Http\Controllers\HomeController@edit_blog');
-     
+      Route::post('/add_comment','\App\Http\Controllers\HomeController@add_comment');
+
+
       Route::get('/blog_{title}',function($title){
         $main_blog = DB::table('blogs')->where('title',$title)->first();
+        $comment= DB::table('comments')->where('blog_id', $main_blog->id )->get();
+
         if(!isset($main_blog)){
             return redirect()->back();
         }
-            return view('blogs',compact('main_blog'));
+            return view('blogs',compact('main_blog', 'comment'));
         
     });
     Route::get('delete_blog/{id}',function($id){
         DB::Table('blogs')->where('id',$id)->delete();
         return redirect()->back()->with('success','Successfully Deleted');
     });
+    Route::get('delete_vendor/{id}',function($id){
+        DB::Table('vendors')->where('id',$id)->delete();
+        return redirect()->back()->with('success','Successfully Deleted');
+    });
 
+
+    Route::post('/view-category', '\App\Http\Controllers\HomeController@edit_category');
+    Route::get('/all-videos', '\App\Http\Controllers\HomeController@view_all');
+    Route::post('/send_reply', '\App\Http\Controllers\HomeController@send_reply');
+    Route::get('/page_replies', '\App\Http\Controllers\HomeController@admin_reply');
+    Route::get('/free-stock', '\App\Http\Controllers\HomeController@free_stock');
+    Route::get('/edit_profile', '\App\Http\Controllers\HomeController@edit_profile');
+    Route::post('/update_profile', '\App\Http\Controllers\HomeController@update_profile');
 
 
 });

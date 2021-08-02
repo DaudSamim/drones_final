@@ -78,7 +78,7 @@
                   <div class="elementor-widget-wrap" style="box-sizing: border-box; margin: 0px; padding: 0px; position: relative; width: 1120px; flex-wrap: wrap; align-content: flex-start; display: flex;">
                      <div class="elementor-element elementor-element-38b5bfc elementor-widget elementor-widget-heading" data-element_type="widget" data-id="38b5bfc" data-widget_type="heading.default" style="box-sizing: border-box; margin: 0px; padding: 0px; position: relative; width: 1120px; text-align: center;">
                         <div class="elementor-widget-container" style="box-sizing: border-box; margin: 0px; padding: 0px; transition: background 0.3s ease 0s, border 0.3s ease 0s, border-radius 0.3s ease 0s, box-shadow 0.3s ease 0s, -webkit-border-radius 0.3s ease 0s, -webkit-box-shadow 0.3s ease 0s;">
-                           <h2 class="elementor-heading-title elementor-size-default" style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: var( --e-global-typography-primary-font-family ), Sans-serif; font-weight: var( --e-global-typography-primary-font-weight ); line-height: 1; color: var( --e-global-color-primary ); font-size: 30px; letter-spacing: -0.5px;">SELL WITH DRONE STOCK CLIPS</h2>
+                           <h2 class="elementor-heading-title elementor-size-default" style=" color: black !important; border-box; margin: 0px; padding: 0px; font-family: var( --e-global-typography-primary-font-family ), Sans-serif; font-weight: var( --e-global-typography-primary-font-weight ); line-height: 1; color: var( --e-global-color-primary ); font-size: 30px; letter-spacing: -0.5px;">SELL WITH DRONE STOCK CLIPS</h2>
                         </div>
                      </div>
                   </div>
@@ -96,7 +96,7 @@
                      <div class="elementor-element elementor-element-da0c76a elementor-widget elementor-widget-text-editor" data-element_type="widget" data-id="da0c76a" data-widget_type="text-editor.default" style="box-sizing: border-box; margin: 0px; padding: 0px; position: relative; color: var( --e-global-color-text ); font-family: var( --e-global-typography-text-font-family ), Sans-serif; font-weight: var( --e-global-typography-text-font-weight ); width: 1120px;">
                         <div class="elementor-widget-container" style="box-sizing: border-box; margin: 0px; padding: 0px; transition: background 0.3s ease 0s, border 0.3s ease 0s, border-radius 0.3s ease 0s, box-shadow 0.3s ease 0s, -webkit-border-radius 0.3s ease 0s, -webkit-box-shadow 0.3s ease 0s;">
                            <div class="elementor-text-editor elementor-clearfix" style="box-sizing: border-box; margin: 0px; padding: 0px;">
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px; text-align: left;">We&rsquo;re always looking&nbsp;for highly creative and skilled Aerial filmmakers and content creators who are able to produce great quality and unique content.<br style="box-sizing: border-box; margin: 0px; padding: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If you are interested to partner with us, please sign up and start uploading.</p>
+                              <p class="text-center mx-3" style="line-height:2;color:black">We&rsquo;re always looking for highly creative and skilled Aerial filmmakers and content creators who are able to produce great quality and unique content. If you are interested to partner with us, please sign up and start uploading.</p>
                            </div>
                         </div>
                      </div>
@@ -114,7 +114,7 @@
                   <div class="elementor-widget-wrap" style="box-sizing: border-box; margin: 0px; padding: 0px; position: relative; width: 1120px; flex-wrap: wrap; align-content: flex-start; display: flex;">
                      <div class="elementor-element elementor-element-c3b6e40 elementor-widget elementor-widget-heading" data-element_type="widget" data-id="c3b6e40" data-widget_type="heading.default" style="box-sizing: border-box; margin: 0px; padding: 0px; position: relative; width: 1120px; text-align: center;">
                         <div class="elementor-widget-container" style="box-sizing: border-box; margin: 0px; padding: 0px; transition: background 0.3s ease 0s, border 0.3s ease 0s, border-radius 0.3s ease 0s, box-shadow 0.3s ease 0s, -webkit-border-radius 0.3s ease 0s, -webkit-box-shadow 0.3s ease 0s;">
-                           <h2 class="elementor-heading-title elementor-size-default" style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: var( --e-global-typography-primary-font-family ), Sans-serif; font-weight: var( --e-global-typography-primary-font-weight ); line-height: 1; color: var( --e-global-color-primary ); font-size: 30px; letter-spacing: -0.5px;">WHAT WE EXPECT FROM CONTRIBUTORS</h2>
+                           <h2  class="elementor-heading-title elementor-size-default" style="color: #ff0606 !important; box-sizing: border-box; margin: 0px; padding: 0px; font-family: var( --e-global-typography-primary-font-family ), Sans-serif; font-weight: var( --e-global-typography-primary-font-weight ); line-height: 1; color: var( --e-global-color-primary ); font-size: 30px; letter-spacing: -0.5px;">WHAT WE EXPECT FROM CONTRIBUTORS</h2>
                         </div>
                      </div>
                   </div>
@@ -132,13 +132,13 @@
                      <div class="elementor-element elementor-element-f0055b5 elementor-widget elementor-widget-text-editor" data-element_type="widget" data-id="f0055b5" data-widget_type="text-editor.default" style="box-sizing: border-box; margin: 0px; padding: 0px; position: relative; color: var( --e-global-color-text ); font-family: var( --e-global-typography-text-font-family ), Sans-serif; font-weight: var( --e-global-typography-text-font-weight ); width: 1120px;">
                         <div class="elementor-widget-container" style="box-sizing: border-box; margin: 0px; padding: 0px; transition: background 0.3s ease 0s, border 0.3s ease 0s, border-radius 0.3s ease 0s, box-shadow 0.3s ease 0s, -webkit-border-radius 0.3s ease 0s, -webkit-box-shadow 0.3s ease 0s;">
                            <div class="elementor-text-editor elementor-clearfix" style="box-sizing: border-box; margin: 0px; padding: 0px;">
-                              <h4 style="box-sizing: border-box; margin: 10px 0px; padding: 0px; font-family: inherit; font-weight: 700; line-height: 30px; color: rgb(40, 55, 90); font-size: 19px; text-align: left;"><b style="box-sizing: border-box; margin: 0px; padding: 0px; font-weight: 700;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Our expectations from our stock partners are:</b></h4>
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Ability to produce unique content</p>
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; We are looking for only drone stock video content</p>
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; We prefer higher resolution such as 4k, 6k and 8k footage</p>
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Content legally owned by you (that can&rsquo;t be legally used by someone else)</p>
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Do keep in mind that all these content should be specific to or relate to Aerials, as we specifically cater to Aerial audience.&nbsp;</p>
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; To partner with us, Create an Account and start uploading.&nbsp;</p>
+                              <h4 style=" font-family: inherit; font-weight: 700; line-height: 30px; color: rgb(40, 55, 90); font-size: 19px; text-align: center;">Our expectations from our stock partners are:</b></h4>
+                              <p  style="color:black" class="text-center" >Ability to produce unique content</p>
+                              <p style="color:black" class="text-center"> We are looking for only drone stock video content</p>
+                              <p  style="color:black"class="text-center" >We prefer higher resolution such as 4k, 6k and 8k footage</p>
+                              <p  style="color:black" class="text-center">Content legally owned by you (that can&rsquo;t be legally used by someone else)</p>
+                              <p  style="color:black"class="text-center" >Do keep in mind that all these content should be specific to or relate to Aerials, as we specifically cater to Aerial audience.&nbsp;</p>
+                              <p style="color:black" class="text-center" >To partner with us, Create an Account and start uploading.&nbsp;</p>
                            </div>
                         </div>
                      </div>
@@ -156,16 +156,20 @@
                   <div class="elementor-widget-wrap" style="box-sizing: border-box; margin: 0px; padding: 0px; position: relative; width: 1120px; flex-wrap: wrap; align-content: flex-start; display: flex;">
                      <div class="elementor-element elementor-element-f0976f0 elementor-widget elementor-widget-heading" data-element_type="widget" data-id="f0976f0" data-widget_type="heading.default" style="box-sizing: border-box; margin: 0px 0px 20px; padding: 0px; position: relative; width: 1120px; text-align: center;">
                         <div class="elementor-widget-container" style="box-sizing: border-box; margin: 0px; padding: 0px; transition: background 0.3s ease 0s, border 0.3s ease 0s, border-radius 0.3s ease 0s, box-shadow 0.3s ease 0s, -webkit-border-radius 0.3s ease 0s, -webkit-box-shadow 0.3s ease 0s;">
-                           <h2 class="elementor-heading-title elementor-size-default" style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: var( --e-global-typography-primary-font-family ), Sans-serif; font-weight: var( --e-global-typography-primary-font-weight ); line-height: 1; color: var( --e-global-color-primary ); font-size: 30px; letter-spacing: -0.5px;">CONTRACT AGREEMENT</h2>
+                           <h2 class="elementor-heading-title elementor-size-default" style="color: black !important;box-sizing: border-box; margin: 0px; padding: 0px; font-family: var( --e-global-typography-primary-font-family ), Sans-serif; font-weight: var( --e-global-typography-primary-font-weight ); line-height: 1; color: var( --e-global-color-primary ); font-size: 30px; letter-spacing: -0.5px;">CONTRACT AGREEMENT</h2>
                         </div>
                      </div>
                      <div class="elementor-element elementor-element-df0e056 elementor-widget elementor-widget-text-editor" data-element_type="widget" data-id="df0e056" data-widget_type="text-editor.default" style="box-sizing: border-box; margin: 0px; padding: 0px; position: relative; color: var( --e-global-color-text ); font-family: var( --e-global-typography-text-font-family ), Sans-serif; font-weight: var( --e-global-typography-text-font-weight ); width: 1120px;">
                         <div class="elementor-widget-container" style="box-sizing: border-box; margin: 0px; padding: 0px; transition: background 0.3s ease 0s, border 0.3s ease 0s, border-radius 0.3s ease 0s, box-shadow 0.3s ease 0s, -webkit-border-radius 0.3s ease 0s, -webkit-box-shadow 0.3s ease 0s;">
                            <div class="elementor-text-editor elementor-clearfix" style="box-sizing: border-box; margin: 0px; padding: 0px;">
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px; text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Any newly registered Contributor Automatically become part of our team and is in legal agreement with us,<br style="box-sizing: border-box; margin: 0px; padding: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; which gives us the right to distribute their content to our clients and serve their needs for monetary gains.</p>
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px; text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; B<span style="box-sizing: border-box; margin: 0px; padding: 0px; color: var( --e-global-color-text ); font-family: var( --e-global-typography-text-font-family ), Sans-serif; font-weight: var( --e-global-typography-text-font-weight );">y doing so the contributor s</span><span style="box-sizing: border-box; margin: 0px; padding: 0px; color: var( --e-global-color-text ); font-family: var( --e-global-typography-text-font-family ), Sans-serif; font-weight: var( --e-global-typography-text-font-weight );">till retain full ownership of your content</span><span style="box-sizing: border-box; margin: 0px; padding: 0px; color: var( --e-global-color-text ); font-family: var( --e-global-typography-text-font-family ), Sans-serif; font-weight: var( --e-global-typography-text-font-weight );">. see website&nbsp;</span><a href="https://africandronestock.com/terms-conditions/" rel="noopener" style="box-sizing: border-box; margin: 0px; padding: 0px; background-color: rgb(255, 255, 255); color: rgb(40, 55, 90); text-decoration: none; box-shadow: none; font-family: var( --e-global-typography-text-font-family ), Sans-serif; font-weight: var( --e-global-typography-text-font-weight );" target="_blank">terms &amp; conditions.</a></p>
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px; text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Contributors are only selling the right to use their content for which they earn money in the form of commissions. &nbsp; &nbsp; &nbsp;<span style="box-sizing: border-box; margin: 0px; padding: 0px; color: var( --e-global-color-text ); font-family: var( --e-global-typography-text-font-family ), Sans-serif; font-weight: var( --e-global-typography-text-font-weight ); text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp;</span></p>
-                              <p style="box-sizing: border-box; margin: 0px 0px 10px; padding: 0px; text-align: center;"><span style="box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(32, 33, 36); font-family: arial, sans-serif;">As Drone Stock Clips Contributor Every time someone licenses your content, we pay you a</span><span style="box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(32, 33, 36); font-family: arial, sans-serif;">&nbsp;royalty of 70% For content licensed via&nbsp;<b style="box-sizing: border-box; margin: 0px; padding: 0px; font-weight: 700;">Dronestockclips.com</b></span><span style="box-sizing: border-box; margin: 0px; padding: 0px; color: var( --e-global-color-text ); font-family: var( --e-global-typography-text-font-family ), Sans-serif; font-weight: var( --e-global-typography-text-font-weight ); text-align: center;"><br style="box-sizing: border-box; margin: 0px; padding: 0px;"></span></p>
+                             <p class="text-center mx-3" style="line-height:2;color:black">Any newly registered Contributor Automatically become part of our team and is in legal agreement with us,
+                                              which gives us the right to distribute their content to our clients and serve their needs for monetary gains.
+
+                                                                By doing so the contributor still retain full ownership of your content. see website terms & conditions.
+
+                                           Contributors are only selling the right to use their content for which they earn money in the form of commissions.             
+
+As Drone Stock Clips Contributor Every time someone licenses your content, we pay you a royalty of 70% For content licensed via Dronestockclips.com</p>
                            </div>
                         </div>
                      </div>
@@ -182,9 +186,11 @@
                <div class="elementor-column-wrap elementor-element-populated" style="box-sizing: border-box; margin: 0px; padding: 10px; position: relative; display: flex; width: 1170px;">
                   <div class="elementor-widget-wrap" style="box-sizing: border-box; margin: 0px; padding: 0px; position: relative; width: 1150px; flex-wrap: wrap; align-content: flex-start; display: flex;">
                      <div class="elementor-element elementor-element-793ccb7 elementor-widget elementor-widget-heading" data-element_type="widget" data-id="793ccb7" data-widget_type="heading.default" style="box-sizing: border-box; margin: 0px 0px 20px; padding: 0px; position: relative; width: 1150px; text-align: center;">
-                        <div class="elementor-widget-container" style="box-sizing: border-box; margin: 0px; padding: 0px; transition: background 0.3s ease 0s, border 0.3s ease 0s, border-radius 0.3s ease 0s, box-shadow 0.3s ease 0s, -webkit-border-radius 0.3s ease 0s, -webkit-box-shadow 0.3s ease 0s;">
-                           <h2 class="elementor-heading-title elementor-size-default" style="box-sizing: border-box; margin: 0px; padding: 0px; font-family: Roboto, sans-serif; font-weight: 900; line-height: 1; color: var( --e-global-color-primary ); font-size: 39px; letter-spacing: -0.5px; text-decoration: underline;">JOIN OUR TEAM</h2>
-                        </div>
+                     <div style="padding: left 39% !important;" class="d-lg-block d-none row pt-2 pb-5 text-center">
+  <a href="contributor">       <button href="contributor" type="button" style="border-radius: 0px 70px 0px 70px!important; padding: left 3% !important; width:38%!important" class="btn btn-danger btn-lg font-weight-bold"> JOIN OUR TEAM</button></a></div>
+         <div  class=" d-lg-none d-block row pt-2 pb-5 text-center">
+                <a href="contributor">  <button href="contributor" type="button" style="border-radius: 0px 70px 0px 70px!important; padding: left 3% !important; width:60%!important" class="btn btn-danger btn-lg font-weight-bold"> JOIN OUR TEAM</button></a>
+               </div>
                      </div>
                   </div>
                </div>
@@ -192,66 +198,35 @@
          </div>
       </div>
    </section>
-   <div class="elementor-element elementor-element-da039cc elementor-widget elementor-widget-mayosis-edd-register" data-id="da039cc" data-element_type="widget" data-widget_type="mayosis-edd-register.default">
-      <div class="elementor-widget-container">
-         <div class="mayosis-modern-login mb-2">
-            <div class="row main_login_form">
-               <div class="login_form_dm" style="background-color:#6ec1e4; padding:3%">
-                  <form id="edd_register_form" class="edd_form" action="/register_vendor" method="post">
-                     @csrf
-                     <fieldset>
-                        <p class="edd_registration_username">
-                           <input id="edd-user-login" class="required edd-input" type="text" name="first_name" placeholder="First Name"/>
-                        </p>
-                        <p class="edd_registration_username">
-                           <input id="edd-user-login" class="required edd-input" type="text" name="last_name" placeholder="Last name"/>
-                        </p>
-                        <p class="edd_registration_username">
-                           <input id="edd-user-login" class="required edd-input" type="text" name="username" placeholder="Username"/>
-                        </p>
-                        <p class="edd_registration_email">
-                           <input id="edd-user-email" class="required edd-input" type="email" name="email" placeholder="Email" />
-                        </p>
-                        <p class="edd_registration_password">
-                           <input id="edd-user-pass" class="password required edd-input" style="padding: 1%; width: 100%;margin-bottom: 1%"  type="password" name="password" placeholder="Password" />
-                        </p>
-                        <p class="edd_registration_username">
-                           <input id="edd-user-login" class="required edd-input" type="text" name="display_name" placeholder="Display Name"/>
-                        </p>
-                        <p>
-                           <input type="hidden" name="edd_honeypot" value="" />
-                           <input type="hidden" name="edd_action" value="user_register" />
-                           <input type="hidden" name="edd_redirect" value="https://africandronestock.com/checkout-2/purchase-history/"/>
-                           <input class="button dm_register_button" style="width: 100%; padding: 1%;" name="edd_register_submit" type="submit" value="Register" />
-                        </p>
-                     </fieldset>
-                  </form>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-<div class="row mb-5 " >
-   <div class="col-md-12  border-primary text-center">
-      <h2 class="font-weight-light text-primary pb-0 ">Our Team</h2>
+   
+
+<div style="background-color:#454BB6; width: 100% !important;" class=" row mb-5 " >
+   <div style="background-color:#454BB6;width: 100% !important;" class="col-md-12  text-center">
+      <h2 style="color:white" class= "pb-0 ">Our Countributors</h2>
    </div>
 </div>
 
 <div class="row p-5" style="padding-top:0px!important">
-   @php   
-      $cont_ids = DB::table('vendors')->get()->pluck('user_id');
-      $users = DB::table('users')->whereIn('id',$cont_ids)->where('status',1)->get()->pluck('id');
-      $contributors = DB::table('vendors')->whereIn('user_id',$users)->limit(4)->get();
+      @php   
+         $cont_ids = DB::table('vendors')->get()->pluck('user_id');
+         $users = DB::table('users')->whereIn('id',$cont_ids)->where('status',1)->get()->pluck('id');
+         $contributors = DB::table('vendors')->whereIn('user_id',$users)->limit(4)->get();
       @endphp
 
    
   
       @foreach($contributors as $contributor)
          <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-            <!-- <img src="images/team1.jpg" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"> -->
-            <h3 class="h4 " >{{$contributor->first_name}} {{$contributor->last_name}}</h3>
-            <p class="caption mb-3 text-primary">{{Str::limit($contributor->description, 200)}}</p>
+            @if(isset($contributor->image))
+              <a href="{{'/all_videos_'.$contributor->user_id}}"><img style="width:250px!important; height:180px!important" src= "images/{{$contributor->image}}" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                              </a>
+              @else
+              <a href="{{'/all_videos_'.$contributor->user_id}}"> <img style="width:250px!important; height:180px!important" src= "https://i.stack.imgur.com/l60Hf.png" alt="Image" class="img-fluid mb-3" data-pagespeed-url-hash="3677916794" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+                              </a>
+              @endif
+            <a href="{{'/all_videos_'.$contributor->user_id}}"><h3 class="h4" style="color:black" >{{$contributor->first_name}} {{$contributor->last_name}}</h3></a>
+            <p class="caption mb-3 text-primary">Contributor</p>
+            <p class="caption mb-3 ">{{Str::limit($contributor->description, 200)}}</p>
          </div>
       @endforeach()
    

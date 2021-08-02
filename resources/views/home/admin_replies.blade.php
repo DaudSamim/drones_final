@@ -1,19 +1,6 @@
 @extends('layout.app')
 
 @section('content')
-@if(Session::has('success'))
-      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
-  @endif  
-
-  @if(Session::has('alert'))
-      <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('alert') }}</p>
-  @endif  
-
-  @if ($errors->any())
-     @foreach ($errors->all() as $error)
-         <div>{{$error}}</div>
-     @endforeach
- @endif
 <div class="row justify-content-center">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
@@ -31,6 +18,7 @@
                                 <th>Email</th>
                                 <th>Subject</th>
                                 <th>Message</th>
+                                <th>Admin Reply</th>
                                 <th>Created At</th>
 
 
@@ -47,9 +35,37 @@
                                     <button class="btn-sm btn-secondary" data-toggle="modal"
                                         data-target="{{'#myModal'.$row->id}}">View More</button>
                                 </td>
+                                <td>{{substr($row->admin_reply, 0, 14) . '...'}}
+                                <button class="btn-sm btn-danger" data-toggle="modal"
+                                        data-target="{{'#yourModal'.$row->id}}">View More</button>
+                                </td>
                                 <td>{{$row->created_at}}</td>
 
                             </tr>
+                            <div id="{{'yourModal'.$row->id}}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <p> {{$row->admin_reply}}
+                                            </p>
+                                            
+
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
 
                             <div id="{{'myModal'.$row->id}}" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
@@ -58,29 +74,15 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            
+
                                         </div>
                                         <div class="modal-body">
                                             <p> {{$row->message}}
                                             </p>
-                                            <br>
-                                            <hr>
-                                            <form id="btn-submit" method="post" action="/send_reply"
-                                                enctype='multipart/form-data'>
+                                            
 
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Reply</label>
-                                                    <textarea class="form-control"required  type="text"
-                                                        name="reply"></textarea>
-                                                </div>
-                                                <input type="hidden" name="_token" value={{csrf_token()}}>
-                                                <input type="hidden" name="id" value="{{$row->id}}">
-
-
-                                                <input type="submit" name="action_button"  class="btn btn-primary btn-block" value="Send" />                                            
-
-                                            </form>
                                         </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default"
                                                 data-dismiss="modal">Close</button>

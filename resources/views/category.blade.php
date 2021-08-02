@@ -1,5 +1,59 @@
-<!DOCTYPE html>
-<html lang="en-US" prefix="og: http://ogp.me/ns#">
+@include('header')
+<style>
+   .popular-category1 {
+   background: #30e3ca;
+   display: block;
+   text-align: center;
+   padding: 30px 10px;
+   border-radius: 7px;
+   top: 0;
+   position: relative;
+   -webkit-transition: .3s all ease-in-out;
+   -o-transition: .3s all ease-in-out;
+   transition: .3s all ease-in-out;
+   color: white!important }
+   .popular-category1 .icon {
+   display: block;
+   -webkit-transition: .1s all ease;
+   -o-transition: .1s all ease;
+   transition: .1s all ease;
+   margin-bottom: 10px; }
+   .popular-category1 .icon > span {
+   line-height: 0;
+   font-size: 45px; }
+   .popular-category1 .caption {
+   color: #fff;
+   -webkit-transition: .1s all ease;
+   -o-transition: .1s all ease;
+   transition: .1s all ease;
+   text-transform: none;
+   letter-spacing: normal;
+   font-size: 18px;
+   font-weight: normal; }
+   .popular-category1 .number {
+   padding: 2px 20px;
+   border-radius: 30px;
+   display: inline-block;
+   background: #e9ecef;
+   color: #000;
+   font-size: 14px;
+   -webkit-transition: .1s all ease;
+   -o-transition: .1s all ease;
+   transition: .1s all ease; }
+   .popular-category1:hover {
+   background: #fff;
+   font-color:#30e3ca;
+   -webkit-box-shadow: 0 5px 30px -5px rgba(48, 227, 202, 0.5);
+   box-shadow: 0 5px 30px -5px rgba(48, 227, 202, 0.5);
+   top: -10px; }
+   .popular-category1:hover .caption {
+   color: #30e3ca; }
+   .popular-category1:hover .icon {
+   color: #fff; }
+   .popular-category1:hover .number {
+   background: #1bc5ad;
+   color: #fff; }
+</style>
 <link rel="stylesheet" href="css/style_category.css">
   <title>Drone Stock Clips</title>
 <!-- Mirrored from africandronestock.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 16 May 2021 18:11:48 GMT -->
@@ -10,143 +64,31 @@
     integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+@include('header_for_single_page')
+<div class=" overlay" style="background-image: url('images/{{$main_category->image}}') !important;height:50%!important" data-aos="fade" >
+   <div class="container" style="height: 380px">
+      <!-- <iframe width="100%" height="auto" src="https://www.youtube.com/embed/ZBZxQV6JDFI?autoplay=1&muted=1&loop=1&controls=0&rel=0&hd=1&playlist=ZBZxQV6JDFI&showinfo=0&fs=0" title="YouTube video player" frameborder="0"></iframe> -->
+      <div class="row align-items-center justify-content-center text-center">
+         <div class="col-md-12">
+            <div class="row justify-content-center mb-4">
+               <div class="d-lg-block d-none col-md-8 text-center  form-search-wrap" style="margin-top: 15%" >
+                  <h1 style="color: white; font-weight: 800" class="" data-aos="fade-up">{{$main_category->title}}</h1>
+               </div>
+               <div class="d-lg-none d-block  text-center ">
+                  <h1 style="color: white; font-weight: 800; padding-right: 7% !important;; padding-top: 50% !important;" class="pt-5" data-aos="fade-up">{{$main_category->title}}</h1>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
 
-</head>
-
-<!-- Begin Main Layout -->
-
-<body data-rsssl="1"
-    class="page-template page-template-full-width-template page-template-full-width-template-php page page-id-7986 wp-custom-logo wp-embed-responsive essb-7.9 elementor-default elementor-kit-4792 elementor-page elementor-page-7986 e--ua-blink e--ua-chrome e--ua-webkit"
-    data-elementor-device-mode="desktop" contenteditable="false">
-    <div hidden="" id="sprite-plyr">
-        <!--?xml version="1.0" encoding="UTF-8"?--><svg xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink">
-            <symbol id="plyr-airplay">
-                <path d="M16 1H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3v-2H3V3h12v8h-2v2h3a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z">
-                </path>
-                <path d="M4 17h10l-5-6z"></path>
-            </symbol>
-            <symbol id="plyr-captions-off">
-                <path
-                    d="M1 1c-.6 0-1 .4-1 1v11c0 .6.4 1 1 1h4.6l2.7 2.7c.2.2.4.3.7.3.3 0 .5-.1.7-.3l2.7-2.7H17c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1H1zm4.52 10.15c1.99 0 3.01-1.32 3.28-2.41l-1.29-.39c-.19.66-.78 1.45-1.99 1.45-1.14 0-2.2-.83-2.2-2.34 0-1.61 1.12-2.37 2.18-2.37 1.23 0 1.78.75 1.95 1.43l1.3-.41C8.47 4.96 7.46 3.76 5.5 3.76c-1.9 0-3.61 1.44-3.61 3.7 0 2.26 1.65 3.69 3.63 3.69zm7.57 0c1.99 0 3.01-1.32 3.28-2.41l-1.29-.39c-.19.66-.78 1.45-1.99 1.45-1.14 0-2.2-.83-2.2-2.34 0-1.61 1.12-2.37 2.18-2.37 1.23 0 1.78.75 1.95 1.43l1.3-.41c-.28-1.15-1.29-2.35-3.25-2.35-1.9 0-3.61 1.44-3.61 3.7 0 2.26 1.65 3.69 3.63 3.69z"
-                    fill-rule="evenodd" fill-opacity=".5"></path>
-            </symbol>
-            <symbol id="plyr-captions-on">
-                <path
-                    d="M1 1c-.6 0-1 .4-1 1v11c0 .6.4 1 1 1h4.6l2.7 2.7c.2.2.4.3.7.3.3 0 .5-.1.7-.3l2.7-2.7H17c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1H1zm4.52 10.15c1.99 0 3.01-1.32 3.28-2.41l-1.29-.39c-.19.66-.78 1.45-1.99 1.45-1.14 0-2.2-.83-2.2-2.34 0-1.61 1.12-2.37 2.18-2.37 1.23 0 1.78.75 1.95 1.43l1.3-.41C8.47 4.96 7.46 3.76 5.5 3.76c-1.9 0-3.61 1.44-3.61 3.7 0 2.26 1.65 3.69 3.63 3.69zm7.57 0c1.99 0 3.01-1.32 3.28-2.41l-1.29-.39c-.19.66-.78 1.45-1.99 1.45-1.14 0-2.2-.83-2.2-2.34 0-1.61 1.12-2.37 2.18-2.37 1.23 0 1.78.75 1.95 1.43l1.3-.41c-.28-1.15-1.29-2.35-3.25-2.35-1.9 0-3.61 1.44-3.61 3.7 0 2.26 1.65 3.69 3.63 3.69z"
-                    fill-rule="evenodd"></path>
-            </symbol>
-            <symbol id="plyr-download">
-                <path
-                    d="M9 13c.3 0 .5-.1.7-.3L15.4 7 14 5.6l-4 4V1H8v8.6l-4-4L2.6 7l5.7 5.7c.2.2.4.3.7.3zm-7 2h14v2H2z">
-                </path>
-            </symbol>
-            <symbol id="plyr-enter-fullscreen">
-                <path d="M10 3h3.6l-4 4L11 8.4l4-4V8h2V1h-7zM7 9.6l-4 4V10H1v7h7v-2H4.4l4-4z"></path>
-            </symbol>
-            <symbol id="plyr-exit-fullscreen">
-                <path d="M1 12h3.6l-4 4L2 17.4l4-4V17h2v-7H1zM16 .6l-4 4V1h-2v7h7V6h-3.6l4-4z"></path>
-            </symbol>
-            <symbol id="plyr-fast-forward">
-                <path d="M7.875 7.171L0 1v16l7.875-6.171V17L18 9 7.875 1z"></path>
-            </symbol>
-            <symbol id="plyr-logo-vimeo">
-                <path
-                    d="M17 5.3c-.1 1.6-1.2 3.7-3.3 6.4-2.2 2.8-4 4.2-5.5 4.2-.9 0-1.7-.9-2.4-2.6C5 10.9 4.4 6 3 6c-.1 0-.5.3-1.2.8l-.8-1c.8-.7 3.5-3.4 4.7-3.5 1.2-.1 2 .7 2.3 2.5.3 2 .8 6.1 1.8 6.1.9 0 2.5-3.4 2.6-4 .1-.9-.3-1.9-2.3-1.1.8-2.6 2.3-3.8 4.5-3.8 1.7.1 2.5 1.2 2.4 3.3z">
-                </path>
-            </symbol>
-            <symbol id="plyr-logo-youtube">
-                <path
-                    d="M16.8 5.8c-.2-1.3-.8-2.2-2.2-2.4C12.4 3 9 3 9 3s-3.4 0-5.6.4C2 3.6 1.3 4.5 1.2 5.8 1 7.1 1 9 1 9s0 1.9.2 3.2c.2 1.3.8 2.2 2.2 2.4C5.6 15 9 15 9 15s3.4 0 5.6-.4c1.4-.3 2-1.1 2.2-2.4.2-1.3.2-3.2.2-3.2s0-1.9-.2-3.2zM7 12V6l5 3-5 3z">
-                </path>
-            </symbol>
-            <symbol id="plyr-muted">
-                <path
-                    d="M12.4 12.5l2.1-2.1 2.1 2.1 1.4-1.4L15.9 9 18 6.9l-1.4-1.4-2.1 2.1-2.1-2.1L11 6.9 13.1 9 11 11.1zM3.786 6.008H.714C.286 6.008 0 6.31 0 6.76v4.512c0 .452.286.752.714.752h3.072l4.071 3.858c.5.3 1.143 0 1.143-.602V2.752c0-.601-.643-.977-1.143-.601L3.786 6.008z">
-                </path>
-            </symbol>
-            <symbol id="plyr-pause">
-                <path
-                    d="M6 1H3c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1h3c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1zm6 0c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1h3c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1h-3z">
-                </path>
-            </symbol>
-            <symbol id="plyr-pip">
-                <path d="M13.293 3.293L7.022 9.564l1.414 1.414 6.271-6.271L17 7V1h-6z"></path>
-                <path d="M13 15H3V5h5V3H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6h-2v5z"></path>
-            </symbol>
-            <symbol id="plyr-play">
-                <path
-                    d="M15.562 8.1L3.87.225c-.818-.562-1.87 0-1.87.9v15.75c0 .9 1.052 1.462 1.87.9L15.563 9.9c.584-.45.584-1.35 0-1.8z">
-                </path>
-            </symbol>
-            <symbol id="plyr-restart">
-                <path
-                    d="M9.7 1.2l.7 6.4 2.1-2.1c1.9 1.9 1.9 5.1 0 7-.9 1-2.2 1.5-3.5 1.5-1.3 0-2.6-.5-3.5-1.5-1.9-1.9-1.9-5.1 0-7 .6-.6 1.4-1.1 2.3-1.3l-.6-1.9C6 2.6 4.9 3.2 4 4.1 1.3 6.8 1.3 11.2 4 14c1.3 1.3 3.1 2 4.9 2 1.9 0 3.6-.7 4.9-2 2.7-2.7 2.7-7.1 0-9.9L16 1.9l-6.3-.7z">
-                </path>
-            </symbol>
-            <symbol id="plyr-rewind">
-                <path d="M10.125 1L0 9l10.125 8v-6.171L18 17V1l-7.875 6.171z"></path>
-            </symbol>
-            <symbol id="plyr-settings">
-                <path
-                    d="M16.135 7.784a2 2 0 0 1-1.23-2.969c.322-.536.225-.998-.094-1.316l-.31-.31c-.318-.318-.78-.415-1.316-.094a2 2 0 0 1-2.969-1.23C10.065 1.258 9.669 1 9.219 1h-.438c-.45 0-.845.258-.997.865a2 2 0 0 1-2.969 1.23c-.536-.322-.999-.225-1.317.093l-.31.31c-.318.318-.415.781-.093 1.317a2 2 0 0 1-1.23 2.969C1.26 7.935 1 8.33 1 8.781v.438c0 .45.258.845.865.997a2 2 0 0 1 1.23 2.969c-.322.536-.225.998.094 1.316l.31.31c.319.319.782.415 1.316.094a2 2 0 0 1 2.969 1.23c.151.607.547.865.997.865h.438c.45 0 .845-.258.997-.865a2 2 0 0 1 2.969-1.23c.535.321.997.225 1.316-.094l.31-.31c.318-.318.415-.781.094-1.316a2 2 0 0 1 1.23-2.969c.607-.151.865-.547.865-.997v-.438c0-.451-.26-.846-.865-.997zM9 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6z">
-                </path>
-            </symbol>
-            <symbol id="plyr-volume">
-                <path
-                    d="M15.6 3.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4C15.4 5.9 16 7.4 16 9c0 1.6-.6 3.1-1.8 4.3-.4.4-.4 1 0 1.4.2.2.5.3.7.3.3 0 .5-.1.7-.3C17.1 13.2 18 11.2 18 9s-.9-4.2-2.4-5.7z">
-                </path>
-                <path
-                    d="M11.282 5.282a.909.909 0 0 0 0 1.316c.735.735.995 1.458.995 2.402 0 .936-.425 1.917-.995 2.487a.909.909 0 0 0 0 1.316c.145.145.636.262 1.018.156a.725.725 0 0 0 .298-.156C13.773 11.733 14.13 10.16 14.13 9c0-.17-.002-.34-.011-.51-.053-.992-.319-2.005-1.522-3.208a.909.909 0 0 0-1.316 0zm-7.496.726H.714C.286 6.008 0 6.31 0 6.76v4.512c0 .452.286.752.714.752h3.072l4.071 3.858c.5.3 1.143 0 1.143-.602V2.752c0-.601-.643-.977-1.143-.601L3.786 6.008z">
-                </path>
-            </symbol>
-        </svg>
-    </div>
-
-
-
-
-    <div class="mayosis-wrapper">
-
-         @include('header_for_single_page')
-
-        <div class="mayosis-container" style="background:#ffffff">
-
-            <div data-elementor-type="wp-post" data-elementor-id="7986" class="elementor elementor-7986"
-                data-elementor-settings="[]">
-                <div class="elementor-inner">
-                    <div class="elementor-section-wrap">
-
-                        <section data-particle_enable="false" data-particle-mobile-disabled="false"
-                            class="elementor-section elementor-top-section elementor-element elementor-element-2f08b61 elementor-section-full_width elementor-section-height-min-height elementor-section-height-default elementor-section-items-middle"
-                            data-id="2f08b61" data-element_type="section"
-                            data-settings="{&quot;background_background&quot;:&quot;classic&quot;}"  style="background-image: url('images/{{$main_category->image}}') !important; background: no-repeat; background-size: cover;">
-                            <div class="elementor-container elementor-column-gap-default">
-                                <div class="elementor-row">
-
-                                    <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-27b4b90"
-                                        data-id="27b4b90" data-element_type="column">
-                                        <div class="elementor-column-wrap elementor-element-populated">
-                                            <div class="elementor-widget-wrap">
-                                                <div class="elementor-element elementor-element-e914a4b elementor-widget elementor-widget-heading"
-                                                    data-id="e914a4b" data-element_type="widget"
-                                                    data-widget_type="heading.default">
-                                                    <div class="elementor-widget-container">
-                                                        <h1 class="elementor-heading-title elementor-size-default">
-                                                            {{$main_category->title}}</h1>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section data-particle_enable="false" data-particle-mobile-disabled="false"
+<div class="row p-5" style="padding-top:0px!important; background-image: linear-gradient(180deg, #FBD691E8 0%, #f2295b 100%); ">
+<section data-particle_enable="false" data-particle-mobile-disabled="false"
                             class="elementor-section py-0 elementor-top-section elementor-element elementor-element-62b7113 elementor-hidden-phone elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                             data-id="62b7113" data-element_type="section">
-                            <div class="elementor-container elementor-column-gap-default">
+                            <div style="" class="elementor-container elementor-column-gap-default">
+                            
                                 <div class="elementor-row">
 
                                     <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-c2c6e85"
@@ -157,13 +99,13 @@
                                                 <div class="elementor-element elementor-element-feb5492 elementor-align-center elementor-mobile-align-center elementor-widget elementor-widget-button"
                                                     data-id="feb5492" data-element_type="widget"
                                                     data-widget_type="button.default">
-                                                    <div class="elementor-widget-container">
+                                                    <div class="elementor-widget-container pt-lg-4">
                                                         <div class="elementor-button-wrapper">
                                                             <a href="{{'category_'.$previous_category->title}}"
-                                                                class="elementor-button-link elementor-button elementor-size-xs"
+                                                                class="elementor-button-link elementor-button elementor-size-lg"
                                                                 role="button">
                                                                 <span class="elementor-button-content-wrapper">
-                                                                    <span class="elementor-button-text">{{$previous_category->title}}</span>
+                                                                    <span style="font-size:23px" class="elementor-button-text">{{$previous_category->title}}</span>
                                                                 </span>
                                                             </a>
                                                         </div>
@@ -177,7 +119,7 @@
                                         data-id="231fe70" data-element_type="column"
                                         data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
                                         <div class="elementor-column-wrap elementor-element-populated">
-                                            <div class="elementor-widget-wrap">
+                                            <div class="elementor-widget-wrap pt-lg-4">
                                                 <div class="elementor-element elementor-element-3648ac7 elementor-widget elementor-widget-mayosis-search"
                                                     data-id="3648ac7" data-element_type="widget"
                                                     data-widget_type="mayosis-search.default">
@@ -214,13 +156,13 @@
                                                 <div class="elementor-element elementor-element-c7eb6bb elementor-align-center elementor-mobile-align-center elementor-widget elementor-widget-button"
                                                     data-id="c7eb6bb" data-element_type="widget"
                                                     data-widget_type="button.default">
-                                                    <div class="elementor-widget-container">
+                                                    <div class="elementor-widget-container pt-lg-4">
                                                         <div class="elementor-button-wrapper">
                                                             <a href="{{'category_'.$next_category->title}}"
-                                                                class="elementor-button-link elementor-button elementor-size-xs"
+                                                                class="elementor-button-link elementor-button elementor-size-lg"
                                                                 role="button">
                                                                 <span class="elementor-button-content-wrapper">
-                                                                    <span class="elementor-button-text">{{$next_category->title}}</span>
+                                                                    <span style="font-size:23px" class="elementor-button-text">{{$next_category->title}}</span>
                                                                 </span>
                                                             </a>
                                                         </div>
@@ -233,7 +175,8 @@
                             </div>
                         </section>
 
-                        <section data-particle_enable="false" data-particle-mobile-disabled="false"
+</div>
+<section data-particle_enable="false" data-particle-mobile-disabled="false"
                             class="elementor-section elementor-top-section elementor-element elementor-element-af0d4a3 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
                             data-id="af0d4a3" data-element_type="section">
                             <div class="elementor-container elementor-column-gap-default">
@@ -366,41 +309,74 @@
                                 </div>
                             </div>
                         </section>
-                    </div>
-                </div>
-            </div>
 
-        </div>
-
-
-
-        <div class="clearfix"></div>
-
-
-
-
-        @include('footer')
-
-
-
-    </div>
-
-    <a id="back-to-top" href="#" class="back-to-top" role="button" data-original-title="" title=""
+</div>
+</div> 
+<a id="back-to-top" href="#" class="back-to-top" role="button" data-original-title="" title=""
         style="display: none;"><i class="zil zi-chevron-up"></i></a>
- <script src="js/jquery-3.3.1.min.js"></script>
-    
-        <script>
-            $(".zxc").on("mouseover", function(event) {
-                this.play();
+<script data-pagespeed-no-defer>//<![CDATA[
+         (function(){for(var g="function"==typeof Object.defineProperties?Object.defineProperty:function(b,c,a){if(a.get||a.set)throw new TypeError("ES3 does not support getters and setters.");b!=Array.prototype&&b!=Object.prototype&&(b[c]=a.value)},h="undefined"!=typeof window&&window===this?this:"undefined"!=typeof global&&null!=global?global:this,k=["String","prototype","repeat"],l=0;l<k.length-1;l++){var m=k[l];m in h||(h[m]={});h=h[m]}
+         var n=k[k.length-1],p=h[n],q=p?p:function(b){var c;if(null==this)throw new TypeError("The 'this' value for String.prototype.repeat must not be null or undefined");c=this+"";if(0>b||1342177279<b)throw new RangeError("Invalid count value");b|=0;for(var a="";b;)if(b&1&&(a+=c),b>>>=1)c+=c;return a};q!=p&&null!=q&&g(h,n,{configurable:!0,writable:!0,value:q});var t=this;
+         function u(b,c){var a=b.split("."),d=t;a[0]in d||!d.execScript||d.execScript("var "+a[0]);for(var e;a.length&&(e=a.shift());)a.length||void 0===c?d[e]?d=d[e]:d=d[e]={}:d[e]=c};function v(b){var c=b.length;if(0<c){for(var a=Array(c),d=0;d<c;d++)a[d]=b[d];return a}return[]};function w(b){var c=window;if(c.addEventListener)c.addEventListener("load",b,!1);else if(c.attachEvent)c.attachEvent("onload",b);else{var a=c.onload;c.onload=function(){b.call(this);a&&a.call(this)}}};var x;function y(b,c,a,d,e){this.h=b;this.j=c;this.l=a;this.f=e;this.g={height:window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight,width:window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth};this.i=d;this.b={};this.a=[];this.c={}}
+         function z(b,c){var a,d,e=c.getAttribute("data-pagespeed-url-hash");if(a=e&&!(e in b.c))if(0>=c.offsetWidth&&0>=c.offsetHeight)a=!1;else{d=c.getBoundingClientRect();var f=document.body;a=d.top+("pageYOffset"in window?window.pageYOffset:(document.documentElement||f.parentNode||f).scrollTop);d=d.left+("pageXOffset"in window?window.pageXOffset:(document.documentElement||f.parentNode||f).scrollLeft);f=a.toString()+","+d;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.g.height&&d<=b.g.width)}a&&(b.a.push(e),
+         b.c[e]=!0)}y.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&z(this,b)};u("pagespeed.CriticalImages.checkImageForCriticality",function(b){x.checkImageForCriticality(b)});u("pagespeed.CriticalImages.checkCriticalImages",function(){A(x)});
+         function A(b){b.b={};for(var c=["IMG","INPUT"],a=[],d=0;d<c.length;++d)a=a.concat(v(document.getElementsByTagName(c[d])));if(a.length&&a[0].getBoundingClientRect){for(d=0;c=a[d];++d)z(b,c);a="oh="+b.l;b.f&&(a+="&n="+b.f);if(c=!!b.a.length)for(a+="&ci="+encodeURIComponent(b.a[0]),d=1;d<b.a.length;++d){var e=","+encodeURIComponent(b.a[d]);131072>=a.length+e.length&&(a+=e)}b.i&&(e="&rd="+encodeURIComponent(JSON.stringify(B())),131072>=a.length+e.length&&(a+=e),c=!0);C=a;if(c){d=b.h;b=b.j;var f;if(window.XMLHttpRequest)f=
+         new XMLHttpRequest;else if(window.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(r){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(D){}}f&&(f.open("POST",d+(-1==d.indexOf("?")?"?":"&")+"url="+encodeURIComponent(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}}
+         function B(){var b={},c;c=document.getElementsByTagName("IMG");if(!c.length)return{};var a=c[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var d=0;a=c[d];++d){var e=a.getAttribute("data-pagespeed-url-hash");e&&(!(e in b)&&0<a.width&&0<a.height&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a.width>=b[e].o&&a.height>=b[e].m)&&(b[e]={rw:a.width,rh:a.height,ow:a.naturalWidth,oh:a.naturalHeight})}return b}var C="";u("pagespeed.CriticalImages.getBeaconData",function(){return C});
+         u("pagespeed.CriticalImages.Run",function(b,c,a,d,e,f){var r=new y(b,c,a,e,f);x=r;d&&w(function(){window.setTimeout(function(){A(r)},0)})});})();
+         
+         pagespeed.CriticalImages.Run('/mod_pagespeed_beacon','https://preview.colorlib.com/theme/classyads/about.html','-ilGEe-FWC',true,false,'Nz18AuPAsfQ');
+         //]]>
+      </script>
 
+@include('footer')
+</div>
 
-              }).on('mouseout', function(event) {
-                    this.pause();
-                    this.currentTime = 0;
-
-                  });
-        </script>
-
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/jquery.countdown.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/bootstrap-datepicker.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/rangeslider.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 
+ 
+<script>
+   $(document).ready(function() {
+   $(".myvideos").on("mouseover", function(event) {
+   this.play();
+   
+   }).on('mouseout', function(event) {
+   this.pause();
+   this.currentTime = 0;
+   
+   });
+   })
+   
+   var vid = document.getElementsByTagName("video");
+   [].forEach.call(vid, function (item) {
+   item.addEventListener('mouseover', hoverVideo, false);
+   item.addEventListener('mouseout', hideVideo, false);
+   });
+   
+   function hoverVideo(e)
+   {
+   this.play();
+   }
+   function hideVideo(e)
+   {
+   this.pause();
+   }
+</script>
 </html>
+
+
+<!-- --------------------------------------------------------------- -->
+
